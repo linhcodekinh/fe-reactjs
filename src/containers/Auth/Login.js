@@ -15,7 +15,8 @@ class Login extends Component {
         this.state = {
             username: '',
             password: '',
-            isShowPassword: false
+            isShowPassword: false,
+            errMessage: ''
         }
     }
 
@@ -34,11 +35,27 @@ class Login extends Component {
     }
 
     handleLogin = async () => {
-        console.log('all state: ', this.state);
+        this.setState({
+            errMessage: ''
+        })
         try {
-            await handleLoginApi(this.state.username, this.state.password);
+            // let data = await handleLoginApi(this.state.username, this.state.password).then(res => {
+            //     console.log('linh', res);
+            // });
+            let data = await handleLoginApi(this.state.username, this.state.password);
+            if(data && data.errCode === 0){
+                this.props.userLoginSuccess(data.member)
+                console.log('login succeeds')
+            }
         } catch (e) {
-            console.log(e);
+            if(e.response){
+                if(e.response.data){
+                    this.setState({
+                        errMessage: e.response.data.message
+                    }) 
+                }
+            }
+            console.log('linh', e.response);
         }
     }
 
@@ -70,7 +87,7 @@ class Login extends Component {
                         value = {this.state.username}
                         onChange = {(event) => this.handleOnChangeUsername(event)}
                     />
-                    <span className="focus-input100" data-symbol="" />
+                    <span className="focus-input100" data-symbol="&#10146;" />
                     </div>
                     <div className="wrap-input100 validate-input" data-validate="Password is required">
                     <span className="label-input100">Password</span>
@@ -83,13 +100,15 @@ class Login extends Component {
                             value= {this.state.password}
                             onChange = {(event) => this.handleOnChangePassword(event)}
                         />
+                        <span className="focus-input100" data-symbol="&#10146;" />
                         <span
                             onClick={() => {this.handleShowAndHidePassword()}}
                         >
                             <i className={this.state.isShowPassword ? 'far fa-eye' : 'far fa-eye-slash'}></i>
                         </span>
-            
-                    <span className="focus-input100" data-symbol="" />
+                    </div>
+                    <div className='col-12' style={{color : 'red'}}>
+                        {this.state.errMessage}    
                     </div>
                     <div className="text-right p-t-8 p-b-31">
                     <a href="#">
@@ -152,8 +171,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         navigate: (path) => dispatch(push(path)),
-        adminLoginSuccess: (adminInfo) => dispatch(actions.adminLoginSuccess(adminInfo)),
-        adminLoginFail: () => dispatch(actions.adminLoginFail()),
+        // userLoginFail: () => dispatch(actions.adminLoginFail()),
+        userLoginSuccess: (userInfo) => dispatch(actions.userLoginSuccess(userInfo))
     };
 };
 

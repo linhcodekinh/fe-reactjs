@@ -24,14 +24,14 @@ class Login extends Component {
         this.setState({
             username: event.target.value
         })
-        console.log(event.target.value);
+        // console.log(event.target.value);
     }
 
     handleOnChangePassword = (event) => {
         this.setState({
             password: event.target.value
         })
-        console.log(event.target.value);
+        // console.log(event.target.value);
     }
 
     handleLogin = async () => {
@@ -39,20 +39,29 @@ class Login extends Component {
             errMessage: ''
         })
         try {
-            // let data = await handleLoginApi(this.state.username, this.state.password).then(res => {
-            //     console.log('linh', res);
+            // let data1 = await handleLoginApi(this.state.username, this.state.password).then(res => {
+            //     console.log('linh1', res[0].code);
             // });
             let data = await handleLoginApi(this.state.username, this.state.password);
-            if(data && data.errCode === 0){
-                this.props.userLoginSuccess(data.member)
+            if(data && data.token != null){
+                this.props.userLoginSuccess(data.account)
                 console.log('login succeeds')
+            }else{
+                console.log("login loi");
             }
         } catch (e) {
             if(e.response){
                 if(e.response.data){
-                    this.setState({
-                        errMessage: e.response.data.message
-                    }) 
+                    if(e.response.data[0]){
+                        this.setState({
+                            errMessage: e.response.data[0].defaultMessage
+                        }) 
+                    }
+                    else{
+                        this.setState({
+                            errMessage: 'Tên đăng nhập hoặc mật khẩu không đúng'
+                        }) 
+                    }
                 }
             }
             console.log('linh', e.response);

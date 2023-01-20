@@ -2,18 +2,44 @@ import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import './UserManage.scss';
+import { getAllUsers } from '../../services/userService';
 class UserManage extends Component {
 
-    state = {
+    constructor(props){
+      super(props);
+      this.state = {
+        isActive: false,
+        arrAccount : ''
+      }
+    }
+    /** Life Cycle
+     *  Run component:
+     * 1. Run constructor -> init state
+     * 2. Did mount: truoc khi component duoc render() thuong dung de goi api, set state,..
+     * 3. Render
+     */
 
+    handleActive = () => {
+      this.setState({
+        isActive : !this.state.isActive
+      })
     }
 
-    componentDidMount() {
-
+    async componentDidMount() {
+      let response = await getAllUsers();
+      
+      if(response){
+        this.setState({
+          arrAccount: response
+        }, () => {
+          console.log('check state account', this.state.arrAccount);
+        })
+      }
     }
 
 
     render() {
+        let arrAccount = this.state.arrAccount;
         return (
             <div className="container">
               <h2 className="mb-5 title-mana">Quản lý account</h2>
@@ -27,83 +53,36 @@ class UserManage extends Component {
                           <div className="control__indicator" />
                         </label>
                       </th>
-                      <th scope="col">Order</th>
+                      <th scope="col">ID</th>
                       <th scope="col">Name</th>
-                      <th scope="col">Occupation</th>
-                      <th scope="col">Contact</th>
-                      <th scope="col">Education</th>
+                      <th scope="col">Email</th>
+                      <th scope="col">Active</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr scope="row">
-                      <th scope="row">
-                        <label className="control control--checkbox">
-                          <input type="checkbox" />
-                          <div className="control__indicator" />
-                        </label>
-                      </th>
-                      <td>
-                        1392
-                      </td>
-                      <td><a href="#">James Yates</a></td>
-                      <td>
-                        Web Designer
-                        <small className="d-block">Far far away, behind the word mountains</small>
-                      </td>
-                      <td>+63 983 0962 971</td>
-                      <td>NY University</td>
-                    </tr>
-                    <tr className="spacer"><td colSpan={100} /></tr>
-                    <tr className="active">
-                      <th scope="row">
-                        <label className="control control--checkbox">
-                          <input type="checkbox" defaultChecked />
-                          <div className="control__indicator" />
-                        </label>
-                      </th>
-                      <td>4616</td>
-                      <td><a href="#">Matthew Wasil</a></td>
-                      <td>
-                        Graphic Designer
-                        <small className="d-block">Far far away, behind the word mountains</small>
-                      </td>
-                      <td>+02 020 3994 929</td>
-                      <td>London College</td>
-                    </tr>
-                    <tr className="spacer"><td colSpan={100} /></tr>
-                    <tr>
-                      <th scope="row">
-                        <label className="control control--checkbox">
-                          <input type="checkbox" />
-                          <div className="control__indicator" />
-                        </label>
-                      </th>
-                      <td>9841</td>
-                      <td><a href="#">Sampson Murphy</a></td>
-                      <td>
-                        Mobile Dev
-                        <small className="d-block">Far far away, behind the word mountains</small>
-                      </td>
-                      <td>+01 352 1125 0192</td>
-                      <td>Senior High</td>
-                    </tr>
-                    <tr className="spacer"><td colSpan={100} /></tr>
-                    <tr>
-                      <th scope="row">
-                        <label className="control control--checkbox">
-                          <input type="checkbox" />
-                          <div className="control__indicator" />
-                        </label>
-                      </th>
-                      <td>9548</td>
-                      <td><a href="#">Gaspar Semenov</a></td>
-                      <td>
-                        Illustrator
-                        <small className="d-block">Far far away, behind the word mountains</small>
-                      </td>
-                      <td>+92 020 3994 929</td>
-                      <td>College</td>
-                    </tr>
+                        {arrAccount && arrAccount.map((item, index) => {
+                          return (
+                            <>
+                              <tr key={index} className={this.state.isActive?'active':''}>
+                                <th scope="row">
+                                  <label className="control control--checkbox">
+                                    <input type="checkbox" onClick={()=>{this.handleActive()}}/>
+                                    <div className="control__indicator" />
+                                  </label>
+                                </th>   
+                                <td>{item.id}</td>
+                                <td><a href="#">{item.userName}</a></td>
+                                <td>
+                                  Graphic Designer
+                                  <small className="d-block">{item.email}</small>
+                                </td>
+                                <td>{item.isEnabled}</td>
+                              </tr>
+                              <tr className="spacer"><td colSpan={100} /></tr>
+                            </>
+                          )
+                        })
+                        }
                   </tbody>
                 </table>
               </div>

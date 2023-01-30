@@ -52,8 +52,6 @@ body {
       padding-bottom: 10px;
     }
     .custom-table tbody th, .custom-table tbody td {
-        color: #777;
-        font-weight: 400;
         padding-bottom: 6px;
         padding-top: 20px;
         font-weight: 300;
@@ -179,4 +177,41 @@ body {
   text-align: center;
   padding-top: 30px;
   font-size: 25px;
+}
+
+.fa-toggle {
+  font-size: 23px;
+  .fa-toggle-on:before {
+    color: seagreen;
+  }
+  .fa-toggle-off:before {
+    color: grey;
+  }
+}
+
+.fa-edit-delete{
+  font-size: 18px;
+  .fa-edit:before {
+    font-weight: normal;
+  }
+  .fa-trash-alt:before {
+    margin-left: 15px;
+    font-weight: normal;
+  }
+}
+
+
+
+
+.modaluser-class{
+  label {
+    margin-bottom: 2px;
+    margin-left: 2px;
+    font-weight: 500;
+  }
+  input#exampleEmail {
+    display: inline;
+    margin-left: 10px;
+    width: 80%;
+  }
 }

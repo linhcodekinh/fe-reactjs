@@ -110,6 +110,7 @@ class UserManage extends Component {
 
     render() {
         let arrAccount = this.state.arrAccount;
+        console.log('arrAccount', arrAccount);
         return (
             <div className="container">
               <ModalUser
@@ -135,12 +136,15 @@ class UserManage extends Component {
                       <th scope="col">ID</th>
                       <th scope="col">User Name</th>
                       <th scope="col">Email</th>
+                      <th scope="col">Role</th>
                       <th scope="col">Active</th>
                       <th scope="col">Action</th>
                     </tr>
                   </thead>
                   <tbody>
                         {arrAccount && arrAccount.map((item, index) => {
+                          let arrRole = item.accountRoleList;
+                          console.log('arrRole', arrRole);
                           return (
                             <>
                               <tr key={index} className={this.isActive(item.id)}>
@@ -153,9 +157,26 @@ class UserManage extends Component {
                                 <td>{item.id}</td>
                                 <td><a href="#">{item.userName}</a></td>
                                 <td>
-                                  Graphic Designer
-                                  <small className="d-block">{item.email}</small>
+                                 {item.email}
                                 </td>
+                                <td>
+                                  {arrRole.map((itemR, indexR) => {
+                                    console.log('indexR', indexR);
+                                      if (indexR === 0){
+                                          return (
+                                            <>
+                                            {itemR.role .name}
+                                            <br/>
+                                            </>
+                                          )
+                                      }else {
+                                        return (
+                                          <small className="d-block">,{itemR.role.name}</small>  
+                                        )
+                                      }
+                                  })}  
+                                </td>                            
+                                
                                 <td className='fa-toggle'><i className={(item.isEnabled && item.isEnabled === 'true' || item.isEnabled === 1) ? 'fa fa-toggle-on' : 'fa fa-toggle-off'}></i></td>
                                 <td className='fa-edit-delete'>
                                   <i className="fa fa-edit"></i> 

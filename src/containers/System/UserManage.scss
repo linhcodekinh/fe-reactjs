@@ -182,7 +182,7 @@ body {
 .fa-toggle {
   font-size: 23px;
   .fa-toggle-on:before {
-    color: seagreen;
+    color: royalblue;
   }
   .fa-toggle-off:before {
     color: grey;
@@ -193,10 +193,12 @@ body {
   font-size: 18px;
   .fa-edit:before {
     font-weight: normal;
+    color: yellowgreen;
   }
   .fa-trash-alt:before {
-    margin-left: 15px;
+    margin-left: 12px;
     font-weight: normal;
+    color: darkred;
   }
 }
 
@@ -204,14 +206,32 @@ body {
 
 
 .modaluser-class{
-  label {
+  .label-input-text {
     margin-bottom: 2px;
     margin-left: 2px;
     font-weight: 500;
+    width: 20%;
   }
-  input#exampleEmail {
+  .label-checkbox{
+    display: inline-block;
+    width: 25%;
+    margin-left: -74px
+  }
+  .label-radio{
+    display: inline-block;
+    width: 25%;
+    margin-left: 4px;
+  }
+  .input-text {
     display: inline;
-    margin-left: 10px;
-    width: 80%;
+    margin-left: 5px;
+    width: 70%;
+  }
+
+  .modal-header {
+    button {
+      color: white;
+      font-size: 22px;
+    }
   }
 }

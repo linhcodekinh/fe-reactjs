@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import './UserManage.scss';
-import { getAllUsers } from '../../services/userService';
+import { getAllUsers, getAllPositions } from '../../services/userService';
 import ModalUser from './ModalUser';
 class UserManage extends Component {
 
@@ -11,6 +11,7 @@ class UserManage extends Component {
       this.state = {
         arrAccountChecked : [],
         arrAccount : '',
+        arrPosition: '',
         arrCount: '',
         checkedAll : false,
         isOpenModalUser : false
@@ -94,12 +95,21 @@ class UserManage extends Component {
     }
 
     async componentDidMount() {
-      let response = await getAllUsers();
+      let responseUser = await getAllUsers();
+      let responsePos = await getAllPositions();
       
-      if(response){
+      if(responseUser){
         this.setState({
-          arrAccount: response, 
-          arrCount : response.length
+          arrAccount: responseUser, 
+          arrCount : responseUser.length
+        }, () => {
+          console.log('check state account', 'arrCount', this.state.arrAccount, this.state.arrCount);
+        })
+      }
+
+      if(responsePos){
+        this.setState({
+          arrPosition: responsePos, 
         }, () => {
           console.log('check state account', 'arrCount', this.state.arrAccount, this.state.arrCount);
         })
@@ -110,12 +120,14 @@ class UserManage extends Component {
 
     render() {
         let arrAccount = this.state.arrAccount;
-        console.log('arrAccount', arrAccount);
+        let arrPosition = this.state.arrPosition;
+        console.log('arrAccount', arrAccount, 'arrPosition', arrPosition);
         return (
             <div className="container">
               <ModalUser
                 isOpen = {this.state.isOpenModalUser}
                 toggleModalUser = {this.toggleModalUser}
+                arrPos = {this.state.arrPosition}
               />
               <h2 className="mb-5 title-mana">Quản lý account</h2>
               <div className='mb-3'>
@@ -137,6 +149,7 @@ class UserManage extends Component {
                       <th scope="col">User Name</th>
                       <th scope="col">Email</th>
                       <th scope="col">Role</th>
+                      <th scope="col">Type</th>
                       <th scope="col">Active</th>
                       <th scope="col">Action</th>
                     </tr>
@@ -144,6 +157,7 @@ class UserManage extends Component {
                   <tbody>
                         {arrAccount && arrAccount.map((item, index) => {
                           let arrRole = item.accountRoleList;
+                          let arrType = item.accountTypeList;
                           console.log('arrRole', arrRole);
                           return (
                             <>
@@ -165,7 +179,7 @@ class UserManage extends Component {
                                       if (indexR === 0){
                                           return (
                                             <>
-                                            {itemR.role .name}
+                                            {itemR.role.name}
                                             <br/>
                                             </>
                                           )
@@ -175,8 +189,24 @@ class UserManage extends Component {
                                         )
                                       }
                                   })}  
+                                </td> 
+                                <td>
+                                  {arrType.map((itemT, indexT) => {
+                                    console.log('indexR', indexT);
+                                      if (indexT === 0){
+                                          return (
+                                            <>
+                                            {itemT.type.name}
+                                            <br/>
+                                            </>
+                                          )
+                                      }else {
+                                        return (
+                                          <small className="d-block">,{itemT.type.name}</small>  
+                                        )
+                                      }
+                                  })}  
                                 </td>                            
-                                
                                 <td className='fa-toggle'><i className={(item.isEnabled && item.isEnabled === 'true' || item.isEnabled === 1) ? 'fa fa-toggle-on' : 'fa fa-toggle-off'}></i></td>
                                 <td className='fa-edit-delete'>
                                   <i className="fa fa-edit"></i> 

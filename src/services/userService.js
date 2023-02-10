@@ -9,4 +9,8 @@ const getAllUsers = () => {
     return axios.get('api/public/account')
 }
 
-export { handleLoginApi, getAllUsers }
+const getAllPositions = () => {
+    return axios.get('api/public/position')
+}
+
+export { handleLoginApi, getAllUsers, getAllPositions }

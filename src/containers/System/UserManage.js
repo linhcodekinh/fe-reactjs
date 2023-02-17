@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import './UserManage.scss';
-import { getAllUsers, getAllPositions } from '../../services/userService';
+import { getAllUsers, getAllPositions, getAllRole, getAllType, createNewUser } from '../../services/userService';
 import ModalUser from './ModalUser';
 class UserManage extends Component {
 
@@ -12,6 +12,8 @@ class UserManage extends Component {
         arrAccountChecked : [],
         arrAccount : '',
         arrPosition: '',
+        arrRole: '',
+        arrType: '',
         arrCount: '',
         checkedAll : false,
         isOpenModalUser : false
@@ -41,7 +43,7 @@ class UserManage extends Component {
         })
       }
       this.setState({
-        arrAccountChecked: updatedList,
+        arrAccountChecked: updatedList
       }, () => {
         console.log('this.state.arrAccountChecked', 'this.state.checkedAll', this.state.arrAccountChecked, this.state.checkedAll);
       });
@@ -95,24 +97,55 @@ class UserManage extends Component {
     }
 
     async componentDidMount() {
-      let responseUser = await getAllUsers();
+      await this.getAllUserFromReact();
       let responsePos = await getAllPositions();
-      
+      let responseRole = await getAllRole();
+      let responseType = await getAllType();
+    
+      if(responsePos){
+        this.setState({
+          arrPosition: responsePos
+        })
+      }
+
+      if(responseRole){
+        this.setState({
+          arrRole: responseRole 
+        })
+      }
+
+      if(responseType){
+        this.setState({
+          arrType: responseType 
+        })
+      }
+    }
+
+    getAllUserFromReact = async () => {
+      let responseUser = await getAllUsers();
       if(responseUser){
         this.setState({
           arrAccount: responseUser, 
           arrCount : responseUser.length
-        }, () => {
-          console.log('check state account', 'arrCount', this.state.arrAccount, this.state.arrCount);
         })
       }
+    }
 
-      if(responsePos){
-        this.setState({
-          arrPosition: responsePos, 
-        }, () => {
-          console.log('check state account', 'arrCount', this.state.arrAccount, this.state.arrCount);
-        })
+    createNew = async (data) => {
+      try{
+        let response = await createNewUser(data)
+        if(response[0] && !response[0].bindingFailure){
+          alert(response[0].defaultMessage)
+        } else if(response && response.message){
+          await this.getAllUserFromReact()
+          alert(response.message)
+          this.setState({
+            isOpenModalUser : false
+          })
+        }
+        console.log('response create user: ' , response)
+      }catch(e) {
+        console.log(e)
       }
     }
 
@@ -120,14 +153,15 @@ class UserManage extends Component {
 
     render() {
         let arrAccount = this.state.arrAccount;
-        let arrPosition = this.state.arrPosition;
-        console.log('arrAccount', arrAccount, 'arrPosition', arrPosition);
         return (
             <div className="container">
               <ModalUser
-                isOpen = {this.state.isOpenModalUser}
-                toggleModalUser = {this.toggleModalUser}
                 arrPos = {this.state.arrPosition}
+                isOpen = {this.state.isOpenModalUser}
+                arrType = {this.state.arrType}
+                arrRole = {this.state.arrRole}
+                toggleModalUser = {this.toggleModalUser}
+                createNew = {this.createNew}
               />
               <h2 className="mb-5 title-mana">Quản lý account</h2>
               <div className='mb-3'>

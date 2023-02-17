@@ -13,4 +13,17 @@ const getAllPositions = () => {
     return axios.get('api/public/position')
 }
 
-export { handleLoginApi, getAllUsers, getAllPositions }
+const getAllType = () => {
+    return axios.get('api/public/type')
+}
+
+const getAllRole = () => {
+    return axios.get('api/public/role')
+}
+
+const createNewUser = (data) => {
+    console.log('check data from service: ', data)
+    return axios.post('api/public/account', data)
+} 
+
+export { handleLoginApi, getAllUsers, getAllPositions, getAllRole, getAllType, createNewUser }

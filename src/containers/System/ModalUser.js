@@ -9,7 +9,21 @@ class ModalUser extends Component {
     constructor(props){
         super(props)
         this.state = {
-            datetime: new Date().toISOString()
+            userName: '',
+            email: '',
+            password: '',
+            isEnabled: false,
+            name: '',
+            gender: '',
+            phone: '',
+            address: '',
+            dateOfBirth: '',
+            idCard: '',
+            positionId: '',
+            idRoleList: [],
+            idTypeList: []
+            // datetime: new Date().toISOString(),
+            
         }
     }
 
@@ -17,20 +31,125 @@ class ModalUser extends Component {
         this.props.toggleModalUser();
     }
 
+    handleOnCheckBox = (e, id) => {
+        var updatedList = [...this.state[id]];
+        if(e.target.checked) {
+            updatedList = [...this.state[id], Number(e.target.value)];
+        }else {
+            updatedList.splice(this.state[id].indexOf(Number(e.target.value)), 1);
+        }
+        if(id === 'idRoleList'){
+            this.setState({
+                idRoleList : updatedList
+            }, () => {
+                console.log('this.state', this.state)
+            })
+        }else{
+            this.setState({
+                idTypeList : updatedList
+            }, () => {
+                console.log('this.state', this.state)
+            })
+        }
+    }
+
+    handleOnChangeText = (e, id) => {
+        let copyState = {...this.state};
+        copyState[id] = e.target.value;
+        this.setState({
+            ...copyState
+        }, () => {
+            console.log('check state', this.state)
+        })
+    }
+
+    handleOnChangeActive = (e) => {
+        
+        if(e.target.checked) {
+            this.setState({
+                isEnabled : (e.target.value === 'true')
+            },() => {
+                console.log('check state', this.state)
+            })
+        }
+       
+    }
+
+    handleOnChangeGender = (e) => {
+        if(e.target.checked) {
+            this.setState({
+                gender : e.target.value
+            },() => {
+                console.log('check state', this.state)
+            })
+        }
+    }
+
+    handleOnChangePos = (e) => {
+        if(e.target.checked) {
+            this.setState({
+                positionId : Number(e.target.value)
+            },() => {
+                console.log('check state', this.state)
+            })
+        }
+    }
+
+    checkValidInput = () => {
+        let isValid = true;
+        let arrInput = ['userName', 'email', 'password', 'name', 'gender']
+        for(let i=0;i<arrInput.length;i++){
+            if(!this.state[arrInput[i]]){
+                isValid = false
+                alert('Missing parameter: ' + arrInput[i]);
+                break;
+            }
+        }
+        return isValid;
+    }
+    
+    handleAddNew = () => {
+        let isValid = this.checkValidInput();
+        console.log('check isValid', isValid)
+        if(isValid === true){
+            this.props.createNew(this.state);
+            this.setState({
+                userName: '',
+                email: '',
+                password: '',
+                isEnabled: false,
+                name: '',
+                gender: '',
+                phone: '',
+                address: '',
+                dateOfBirth: '',
+                idCard: '',
+                positionId: '',
+                idRoleList: [],
+                idTypeList: []
+            })
+        }
+        //console.log('check state', this.state)
+    }
+
     componentDidMount() {
+        
+    }
+ 
+    componentWillMount() {
+        
     }
 
 
     render() {
-        console.log('check child props ', this.props)
-        console.log('check child open modal ', this.props.isOpen)
-        console.log('check child open modal 2', this.props.arrPos)
+        //console.log('check createNew props ', this.props.createNew())
         let arrPos = this.props.arrPos;
-        console.log('arrPos', arrPos)
+        let arrRole = this.props.arrRole;
+        let arrType = this.props.arrType;
+
         return (
             <Modal 
               isOpen={this.props.isOpen}
-              arrPos={this.props.arrPos}
               toggle={() => this.toggle()}
               className={'modaluser-class'}
               size = "lg"
@@ -38,49 +157,6 @@ class ModalUser extends Component {
             >
               <ModalHeader toggle={() => this.toggle()}>Add New User</ModalHeader>
               <ModalBody>
-              {/* <div className="row">
-                  <div className="col-6">
-                      <Label className="label-input-text" for="exampleUserName">User Name</Label>
-                      <Input className="input-text" type="text" name="username" id="exampleUserName" placeholder="input user name" />
-                  </div>
-                  <div className="col-6">
-                      <Label className="label-input-text" for="exampleEmail">Email</Label>
-                      <Input className="input-text" type="email" name="email" id="exampleEmail" placeholder="input email" />
-                  </div>
-              </div>
-              <br/>
-              <div className="row">
-                  <div className="col-6">
-                      <Label className="label-input-text" for="examplePassWord">Password</Label>
-                      <Input className="input-text" type="password" name="password" id="examplePassWord" placeholder="input password   " />
-                  </div>
-                  <div className="col-6">
-                      <Label className="label-input-text" for="exampleEmail">Active</Label>
-                      <Label className="label-radio">
-                        <input name="radio-active" type="radio" />{' '}TRUE
-                      </Label>
-                      <Label className="label-radio">
-                        <input name="radio-active" type="radio" />{' '}FALSE
-                      </Label>
-                  </div>
-              </div>
-              <br/>
-              <div className="row">
-                  <div className="col-8">
-                      <Label className="label-input-text" for="exampleEmail">Role</Label>
-                      <Label className="label-checkbox">
-                        <input type="checkbox" />{' '}ADMIN
-                      </Label>
-                      <Label className="label-checkbox">
-                        <input type="checkbox" />{' '}ADMIN2
-                      </Label>
-                      <Label className="label-checkbox">
-                        <input type="checkbox" />{' '}USER
-                      </Label>
-                      
-
-                  </div>
-              </div> */}
                 <Form>
                 <Row className="row-cols-lg-12 g-3 align-items-center">
                     <Col>
@@ -90,9 +166,10 @@ class ModalUser extends Component {
                     <Input
                         className="input-text"
                         id="exampleUserName"
-                        name="email"
+                        name="userName"
                         placeholder="input user name"
-                        type="email"
+                        type="text"
+                        onChange = {(e) => this.handleOnChangeText(e, 'userName')}
                     />
                     </Col>
 
@@ -106,6 +183,7 @@ class ModalUser extends Component {
                         name="email"
                         placeholder="with a placeholder"
                         type="email"
+                        onChange = {(e) => this.handleOnChangeText(e, 'email')}
                     />
                     </Col>
                 </Row>
@@ -118,9 +196,10 @@ class ModalUser extends Component {
                     <Input
                         className="input-text"
                         id="examplePassword"
-                        name="email"
-                        placeholder="input user name"
+                        name="password"
+                        placeholder="input password"
                         type="password"
+                        onChange = {(e) => this.handleOnChangeText(e, 'password')}
                     />
                     </Col>
 
@@ -129,10 +208,20 @@ class ModalUser extends Component {
                             Active
                         </Label>
                         <Label className="label-radio">
-                            <Input name="radio-active" type="radio" />{' '}TRUE
+                            <Input 
+                                name="isEnabled" 
+                                type="radio" 
+                                onChange = {(e) => this.handleOnChangeActive(e)} 
+                                value={true}
+                            />{' '}TRUE
                         </Label>
                         <Label className="label-radio">
-                            <Input name="radio-active" type="radio" />{' '}FALSE
+                            <Input 
+                                name="isEnabled"
+                                type="radio" 
+                                onChange = {(e) => this.handleOnChangeActive(e)} 
+                                value={false}
+                            />{' '}FALSE
                         </Label>
                     </Col>
                 </Row>
@@ -142,15 +231,18 @@ class ModalUser extends Component {
                         <Label className="label-input-text">
                             Role
                         </Label>
-                        <Label className="label-checkbox">
-                            <Input type="checkbox" />{' '}ADMIN
-                        </Label>
-                        <Label className="label-checkbox">
-                            <Input type="checkbox" />{' '}ADMIN2
-                        </Label>
-                        <Label className="label-checkbox">
-                            <Input type="checkbox" />{' '}USER
-                        </Label>
+                        {arrRole && arrRole.map((item, index)=>{
+                            return(
+                                <Label className="label-checkbox" key={index}>
+                                    <Input 
+                                        type="checkbox" 
+                                        name="idRoleList" 
+                                        onChange = {(e) => this.handleOnCheckBox(e, 'idRoleList')} 
+                                        value={item.id}
+                                    />{' '}{item.name}
+                                </Label>
+                            )
+                        })}
                     </Col>
                 </Row>
                 <br/>
@@ -159,12 +251,19 @@ class ModalUser extends Component {
                         <Label className="label-input-text">
                             Type
                         </Label>
-                        <Label className="label-checkbox">
-                            <Input type="checkbox" />{' '}MEMBER
-                        </Label>
-                        <Label className="label-checkbox">
-                            <Input type="checkbox" />{' '}EMPLPOYEE
-                        </Label>
+                        {arrType && arrType.map((item, index)=>{
+                            return(
+                                <Label className="label-checkbox" key={index}>
+                                <Input
+                                    type="checkbox" 
+                                    name="idTypeList" 
+                                    onChange = {(e) => this.handleOnCheckBox(e, 'idTypeList')} 
+                                    value={item.id}
+                                />{' '}{item.name}
+                            </Label>
+                            )
+                        })}
+                        
                     </Col>
                 </Row>
                 <br/>
@@ -179,6 +278,7 @@ class ModalUser extends Component {
                         name="name"
                         placeholder="input your name"
                         type="text"
+                        onChange = {(e) => this.handleOnChangeText(e, 'name')}
                     />
                     </Col>
 
@@ -187,27 +287,37 @@ class ModalUser extends Component {
                             Gender
                         </Label>
                         <Label className="label-radio">
-                            <Input name="radio-active" type="radio" />{' '}MALE
+                            <Input 
+                                name="gender" 
+                                type="radio"
+                                onChange = {(e) => this.handleOnChangeGender(e)} 
+                                value="male"
+                            />{' '}MALE
                         </Label>
                         <Label className="label-radio">
-                            <Input name="radio-active" type="radio" />{' '}FEMALE
+                            <Input 
+                                name="gender" 
+                                type="radio"
+                                onChange = {(e) => this.handleOnChangeGender(e)} 
+                                value="female"
+                            />{' '}FEMALE
                         </Label>
                     </Col>
                 </Row>
                 <br/>
                 <Row className="row-cols-lg-12 g-3 align-items-center">
-                    <Col>
+                    {/* <Col>
                         <Label className="label-input-text" for="exampleYourName">
                             Date of birth
                         </Label>
 
                         <Label className="label-radio">
-                            <Input name="radio-active" type="radio" />{' '}TRUE
+                            <Input name="dateOfBirth" type="radio" />{' '}TRUE
                         </Label>
                         <Label className="label-radio">
-                            <Input name="radio-active" type="radio" />{' '}FALSE
+                            <Input name="dateOfBirth" type="radio" />{' '}FALSE
                         </Label>
-                    </Col>
+                    </Col> */}
                     <Col>
                         <Label className="label-input-text">
                             Phone
@@ -218,6 +328,7 @@ class ModalUser extends Component {
                             name="phone"
                             placeholder="input your phone"
                             type="text"
+                            onChange = {(e) => this.handleOnChangeText(e, 'phone')}
                         />
                     </Col>
                 </Row>
@@ -233,6 +344,7 @@ class ModalUser extends Component {
                             name="address"
                             placeholder="input your address"
                             type="text"
+                            onChange = {(e) => this.handleOnChangeText(e, 'address')}
                         />
                     </Col>
                     <Col>
@@ -242,7 +354,12 @@ class ModalUser extends Component {
                         {arrPos && arrPos.map((item,index) => {
                             return (
                                 <Label className="label-radio" key={index}>
-                                    <Input name="radio-pos" type="radio" />{' '}{item.name}
+                                    <Input 
+                                    name="positionId" 
+                                    type="radio" 
+                                    value={item.id}
+                                    onChange = {(e) => this.handleOnChangePos(e)}
+                                    />{' '}{item.name}
                                 </Label>
                             )
                         })}
@@ -251,7 +368,10 @@ class ModalUser extends Component {
                 </Form>
               </ModalBody>
               <ModalFooter>
-                <Button color="primary px-3" onClick={() => this.toggle()}>Save changes</Button>{' '}
+                <Button 
+                    color="primary px-3" 
+                    onClick={() => {this.handleAddNew() }}
+                >Add new</Button>{' '}
                 <Button color="secondary px-3" onClick={this.toggle}>Close</Button>
               </ModalFooter>
             </Modal>

@@ -3,7 +3,8 @@ import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter,
   Form, FormGroup, Label, Input, FormText } from 'reactstrap';
-  import {DatePicker} from 'reactstrap-date-picker'
+import {DatePicker} from 'reactstrap-date-picker'
+import { emitter } from '../../utils/emitter';
 class ModalUser extends Component {
 
     constructor(props){
@@ -25,7 +26,32 @@ class ModalUser extends Component {
             // datetime: new Date().toISOString(),
             
         }
+
+        this.listenToEmitter();
+
     }
+
+    listenToEmitter(){
+        emitter.on('EVENT_CLEAR_MODAL_DATA', () => {
+            //reset state
+            console.log('listen emitter from parent: ')
+            this.setState({
+                userName: '',
+                email: '',
+                password: '',
+                isEnabled: false,
+                name: '',
+                gender: '',
+                phone: '',
+                address: '',
+                dateOfBirth: '',
+                idCard: '',
+                positionId: '',
+                idRoleList: [],
+                idTypeList: []
+            })
+        })
+    }// bus event
 
     toggle = () => {
         this.props.toggleModalUser();
@@ -113,21 +139,6 @@ class ModalUser extends Component {
         console.log('check isValid', isValid)
         if(isValid === true){
             this.props.createNew(this.state);
-            this.setState({
-                userName: '',
-                email: '',
-                password: '',
-                isEnabled: false,
-                name: '',
-                gender: '',
-                phone: '',
-                address: '',
-                dateOfBirth: '',
-                idCard: '',
-                positionId: '',
-                idRoleList: [],
-                idTypeList: []
-            })
         }
         //console.log('check state', this.state)
     }

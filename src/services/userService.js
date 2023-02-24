@@ -26,4 +26,8 @@ const createNewUser = (data) => {
     return axios.post('api/public/account', data)
 } 
 
-export { handleLoginApi, getAllUsers, getAllPositions, getAllRole, getAllType, createNewUser }
+const deleteUser = (id) => {
+    return axios.patch(`api/public/account/${id}`)
+}
+
+export { handleLoginApi, getAllUsers, getAllPositions, getAllRole, getAllType, createNewUser, deleteUser }

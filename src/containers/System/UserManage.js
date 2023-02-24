@@ -1,19 +1,21 @@
+
 import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import './UserManage.scss';
-import { getAllUsers, getAllPositions, getAllRole, getAllType, createNewUser } from '../../services/userService';
+import { getAllUsers, getAllPositions, getAllRole, getAllType, createNewUser, deleteUser } from '../../services/userService';
 import ModalUser from './ModalUser';
+import { emitter } from '../../utils/emitter';
 class UserManage extends Component {
 
     constructor(props){
       super(props);
       this.state = {
         arrAccountChecked : [],
-        arrAccount : '',
-        arrPosition: '',
-        arrRole: '',
-        arrType: '',
+        arrAccount : [],
+        arrPosition: [],
+        arrRole: [],
+        arrType: [],
         arrCount: '',
         checkedAll : false,
         isOpenModalUser : false
@@ -123,36 +125,55 @@ class UserManage extends Component {
 
     getAllUserFromReact = async () => {
       let responseUser = await getAllUsers();
+      console.log('res user: ', responseUser)
       if(responseUser){
         this.setState({
           arrAccount: responseUser, 
           arrCount : responseUser.length
+        })
+      } else {
+        this.setState({
+          arrAccount: [], 
+          arrCount : 0
         })
       }
     }
 
     createNew = async (data) => {
       try{
-        let response = await createNewUser(data)
-        if(response[0] && !response[0].bindingFailure){
-          alert(response[0].defaultMessage)
-        } else if(response && response.message){
+        let res = await createNewUser(data)
+        if(res[0] && !res[0].bindingFailure){
+          alert(res[0].defaultMessage)
+        } else if(res && res.message){
           await this.getAllUserFromReact()
-          alert(response.message)
+          alert(res.message)
           this.setState({
             isOpenModalUser : false
           })
+          emitter.emit('EVENT_CLEAR_MODAL_DATA')
         }
-        console.log('response create user: ' , response)
+        console.log('response create user: ' , res)
       }catch(e) {
         console.log(e)
       }
     }
 
-    
+    handleDeleteUser = async (data) => {
+      console.log('data: ', data)
+      try{
+        let res = await deleteUser(data.id);
+        console.log(res)
+        if(res.message){
+          await this.getAllUserFromReact()
+        }
+      }catch (e) {
+        console.log(e)
+      }
+    }
 
     render() {
         let arrAccount = this.state.arrAccount;
+        console.log('render')
         return (
             <div className="container">
               <ModalUser
@@ -189,69 +210,64 @@ class UserManage extends Component {
                     </tr>
                   </thead>
                   <tbody>
-                        {arrAccount && arrAccount.map((item, index) => {
-                          let arrRole = item.accountRoleList;
-                          let arrType = item.accountTypeList;
-                          console.log('arrRole', arrRole);
-                          return (
-                            <>
-                              <tr key={index} className={this.isActive(item.id)}>
-                                <th scope="row">
-                                  <label className="control control--checkbox">
-                                    <input type="checkbox" onChange={(e)=>{this.handleChecked(e)}} value={item.id} checked={this.isChecked(item.id)}/>
-                                    <div className="control__indicator" />
-                                  </label>
-                                </th>
-                                <td>{item.id}</td>
-                                <td><a href="#">{item.userName}</a></td>
-                                <td>
-                                 {item.email}
-                                </td>
-                                <td>
-                                  {arrRole.map((itemR, indexR) => {
-                                    console.log('indexR', indexR);
-                                      if (indexR === 0){
-                                          return (
-                                            <>
-                                            {itemR.role.name}
-                                            <br/>
-                                            </>
-                                          )
-                                      }else {
-                                        return (
-                                          <small className="d-block">,{itemR.role.name}</small>  
-                                        )
-                                      }
-                                  })}  
-                                </td> 
-                                <td>
-                                  {arrType.map((itemT, indexT) => {
-                                    console.log('indexR', indexT);
-                                      if (indexT === 0){
-                                          return (
-                                            <>
-                                            {itemT.type.name}
-                                            <br/>
-                                            </>
-                                          )
-                                      }else {
-                                        return (
-                                          <small className="d-block">,{itemT.type.name}</small>  
-                                        )
-                                      }
-                                  })}  
-                                </td>                            
-                                <td className='fa-toggle'><i className={(item.isEnabled && item.isEnabled === 'true' || item.isEnabled === 1) ? 'fa fa-toggle-on' : 'fa fa-toggle-off'}></i></td>
-                                <td className='fa-edit-delete'>
-                                  <i className="fa fa-edit"></i> 
-                                  <i className="fa fa-trash-alt"></i>
-                                </td>                              
-                              </tr>
-                              <tr className="spacer"><td colSpan={100} /></tr>
-                            </>
-                          )
-                        })
-                        }
+                    {arrAccount && arrAccount.map((item, index) => {
+                      let arrRole = item.accountRoleList;
+                      let arrType = item.accountTypeList;
+                      return (
+                        <>
+                          <tr className={this.isActive(item.id)} key={index}>
+                            <th scope="row">
+                              <label className="control control--checkbox">
+                                <input type="checkbox" onChange={(e)=>{this.handleChecked(e)}} value={item.id} checked={this.isChecked(item.id)}/>
+                                <div className="control__indicator"/>
+                              </label>
+                            </th>
+                            <td>{item.id}</td>
+                            <td><a href="#">{item.userName}</a></td>
+                            <td>{item.email}</td>
+                            <td>
+                              {arrRole.map((itemR, indexR) => {
+                                  if (indexR === 0){
+                                      return (
+                                        <div key={indexR}>
+                                          {itemR.role.name}
+                                          <br/>
+                                        </div>
+                                      )
+                                  }else {
+                                    return (
+                                      <small className="d-block" key={indexR}>,{itemR.role.name}</small>  
+                                    )
+                                  }
+                              })}
+                            </td>
+                            <td>
+                              {arrType.map((itemT, indexT) => {
+                                  if (indexT === 0){
+                                      return (
+                                        <div key={indexT}>
+                                          {itemT.type.name}
+                                          <br/>
+                                        </div>
+                                      )
+                                  }else {
+                                    return (
+                                      <small className="d-block" key={indexT}>,{itemT.type.name}</small>
+                                    )
+                                  }
+                              })}
+                            </td>                      
+                            <td className='fa-toggle'><i className={(item.isEnabled && item.isEnabled === 'true' || item.isEnabled === 1) ? 'fa fa-toggle-on' : 'fa fa-toggle-off'}></i></td>
+                            <td className='fa-edit-delete'>
+                              <button><i className="fa fa-edit"></i></button>
+                              <button onClick={() => {this.handleDeleteUser(item)}}><i className="fa fa-trash-alt"></i></button>
+                            </td>
+                          </tr>
+                          <tr className="spacer"><td colSpan={100} /></tr>
+                        </>
+                      )
+                    })
+                    }
                   </tbody>
                 </table>
               </div>

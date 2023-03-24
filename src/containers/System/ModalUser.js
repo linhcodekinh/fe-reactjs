@@ -3,8 +3,12 @@ import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter,
   Form, FormGroup, Label, Input, FormText } from 'reactstrap';
-import {DatePicker} from 'reactstrap-date-picker'
 import { emitter } from '../../utils/emitter';
+
+import TextField from '@mui/material/TextField';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 class ModalUser extends Component {
 
     constructor(props){
@@ -13,12 +17,13 @@ class ModalUser extends Component {
             userName: '',
             email: '',
             password: '',
-            isEnabled: false,
+            isEnabled: true,
             name: '',
-            gender: '',
+            gender: 'male',
             phone: '',
             address: '',
             dateOfBirth: '',
+            valueDate: null,
             idCard: '',
             positionId: '',
             idRoleList: [],
@@ -39,7 +44,7 @@ class ModalUser extends Component {
                 userName: '',
                 email: '',
                 password: '',
-                isEnabled: false,
+                isEnabled: true,
                 name: '',
                 gender: '',
                 phone: '',
@@ -114,7 +119,7 @@ class ModalUser extends Component {
     handleOnChangePos = (e) => {
         if(e.target.checked) {
             this.setState({
-                positionId : Number(e.target.value)
+                positionId : Number(e.target.value),
             },() => {
                 console.log('check state', this.state)
             })
@@ -143,6 +148,15 @@ class ModalUser extends Component {
         //console.log('check state', this.state)
     }
 
+    setValueDate = (newValue) => {
+        this.setState({
+            valueDate : newValue
+        },() => {
+            var dt = this.state.valueDate['$d']
+            console.log('check string dt', dt.toString())
+        })
+    }
+
     componentDidMount() {
         
     }
@@ -150,7 +164,6 @@ class ModalUser extends Component {
     componentWillMount() {
         
     }
-
 
     render() {
         //console.log('check createNew props ', this.props.createNew())
@@ -224,6 +237,7 @@ class ModalUser extends Component {
                                 type="radio" 
                                 onChange = {(e) => this.handleOnChangeActive(e)} 
                                 value={true}
+                                checked={this.state.isEnabled === true ? "true" : ""}
                             />{' '}TRUE
                         </Label>
                         <Label className="label-radio">
@@ -303,6 +317,7 @@ class ModalUser extends Component {
                                 type="radio"
                                 onChange = {(e) => this.handleOnChangeGender(e)} 
                                 value="male"
+                                checked={this.state.gender === "male" ? "true" : ""}
                             />{' '}MALE
                         </Label>
                         <Label className="label-radio">
@@ -329,6 +344,22 @@ class ModalUser extends Component {
                             <Input name="dateOfBirth" type="radio" />{' '}FALSE
                         </Label>
                     </Col> */}
+                    <Col>
+                        <Label className="label-input-text" for="exampleYourName">
+                            Date
+                            <br/>of
+                            <br/>birth
+                        </Label>
+                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                            <DatePicker
+                            value={this.state.valueDate}
+                            onChange={(newValue) => {
+                                this.setValueDate(newValue);
+                            }}
+                            renderInput={(params) => <TextField {...params} />}
+                            />
+                        </LocalizationProvider>
+                    </Col>
                     <Col>
                         <Label className="label-input-text">
                             Phone
@@ -364,6 +395,7 @@ class ModalUser extends Component {
                         </Label>
                         {arrPos && arrPos.map((item,index) => {
                             return (
+                               
                                 <Label className="label-radio" key={index}>
                                     <Input 
                                     name="positionId" 

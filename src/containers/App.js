@@ -10,15 +10,14 @@ import { userIsAuthenticated, userIsNotAuthenticated } from '../hoc/authenticati
 
 import { path } from '../utils'
 
-import Home from '../routes/Home';
-// import Login from '../routes/Login';
-import Login from './Auth/Login';
-import Header from './Header/Header';
-import System from '../routes/System';
+import Admin from '../routes/admin/Admin';
+import Login from './auth/Login';
+import Header from './admin/header/Header';
+import System from '../routes/admin/System';
 
 import { CustomToastCloseButton } from '../components/CustomToast';
 import ConfirmModal from '../components/ConfirmModal';
-import HomePage from './HomePage/HomePage.js';
+import Page from './client/Page';
 
 class App extends Component {
 
@@ -47,16 +46,14 @@ class App extends Component {
                     <div className="main-container">
                         <ConfirmModal />
                         {this.props.isLoggedIn && <Header />}
-
-                        <span className="content-container">
-                            <Switch>
-                                <Route path={path.HOME} exact component={(Home)} />
-                                <Route path={path.LOGIN} component={userIsNotAuthenticated(Login)} />
-                                <Route path={path.SYSTEM} component={userIsAuthenticated(System)} />
-                                <Route path={path.HOMEPAGE} exact component={(HomePage)} />
-                            </Switch>
-                        </span>
-
+                        <div className="content-container">
+                                <Switch>
+                                    <Route path={path.LOG_IN} component={userIsNotAuthenticated(Login)} />
+                                    <Route path={path.ADMIN} exact component={(Admin)} />
+                                    <Route path={path.SYSTEM} component={userIsAuthenticated(System)} />
+                                    <Route path={path.CLIENT} exact component={(Page)} />
+                                </Switch>
+                        </div>
                         <ToastContainer
                             className="toast-container" toastClassName="toast-item" bodyClassName="toast-item-body"
                             autoClose={false} hideProgressBar={true} pauseOnHover={false}

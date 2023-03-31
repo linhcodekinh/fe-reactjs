@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import './HomeFooter.scss';
-class HomeFooter extends Component {
+import './Footer.scss';
+class Footer extends Component {
 
     render() {
         return (
@@ -89,4 +89,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomeFooter);
+export default connect(mapStateToProps, mapDispatchToProps)(Footer);

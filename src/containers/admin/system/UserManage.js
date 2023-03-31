@@ -3,9 +3,9 @@ import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import './UserManage.scss';
-import { getAllUsers, getAllPositions, getAllRole, getAllType, createNewUser, deleteUser } from '../../services/userService';
+import { getAllUsers, getAllPositions, getAllRole, getAllType, createNewUser, deleteUser } from '../../../services/userService';
 import ModalUser from './ModalUser';
-import { emitter } from '../../utils/emitter';
+import { emitter } from '../../../utils/emitter';
 class UserManage extends Component {
 
     constructor(props){

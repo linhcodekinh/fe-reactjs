@@ -8,6 +8,7 @@ import RegisterPackageGroupOrAcc from '../../containers/admin/system/RegisterPac
 class System extends Component {
     render() {
         const { systemMenuPath } = this.props;
+        console.log("vao system", systemMenuPath , this.props)
         return (
             <div className="system-container">
                 <div className="system-list">

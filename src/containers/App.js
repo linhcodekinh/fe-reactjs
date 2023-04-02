@@ -46,10 +46,11 @@ class App extends Component {
                     <div className="main-container">
                         <ConfirmModal />
                         {this.props.isLoggedIn && <Header />}
+                        {console.log('this.props.isLoggedIn' ,this.props.isLoggedIn)}
                         <div className="content-container">
                                 <Switch>
                                     <Route path={path.LOG_IN} component={userIsNotAuthenticated(Login)} />
-                                    <Route path={path.ADMIN} exact component={(Admin)} />
+                                    <Route path={path.ADMIN} exact component={userIsAuthenticated(Admin)} />
                                     <Route path={path.SYSTEM} component={userIsAuthenticated(System)} />
                                     <Route path={path.CLIENT} exact component={(Page)} />
                                 </Switch>

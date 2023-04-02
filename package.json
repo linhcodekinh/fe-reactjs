@@ -9,7 +9,7 @@
     "@formatjs/intl-relativetimeformat": "^7.3.6",
     "@fortawesome/fontawesome-free-webfonts": "^1.0.9",
     "@mui/icons-material": "^5.11.11",
-    "@mui/material": "^5.11.11",
+    "@mui/material": "^5.11.15",
     "@mui/x-date-pickers": "^5.0.20",
     "axios": "^0.21.1",
     "bootstrap": "^5.2.3",

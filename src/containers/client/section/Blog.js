@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import backgroundImg1 from '../../../assets/images/bg-01.jpg'
-import './Blog.scss'
+import './scss/Blog.scss'
 
 class Blog extends Component {
 

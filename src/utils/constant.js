@@ -1,9 +1,21 @@
 export const path = {
-    ADMIN: '/admin',
-    CLIENT: '/',
+    admin : {
+        ADMIN: '/admin',
+        SYSTEM: '/system'
+    },
+    client : {
+        HOME: '/',
+        PART1: '/part1',
+        PART2: '/part2',
+        PART3: '/part3',
+        PART4: '/part4',
+        PART5: '/part5',
+        PART6: '/part6',
+        PART7: '/part7'
+    },
     LOG_IN: '/login',
     LOG_OUT: '/logout',
-    SYSTEM: '/system'
+    
 };
 
 export const languages = {

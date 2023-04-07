@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import './Main.scss'
+import './scss/Main.scss'
 
 import backgroundImg1 from '../../../assets/images/bg-01.jpg'
 import backgroundImg2 from '../../../assets/images/bg-01.jpg'

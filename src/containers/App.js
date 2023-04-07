@@ -17,9 +17,21 @@ import System from '../routes/admin/System';
 
 import { CustomToastCloseButton } from '../components/CustomToast';
 import ConfirmModal from '../components/ConfirmModal';
-import Page from './client/Page';
+import Home from './client/Home';
+import Part1 from './client/Part1';
 
 class App extends Component {
+
+    // dau & la khi co ten class y vao thi se hoat dong. VD: .item { &.active } => .item .active
+
+    sticky = () => {
+        let selectHeader = document.querySelector('#header')
+        if (selectHeader) {
+            const scrollTop =  window.scrollY
+            scrollTop >= 100 ? selectHeader.classList.add('sticked') : selectHeader.classList.remove('sticked')
+        }
+    }
+
 
     handlePersistorState = () => {
         const { persistor } = this.props;
@@ -37,6 +49,11 @@ class App extends Component {
 
     componentDidMount() {
         this.handlePersistorState();
+        window.addEventListener('scroll', this.sticky , true);
+    }
+
+    componentWillUnmount= () => {
+        window.removeEventListener('scroll', this.sticky, true)
     }
 
     render() {
@@ -50,9 +67,16 @@ class App extends Component {
                         <div className="content-container">
                                 <Switch>
                                     <Route path={path.LOG_IN} component={userIsNotAuthenticated(Login)} />
-                                    <Route path={path.ADMIN} exact component={userIsAuthenticated(Admin)} />
-                                    <Route path={path.SYSTEM} component={userIsAuthenticated(System)} />
-                                    <Route path={path.CLIENT} exact component={(Page)} />
+                                    <Route path={path.admin.ADMIN} exact component={userIsAuthenticated(Admin)} />
+                                    <Route path={path.admin.SYSTEM} component={userIsAuthenticated(System)} />
+                                    <Route path={path.client.HOME} exact component={(Home)} />
+                                    <Route path={path.client.PART1} exact component={(Part1)} />
+                                    <Route path={path.client.PART2} exact component={(Home)} />
+                                    <Route path={path.client.PART3} exact component={(Home)} />
+                                    <Route path={path.client.PART4} exact component={(Home)} />
+                                    <Route path={path.client.PART5} exact component={(Home)} />
+                                    <Route path={path.client.PART6} exact component={(Home)} />
+                                    <Route path={path.client.PART7} exact component={(Home)} />
                                 </Switch>
                         </div>
                         <ToastContainer

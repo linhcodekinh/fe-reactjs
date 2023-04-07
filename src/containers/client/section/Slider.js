@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import './Slider.scss'
+import './scss/Slider.scss'
 
 class Slider extends Component {
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import './Category.scss'
+import './scss/Category.scss'
 
 class Category extends Component {
 

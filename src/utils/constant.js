@@ -1,5 +1,6 @@
 export const path = {
     admin : {
+        HOME: '/',
         ADMIN: '/admin',
         SYSTEM: '/system'
     },

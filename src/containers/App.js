@@ -22,17 +22,6 @@ import Part1 from './client/Part1';
 
 class App extends Component {
 
-    // dau & la khi co ten class y vao thi se hoat dong. VD: .item { &.active } => .item .active
-
-    sticky = () => {
-        let selectHeader = document.querySelector('#header')
-        if (selectHeader) {
-            const scrollTop =  window.scrollY
-            scrollTop >= 100 ? selectHeader.classList.add('sticked') : selectHeader.classList.remove('sticked')
-        }
-    }
-
-
     handlePersistorState = () => {
         const { persistor } = this.props;
         let { bootstrapped } = persistor.getState();
@@ -46,6 +35,16 @@ class App extends Component {
             }
         }
     };
+
+    // dau & la khi co ten class y vao thi se hoat dong. VD: .item { &.active } => .item .active
+
+    sticky = () => {
+        let selectHeader = document.querySelector('#header')
+        if (selectHeader) {
+            const scrollTop =  window.scrollY
+            scrollTop >= 100 ? selectHeader.classList.add('sticked') : selectHeader.classList.remove('sticked')
+        }
+    }
 
     componentDidMount() {
         this.handlePersistorState();
@@ -62,13 +61,13 @@ class App extends Component {
                 <Router history={history}>
                     <div className="main-container">
                         <ConfirmModal />
-                        {this.props.isLoggedIn && <Header />}
+                        { <Header />}
                         {console.log('this.props.isLoggedIn' ,this.props.isLoggedIn)}
                         <div className="content-container">
                                 <Switch>
                                     <Route path={path.LOG_IN} component={userIsNotAuthenticated(Login)} />
-                                    <Route path={path.admin.ADMIN} exact component={userIsAuthenticated(Admin)} />
-                                    <Route path={path.admin.SYSTEM} component={userIsAuthenticated(System)} />
+                                    <Route path={path.admin.ADMIN} exact component={(Admin)} />
+                                    <Route path={path.admin.SYSTEM} component={(System)} />
                                     <Route path={path.client.HOME} exact component={(Home)} />
                                     <Route path={path.client.PART1} exact component={(Part1)} />
                                     <Route path={path.client.PART2} exact component={(Home)} />

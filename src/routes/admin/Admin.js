@@ -8,10 +8,10 @@ class Admin extends Component {
 
     render() {
         const { isLoggedIn } = this.props;
-        let linkToRedirect = isLoggedIn ? '/system/user-manage' : '/login';
-        console.log('link ', linkToRedirect)
+        //let linkToRedirect = isLoggedIn ? '/system/user-manage' : '/login';
+        console.log('link ', 'home')
         return (
-            <Redirect to={linkToRedirect} />
+            <Redirect to='/admin-home' />
         );
     }
 

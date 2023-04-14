@@ -14,10 +14,10 @@ class System extends Component {
             <div className="system-container">
                 <div className="system-list">
                     <Switch>
-                        <Route path="/admin-home" component={Home} />
-                        <Route path="/system/user-manage" component={UserManage} />
-                        <Route path="/system/product-manage" component={ProductManage} />
-                        <Route path="/system/register-package-group-or-account" component={RegisterPackageGroupOrAcc} />
+                        <Route path="/admin/home" component={Home} />
+                        <Route path="/admin/user-manage" component={UserManage} />
+                        <Route path="/admin/product-manage" component={ProductManage} />
+                        <Route path="/admin/register-package-group-or-account" component={RegisterPackageGroupOrAcc} />
                         <Route component={() => { return (<Redirect to={adminHomePath} />) }} />
                     </Switch>
                 </div>

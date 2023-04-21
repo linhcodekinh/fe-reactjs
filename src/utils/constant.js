@@ -6,13 +6,7 @@ export const path = {
     },
     client : {
         HOME: '/',
-        PART1: '/part1',
-        PART2: '/part2',
-        PART3: '/part3',
-        PART4: '/part4',
-        PART5: '/part5',
-        PART6: '/part6',
-        PART7: '/part7'
+        PART: '/part',
     },
     LOG_IN: '/login',
     LOG_OUT: '/logout',

@@ -2,6 +2,14 @@ import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import './Home.scss'
+// import './css/bootstrap.min.css'
+// import './css/cs-skin-elastic.css'
+// import './css/flag-icon.min.css'
+import './css/font-awesome.min.css'
+// import './css/jqvmap.min.css'
+import './css/themify-icons.css'
+// import './css/style.css'
+
 class Home extends Component {
 
     state = {
@@ -15,598 +23,581 @@ class Home extends Component {
     render() {
         console.log("haahaheheh home admin")
         return (
-                <div className="admin-home">
-                    <div id="wrapper">
-                    {/* Sidebar */}
-                    <ul className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-                        {/* Sidebar - Brand */}
-                        <a className="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-                        <div className="sidebar-brand-icon rotate-n-15">
-                            <i className="fas fa-laugh-wink" />
-                        </div>
-                        <div className="sidebar-brand-text mx-3">Lima Admin <sup>2</sup></div>
-                        </a>
-                        {/* Divider */}
-                        <hr className="sidebar-divider my-0" />
-                        {/* Nav Item - Dashboard */}
-                        <li className="nav-item active">
-                        <a className="nav-link" href="index.html">
-                            <i className="fas fa-fw fa-tachometer-alt" />
-                            <span>Dashboard</span></a>
-                        </li>
-                        {/* Divider */}
-                        <hr className="sidebar-divider" />
-                        {/* Heading */}
-                        <div className="sidebar-heading">
-                        Interface
-                        </div>
-                        {/* Nav Item - Pages Collapse Menu */}
-                        <li className="nav-item">
-                        <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                            <i className="fas fa-fw fa-cog" />
-                            <span>Components</span>
-                        </a>
-                        <div id="collapseTwo" className="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                            <div className="bg-white py-2 collapse-inner rounded">
-                            <h6 className="collapse-header">Custom Components:</h6>
-                            <a className="collapse-item" href="buttons.html">Buttons</a>
-                            <a className="collapse-item" href="cards.html">Cards</a>
-                            </div>
-                        </div>
-                        </li>
-                        {/* Nav Item - Utilities Collapse Menu */}
-                        <li className="nav-item">
-                        <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
-                            <i className="fas fa-fw fa-wrench" />
-                            <span>Utilities</span>
-                        </a>
-                        <div id="collapseUtilities" className="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-                            <div className="bg-white py-2 collapse-inner rounded">
-                            <h6 className="collapse-header">Custom Utilities:</h6>
-                            <a className="collapse-item" href="utilities-color.html">Colors</a>
-                            <a className="collapse-item" href="utilities-border.html">Borders</a>
-                            <a className="collapse-item" href="utilities-animation.html">Animations</a>
-                            <a className="collapse-item" href="utilities-other.html">Other</a>
-                            </div>
-                        </div>
-                        </li>
-                        {/* Divider */}
-                        <hr className="sidebar-divider" />
-                        {/* Heading */}
-                        <div className="sidebar-heading">
-                        Addons
-                        </div>
-                        {/* Nav Item - Pages Collapse Menu */}
-                        <li className="nav-item">
-                        <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
-                            <i className="fas fa-fw fa-folder" />
-                            <span>Pages</span>
-                        </a>
-                        <div id="collapsePages" className="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                            <div className="bg-white py-2 collapse-inner rounded">
-                            <h6 className="collapse-header">Login Screens:</h6>
-                            <a className="collapse-item" href="login.html">Login</a>
-                            <a className="collapse-item" href="register.html">Register</a>
-                            <a className="collapse-item" href="forgot-password.html">Forgot Password</a>
-                            <div className="collapse-divider" />
-                            <h6 className="collapse-header">Other Pages:</h6>
-                            <a className="collapse-item" href="404.html">404 Page</a>
-                            <a className="collapse-item" href="blank.html">Blank Page</a>
-                            </div>
-                        </div>
-                        </li>
-                        {/* Nav Item - Charts */}
-                        <li className="nav-item">
-                        <a className="nav-link" href="charts.html">
-                            <i className="fas fa-fw fa-chart-area" />
-                            <span>Charts</span></a>
-                        </li>
-                        {/* Nav Item - Tables */}
-                        <li className="nav-item">
-                        <a className="nav-link" href="tables.html">
-                            <i className="fas fa-fw fa-table" />
-                            <span>Tables</span></a>
-                        </li>
-                        {/* Divider */}
-                        <hr className="sidebar-divider d-none d-md-block" />
-                        {/* Sidebar Toggler (Sidebar) */}
-                        <div className="text-center d-none d-md-inline">
-                        <button className="rounded-circle border-0" id="sidebarToggle" />
-                        </div>
-                        {/* Sidebar Message */}
-                        <div className="sidebar-card d-none d-lg-flex">
-                        <img className="sidebar-card-illustration mb-2" src="img/undraw_rocket.svg" alt="..." />
-                        <p className="text-center mb-2"><strong>SB Admin Pro</strong> is packed with premium features, components, and more!</p>
-                        <a className="btn btn-success btn-sm" href="https://startbootstrap.com/theme/sb-admin-pro">Upgrade to Pro!</a>
-                        </div>
-                    </ul>
-                    {/* End of Sidebar */}
-                    {/* Content Wrapper */}
-                    <div id="content-wrapper" className="d-flex flex-column">
-                        {/* Main Content */}
-                        <div id="content">
-                        {/* Topbar */}
-                        <nav className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-                            {/* Sidebar Toggle (Topbar) */}
-                            <button id="sidebarToggleTop" className="btn btn-link d-md-none rounded-circle mr-3">
-                            <i className="fa fa-bars" />
+            <div>
+                {/* Left Panel */}
+                <aside id="left-panel" className="left-panel">
+                    <nav className="navbar navbar-expand-sm navbar-default">
+                        <div className="navbar-header">
+                            <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-menu" aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">
+                                <i className="fa fa-bars" />
                             </button>
-                            {/* Topbar Search */}
-                            <form className="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                            <div className="input-group">
-                                <input type="text" className="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2" />
-                                <div className="input-group-append">
-                                <button className="btn btn-primary" type="button">
-                                    <i className="fas fa-search fa-sm" />
-                                </button>
-                                </div>
-                            </div>
-                            </form>
-                            {/* Topbar Navbar */}
-                            <ul className="navbar-nav ml-auto">
-                            {/* Nav Item - Search Dropdown (Visible Only XS) */}
-                            <li className="nav-item dropdown no-arrow d-sm-none">
-                                <a className="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i className="fas fa-search fa-fw" />
-                                </a>
-                                {/* Dropdown - Messages */}
-                                <div className="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
-                                <form className="form-inline mr-auto w-100 navbar-search">
-                                    <div className="input-group">
-                                    <input type="text" className="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2" />
-                                    <div className="input-group-append">
-                                        <button className="btn btn-primary" type="button">
-                                        <i className="fas fa-search fa-sm" />
-                                        </button>
-                                    </div>
-                                    </div>
-                                </form>
-                                </div>
-                            </li>
-                            {/* Nav Item - Alerts */}
-                            <li className="nav-item dropdown no-arrow mx-1">
-                                <a className="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i className="fas fa-bell fa-fw" />
-                                {/* Counter - Alerts */}
-                                <span className="badge badge-danger badge-counter">3+</span>
-                                </a>
-                                {/* Dropdown - Alerts */}
-                                <div className="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
-                                <h6 className="dropdown-header">
-                                    Alerts Center
-                                </h6>
-                                <a className="dropdown-item d-flex align-items-center" href="#">
-                                    <div className="mr-3">
-                                    <div className="icon-circle bg-primary">
-                                        <i className="fas fa-file-alt text-white" />
-                                    </div>
-                                    </div>
-                                    <div>
-                                    <div className="small text-gray-500">December 12, 2019</div>
-                                    <span className="font-weight-bold">A new monthly report is ready to download!</span>
-                                    </div>
-                                </a>
-                                <a className="dropdown-item d-flex align-items-center" href="#">
-                                    <div className="mr-3">
-                                    <div className="icon-circle bg-success">
-                                        <i className="fas fa-donate text-white" />
-                                    </div>
-                                    </div>
-                                    <div>
-                                    <div className="small text-gray-500">December 7, 2019</div>
-                                    $290.29 has been deposited into your account!
-                                    </div>
-                                </a>
-                                <a className="dropdown-item d-flex align-items-center" href="#">
-                                    <div className="mr-3">
-                                    <div className="icon-circle bg-warning">
-                                        <i className="fas fa-exclamation-triangle text-white" />
-                                    </div>
-                                    </div>
-                                    <div>
-                                    <div className="small text-gray-500">December 2, 2019</div>
-                                    Spending Alert: We've noticed unusually high spending for your account.
-                                    </div>
-                                </a>
-                                <a className="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
-                                </div>
-                            </li>
-                            {/* Nav Item - Messages */}
-                            <li className="nav-item dropdown no-arrow mx-1">
-                                <a className="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i className="fas fa-envelope fa-fw" />
-                                {/* Counter - Messages */}
-                                <span className="badge badge-danger badge-counter">7</span>
-                                </a>
-                                {/* Dropdown - Messages */}
-                                <div className="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="messagesDropdown">
-                                <h6 className="dropdown-header">
-                                    Message Center
-                                </h6>
-                                <a className="dropdown-item d-flex align-items-center" href="#">
-                                    <div className="dropdown-list-image mr-3">
-                                    <img className="rounded-circle" src="img/undraw_profile_1.svg" alt="..." />
-                                    <div className="status-indicator bg-success" />
-                                    </div>
-                                    <div className="font-weight-bold">
-                                    <div className="text-truncate">Hi there! I am wondering if you can help me with a
-                                        problem I've been having.</div>
-                                    <div className="small text-gray-500">Emily Fowler · 58m</div>
-                                    </div>
-                                </a>
-                                <a className="dropdown-item d-flex align-items-center" href="#">
-                                    <div className="dropdown-list-image mr-3">
-                                    <img className="rounded-circle" src="img/undraw_profile_2.svg" alt="..." />
-                                    <div className="status-indicator" />
-                                    </div>
-                                    <div>
-                                    <div className="text-truncate">I have the photos that you ordered last month, how
-                                        would you like them sent to you?</div>
-                                    <div className="small text-gray-500">Jae Chun · 1d</div>
-                                    </div>
-                                </a>
-                                <a className="dropdown-item d-flex align-items-center" href="#">
-                                    <div className="dropdown-list-image mr-3">
-                                    <img className="rounded-circle" src="img/undraw_profile_3.svg" alt="..." />
-                                    <div className="status-indicator bg-warning" />
-                                    </div>
-                                    <div>
-                                    <div className="text-truncate">Last month's report looks great, I am very happy with
-                                        the progress so far, keep up the good work!</div>
-                                    <div className="small text-gray-500">Morgan Alvarez · 2d</div>
-                                    </div>
-                                </a>
-                                <a className="dropdown-item d-flex align-items-center" href="#">
-                                    <div className="dropdown-list-image mr-3">
-                                    <img className="rounded-circle" src="https://source.unsplash.com/Mv9hjnEUHR4/60x60" alt="..." />
-                                    <div className="status-indicator bg-success" />
-                                    </div>
-                                    <div>
-                                    <div className="text-truncate">Am I a good boy? The reason I ask is because someone
-                                        told me that people say this to all dogs, even if they aren't good...</div>
-                                    <div className="small text-gray-500">Chicken the Dog · 2w</div>
-                                    </div>
-                                </a>
-                                <a className="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
-                                </div>
-                            </li>
-                            <div className="topbar-divider d-none d-sm-block" />
-                            {/* Nav Item - User Information */}
-                            <li className="nav-item dropdown no-arrow">
-                                <a className="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span className="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
-                                <img className="img-profile rounded-circle" src="img/undraw_profile.svg" />
-                                </a>
-                                {/* Dropdown - User Information */}
-                                <div className="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                                <a className="dropdown-item" href="#">
-                                    <i className="fas fa-user fa-sm fa-fw mr-2 text-gray-400" />
-                                    Profile
-                                </a>
-                                <a className="dropdown-item" href="#">
-                                    <i className="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400" />
-                                    Settings
-                                </a>
-                                <a className="dropdown-item" href="#">
-                                    <i className="fas fa-list fa-sm fa-fw mr-2 text-gray-400" />
-                                    Activity Log
-                                </a>
-                                <div className="dropdown-divider" />
-                                <a className="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                                    <i className="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400" />
-                                    Logout
-                                </a>
-                                </div>
-                            </li>
+                            <a className="navbar-brand" href="./"><img src="images/logo.png" alt="Logo" /></a>
+                            <a className="navbar-brand hidden" href="./"><img src="images/logo2.png" alt="Logo" /></a>
+                        </div>
+                        <div id="main-menu" className="main-menu collapse navbar-collapse">
+                            <ul className="nav navbar-nav">
+                                <li className="active">
+                                    <a href="index.html"> <i className="menu-icon fa fa-dashboard" />Dashboard </a>
+                                </li>
+                                <h3 className="menu-title">UI elements</h3>{/* /.menu-title */}
+                                <li className="menu-item-has-children dropdown">
+                                    <a href="#" className="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i className="menu-icon fa fa-laptop" />Components</a>
+                                    <ul className="sub-menu children dropdown-menu">
+                                        <li><i className="fa fa-puzzle-piece" /><a href="ui-buttons.html">Buttons</a></li>
+                                        <li><i className="fa fa-id-badge" /><a href="ui-badges.html">Badges</a></li>
+                                        <li><i className="fa fa-bars" /><a href="ui-tabs.html">Tabs</a></li>
+                                        <li><i className="fa fa-share-square-o" /><a href="ui-social-buttons.html">Social Buttons</a></li>
+                                        <li><i className="fa fa-id-card-o" /><a href="ui-cards.html">Cards</a></li>
+                                        <li><i className="fa fa-exclamation-triangle" /><a href="ui-alerts.html">Alerts</a></li>
+                                        <li><i className="fa fa-spinner" /><a href="ui-progressbar.html">Progress Bars</a></li>
+                                        <li><i className="fa fa-fire" /><a href="ui-modals.html">Modals</a></li>
+                                        <li><i className="fa fa-book" /><a href="ui-switches.html">Switches</a></li>
+                                        <li><i className="fa fa-th" /><a href="ui-grids.html">Grids</a></li>
+                                        <li><i className="fa fa-file-word-o" /><a href="ui-typgraphy.html">Typography</a></li>
+                                    </ul>
+                                </li>
+                                <li className="menu-item-has-children dropdown">
+                                    <a href="#" className="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i className="menu-icon fa fa-table" />Tables</a>
+                                    <ul className="sub-menu children dropdown-menu">
+                                        <li><i className="fa fa-table" /><a href="tables-basic.html">Basic Table</a></li>
+                                        <li><i className="fa fa-table" /><a href="tables-data.html">Data Table</a></li>
+                                    </ul>
+                                </li>
+                                <li className="menu-item-has-children dropdown">
+                                    <a href="#" className="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i className="menu-icon fa fa-th" />Forms</a>
+                                    <ul className="sub-menu children dropdown-menu">
+                                        <li><i className="menu-icon fa fa-th" /><a href="forms-basic.html">Basic Form</a></li>
+                                        <li><i className="menu-icon fa fa-th" /><a href="forms-advanced.html">Advanced Form</a></li>
+                                    </ul>
+                                </li>
+                                <h3 className="menu-title">Icons</h3>{/* /.menu-title */}
+                                <li className="menu-item-has-children dropdown">
+                                    <a href="#" className="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i className="menu-icon fa fa-tasks" />Icons</a>
+                                    <ul className="sub-menu children dropdown-menu">
+                                        <li><i className="menu-icon fa fa-fort-awesome" /><a href="font-fontawesome.html">Font Awesome</a></li>
+                                        <li><i className="menu-icon ti-themify-logo" /><a href="font-themify.html">Themefy Icons</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="widgets.html"> <i className="menu-icon ti-email" />Widgets </a>
+                                </li>
+                                <li className="menu-item-has-children dropdown">
+                                    <a href="#" className="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i className="menu-icon fa fa-bar-chart" />Charts</a>
+                                    <ul className="sub-menu children dropdown-menu">
+                                        <li><i className="menu-icon fa fa-line-chart" /><a href="charts-chartjs.html">Chart JS</a></li>
+                                        <li><i className="menu-icon fa fa-area-chart" /><a href="charts-flot.html">Flot Chart</a></li>
+                                        <li><i className="menu-icon fa fa-pie-chart" /><a href="charts-peity.html">Peity Chart</a></li>
+                                    </ul>
+                                </li>
+                                <li className="menu-item-has-children dropdown">
+                                    <a href="#" className="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i className="menu-icon fa fa-area-chart" />Maps</a>
+                                    <ul className="sub-menu children dropdown-menu">
+                                        <li><i className="menu-icon fa fa-map-o" /><a href="maps-gmap.html">Google Maps</a></li>
+                                        <li><i className="menu-icon fa fa-street-view" /><a href="maps-vector.html">Vector Maps</a></li>
+                                    </ul>
+                                </li>
+                                <h3 className="menu-title">Extras</h3>{/* /.menu-title */}
+                                <li className="menu-item-has-children dropdown">
+                                    <a href="#" className="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i className="menu-icon fa fa-glass" />Pages</a>
+                                    <ul className="sub-menu children dropdown-menu">
+                                        <li><i className="menu-icon fa fa-sign-in" /><a href="page-login.html">Login</a></li>
+                                        <li><i className="menu-icon fa fa-sign-in" /><a href="page-register.html">Register</a></li>
+                                        <li><i className="menu-icon fa fa-paper-plane" /><a href="pages-forget.html">Forget Pass</a></li>
+                                    </ul>
+                                </li>
                             </ul>
-                        </nav>
-                        {/* End of Topbar */}
-                        {/* Begin Page Content */}
-                        <div className="container-fluid">
-                            {/* Page Heading */}
-                            <div className="d-sm-flex align-items-center justify-content-between mb-4">
-                            <h1 className="h3 mb-0 text-gray-800">Dashboard</h1>
-                            <a href="#" className="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i className="fas fa-download fa-sm text-white-50" /> Generate Report</a>
-                            </div>
-                            {/* Content Row */}
-                            <div className="row">
-                            {/* Earnings (Monthly) Card Example */}
-                            <div className="col-xl-3 col-md-6 mb-4">
-                                <div className="card border-left-primary shadow h-100 py-2">
-                                <div className="card-body">
-                                    <div className="row no-gutters align-items-center">
-                                    <div className="col mr-2">
-                                        <div className="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                        Earnings (Monthly)</div>
-                                        <div className="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+                        </div>{/* /.navbar-collapse */}
+                    </nav>
+                </aside>{/* /#left-panel */}
+                {/* Left Panel */}
+                {/* Right Panel */}
+                <div id="right-panel" className="right-panel">
+                    {/* Header*/}
+                    <header id="header" className="header">
+                        <div className="header-menu">
+                            <div className="col-sm-7">
+                                <a id="menuToggle" className="menutoggle pull-left"><i className="fa fa fa-tasks" /></a>
+                                <div className="header-left">
+                                    <button className="search-trigger"><i className="fa fa-search" /></button>
+                                    <div className="form-inline">
+                                        <form className="search-form">
+                                            <input className="form-control mr-sm-2" type="text" placeholder="Search ..." aria-label="Search" />
+                                            <button className="search-close" type="submit"><i className="fa fa-close" /></button>
+                                        </form>
                                     </div>
-                                    <div className="col-auto">
-                                        <i className="fas fa-calendar fa-2x text-gray-300" />
-                                    </div>
-                                    </div>
-                                </div>
-                                </div>
-                            </div>
-                            {/* Earnings (Monthly) Card Example */}
-                            <div className="col-xl-3 col-md-6 mb-4">
-                                <div className="card border-left-success shadow h-100 py-2">
-                                <div className="card-body">
-                                    <div className="row no-gutters align-items-center">
-                                    <div className="col mr-2">
-                                        <div className="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                        Earnings (Annual)</div>
-                                        <div className="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
-                                    </div>
-                                    <div className="col-auto">
-                                        <i className="fas fa-dollar-sign fa-2x text-gray-300" />
-                                    </div>
-                                    </div>
-                                </div>
-                                </div>
-                            </div>
-                            {/* Earnings (Monthly) Card Example */}
-                            <div className="col-xl-3 col-md-6 mb-4">
-                                <div className="card border-left-info shadow h-100 py-2">
-                                <div className="card-body">
-                                    <div className="row no-gutters align-items-center">
-                                    <div className="col mr-2">
-                                        <div className="text-xs font-weight-bold text-info text-uppercase mb-1">Tasks
+                                    <div className="dropdown for-notification">
+                                        <button className="btn btn-secondary dropdown-toggle" type="button" id="notification" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i className="fa fa-bell" />
+                                            <span className="count bg-danger">5</span>
+                                        </button>
+                                        <div className="dropdown-menu" aria-labelledby="notification">
+                                            <p className="red">You have 3 Notification</p>
+                                            <a className="dropdown-item media bg-flat-color-1" href="#">
+                                                <i className="fa fa-check" />
+                                                <p>Server #1 overloaded.</p>
+                                            </a>
+                                            <a className="dropdown-item media bg-flat-color-4" href="#">
+                                                <i className="fa fa-info" />
+                                                <p>Server #2 overloaded.</p>
+                                            </a>
+                                            <a className="dropdown-item media bg-flat-color-5" href="#">
+                                                <i className="fa fa-warning" />
+                                                <p>Server #3 overloaded.</p>
+                                            </a>
                                         </div>
-                                        <div className="row no-gutters align-items-center">
-                                        <div className="col-auto">
-                                            <div className="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
+                                    </div>
+                                    <div className="dropdown for-message">
+                                        <button className="btn btn-secondary dropdown-toggle" type="button" id="message" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i className="ti-email" />
+                                            <span className="count bg-primary">9</span>
+                                        </button>
+                                        <div className="dropdown-menu" aria-labelledby="message">
+                                            <p className="red">You have 4 Mails</p>
+                                            <a className="dropdown-item media bg-flat-color-1" href="#">
+                                                <span className="photo media-left"><img alt="avatar" src="images/avatar/1.jpg" /></span>
+                                                <span className="message media-body">
+                                                    <span className="name float-left">Jonathan Smith</span>
+                                                    <span className="time float-right">Just now</span>
+                                                    <p>Hello, this is an example msg</p>
+                                                </span>
+                                            </a>
+                                            <a className="dropdown-item media bg-flat-color-4" href="#">
+                                                <span className="photo media-left"><img alt="avatar" src="images/avatar/2.jpg" /></span>
+                                                <span className="message media-body">
+                                                    <span className="name float-left">Jack Sanders</span>
+                                                    <span className="time float-right">5 minutes ago</span>
+                                                    <p>Lorem ipsum dolor sit amet, consectetur</p>
+                                                </span>
+                                            </a>
+                                            <a className="dropdown-item media bg-flat-color-5" href="#">
+                                                <span className="photo media-left"><img alt="avatar" src="images/avatar/3.jpg" /></span>
+                                                <span className="message media-body">
+                                                    <span className="name float-left">Cheryl Wheeler</span>
+                                                    <span className="time float-right">10 minutes ago</span>
+                                                    <p>Hello, this is an example msg</p>
+                                                </span>
+                                            </a>
+                                            <a className="dropdown-item media bg-flat-color-3" href="#">
+                                                <span className="photo media-left"><img alt="avatar" src="images/avatar/4.jpg" /></span>
+                                                <span className="message media-body">
+                                                    <span className="name float-left">Rachel Santos</span>
+                                                    <span className="time float-right">15 minutes ago</span>
+                                                    <p>Lorem ipsum dolor sit amet, consectetur</p>
+                                                </span>
+                                            </a>
                                         </div>
-                                        <div className="col">
-                                            <div className="progress progress-sm mr-2">
-                                            <div className="progress-bar bg-info" role="progressbar" style={{width: '50%'}} aria-valuenow={50} aria-valuemin={0} aria-valuemax={100} />
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col-sm-5">
+                                <div className="user-area dropdown float-right">
+                                    <a href="#" className="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <img className="user-avatar rounded-circle" src="images/admin.jpg" alt="User Avatar" />
+                                    </a>
+                                    <div className="user-menu dropdown-menu">
+                                        <a className="nav-link" href="#"><i className="fa fa-user" /> My Profile</a>
+                                        <a className="nav-link" href="#"><i className="fa fa-user" /> Notifications <span className="count">13</span></a>
+                                        <a className="nav-link" href="#"><i className="fa fa-cog" /> Settings</a>
+                                        <a className="nav-link" href="#"><i className="fa fa-power-off" /> Logout</a>
+                                    </div>
+                                </div>
+                                <div className="language-select dropdown" id="language-select">
+                                    <a className="dropdown-toggle" href="#" data-toggle="dropdown" id="language" aria-haspopup="true" aria-expanded="true">
+                                        <i className="flag-icon flag-icon-us" />
+                                    </a>
+                                    <div className="dropdown-menu" aria-labelledby="language">
+                                        <div className="dropdown-item">
+                                            <span className="flag-icon flag-icon-fr" />
+                                        </div>
+                                        <div className="dropdown-item">
+                                            <i className="flag-icon flag-icon-es" />
+                                        </div>
+                                        <div className="dropdown-item">
+                                            <i className="flag-icon flag-icon-us" />
+                                        </div>
+                                        <div className="dropdown-item">
+                                            <i className="flag-icon flag-icon-it" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </header>{/* /header */}
+                    {/* Header*/}
+                    <div className="breadcrumbs">
+                        <div className="col-sm-4">
+                            <div className="page-header float-left">
+                                <div className="page-title">
+                                    <h1>Dashboard</h1>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-sm-8">
+                            <div className="page-header float-right">
+                                <div className="page-title">
+                                    <ol className="breadcrumb text-right">
+                                        <li className="active">Dashboard</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="content mt-3">
+                        <div className="col-sm-12">
+                            <div className="alert  alert-success alert-dismissible fade show" role="alert">
+                                <span className="badge badge-pill badge-success">Success</span> You successfully read this important alert message.
+                                <button type="button" className="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div className="col-sm-6 col-lg-3">
+                            <div className="card text-white bg-flat-color-1">
+                                <div className="card-body pb-0">
+                                    <div className="dropdown float-right">
+                                        <button className="btn bg-transparent dropdown-toggle theme-toggle text-light" type="button" id="dropdownMenuButton1" data-toggle="dropdown">
+                                            <i className="fa fa-cog" />
+                                        </button>
+                                        <div className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                            <div className="dropdown-menu-content">
+                                                <a className="dropdown-item" href="#">Action</a>
+                                                <a className="dropdown-item" href="#">Another action</a>
+                                                <a className="dropdown-item" href="#">Something else here</a>
                                             </div>
                                         </div>
+                                    </div>
+                                    <h4 className="mb-0">
+                                        <span className="count">10468</span>
+                                    </h4>
+                                    <p className="text-light">Members online</p>
+                                    <div className="chart-wrapper px-0" style={{ height: '70px' }} height={70}>
+                                        <canvas id="widgetChart1" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {/*/.col*/}
+                        <div className="col-sm-6 col-lg-3">
+                            <div className="card text-white bg-flat-color-2">
+                                <div className="card-body pb-0">
+                                    <div className="dropdown float-right">
+                                        <button className="btn bg-transparent dropdown-toggle theme-toggle text-light" type="button" id="dropdownMenuButton2" data-toggle="dropdown">
+                                            <i className="fa fa-cog" />
+                                        </button>
+                                        <div className="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                                            <div className="dropdown-menu-content">
+                                                <a className="dropdown-item" href="#">Action</a>
+                                                <a className="dropdown-item" href="#">Another action</a>
+                                                <a className="dropdown-item" href="#">Something else here</a>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div className="col-auto">
-                                        <i className="fas fa-clipboard-list fa-2x text-gray-300" />
-                                    </div>
-                                    </div>
-                                </div>
-                                </div>
-                            </div>
-                            {/* Pending Requests Card Example */}
-                            <div className="col-xl-3 col-md-6 mb-4">
-                                <div className="card border-left-warning shadow h-100 py-2">
-                                <div className="card-body">
-                                    <div className="row no-gutters align-items-center">
-                                    <div className="col mr-2">
-                                        <div className="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                        Pending Requests</div>
-                                        <div className="h5 mb-0 font-weight-bold text-gray-800">18</div>
-                                    </div>
-                                    <div className="col-auto">
-                                        <i className="fas fa-comments fa-2x text-gray-300" />
-                                    </div>
+                                    <h4 className="mb-0">
+                                        <span className="count">10468</span>
+                                    </h4>
+                                    <p className="text-light">Members online</p>
+                                    <div className="chart-wrapper px-0" style={{ height: '70px' }} height={70}>
+                                        <canvas id="widgetChart2" />
                                     </div>
                                 </div>
-                                </div>
-                            </div>
-                            </div>
-                            {/* Content Row */}
-                            <div className="row">
-                            {/* Area Chart */}
-                            <div className="col-xl-8 col-lg-7">
-                                <div className="card shadow mb-4">
-                                {/* Card Header - Dropdown */}
-                                <div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 className="m-0 font-weight-bold text-primary">Earnings Overview</h6>
-                                    <div className="dropdown no-arrow">
-                                    <a className="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i className="fas fa-ellipsis-v fa-sm fa-fw text-gray-400" />
-                                    </a>
-                                    <div className="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-                                        <div className="dropdown-header">Dropdown Header:</div>
-                                        <a className="dropdown-item" href="#">Action</a>
-                                        <a className="dropdown-item" href="#">Another action</a>
-                                        <div className="dropdown-divider" />
-                                        <a className="dropdown-item" href="#">Something else here</a>
-                                    </div>
-                                    </div>
-                                </div>
-                                {/* Card Body */}
-                                <div className="card-body">
-                                    <div className="chart-area">
-                                    <canvas id="myAreaChart" />
-                                    </div>
-                                </div>
-                                </div>
-                            </div>
-                            {/* Pie Chart */}
-                            <div className="col-xl-4 col-lg-5">
-                                <div className="card shadow mb-4">
-                                {/* Card Header - Dropdown */}
-                                <div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 className="m-0 font-weight-bold text-primary">Revenue Sources</h6>
-                                    <div className="dropdown no-arrow">
-                                    <a className="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i className="fas fa-ellipsis-v fa-sm fa-fw text-gray-400" />
-                                    </a>
-                                    <div className="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-                                        <div className="dropdown-header">Dropdown Header:</div>
-                                        <a className="dropdown-item" href="#">Action</a>
-                                        <a className="dropdown-item" href="#">Another action</a>
-                                        <div className="dropdown-divider" />
-                                        <a className="dropdown-item" href="#">Something else here</a>
-                                    </div>
-                                    </div>
-                                </div>
-                                {/* Card Body */}
-                                <div className="card-body">
-                                    <div className="chart-pie pt-4 pb-2">
-                                    <canvas id="myPieChart" />
-                                    </div>
-                                    <div className="mt-4 text-center small">
-                                    <span className="mr-2">
-                                        <i className="fas fa-circle text-primary" /> Direct
-                                    </span>
-                                    <span className="mr-2">
-                                        <i className="fas fa-circle text-success" /> Social
-                                    </span>
-                                    <span className="mr-2">
-                                        <i className="fas fa-circle text-info" /> Referral
-                                    </span>
-                                    </div>
-                                </div>
-                                </div>
-                            </div>
-                            </div>
-                            {/* Content Row */}
-                            <div className="row">
-                            {/* Content Column */}
-                            <div className="col-lg-6 mb-4">
-                                {/* Project Card Example */}
-                                <div className="card shadow mb-4">
-                                <div className="card-header py-3">
-                                    <h6 className="m-0 font-weight-bold text-primary">Projects</h6>
-                                </div>
-                                <div className="card-body">
-                                    <h4 className="small font-weight-bold">Server Migration <span className="float-right">20%</span></h4>
-                                    <div className="progress mb-4">
-                                    <div className="progress-bar bg-danger" role="progressbar" style={{width: '20%'}} aria-valuenow={20} aria-valuemin={0} aria-valuemax={100} />
-                                    </div>
-                                    <h4 className="small font-weight-bold">Sales Tracking <span className="float-right">40%</span></h4>
-                                    <div className="progress mb-4">
-                                    <div className="progress-bar bg-warning" role="progressbar" style={{width: '40%'}} aria-valuenow={40} aria-valuemin={0} aria-valuemax={100} />
-                                    </div>
-                                    <h4 className="small font-weight-bold">Customer Database <span className="float-right">60%</span></h4>
-                                    <div className="progress mb-4">
-                                    <div className="progress-bar" role="progressbar" style={{width: '60%'}} aria-valuenow={60} aria-valuemin={0} aria-valuemax={100} />
-                                    </div>
-                                    <h4 className="small font-weight-bold">Payout Details <span className="float-right">80%</span></h4>
-                                    <div className="progress mb-4">
-                                    <div className="progress-bar bg-info" role="progressbar" style={{width: '80%'}} aria-valuenow={80} aria-valuemin={0} aria-valuemax={100} />
-                                    </div>
-                                    <h4 className="small font-weight-bold">Account Setup <span className="float-right">Complete!</span></h4>
-                                    <div className="progress">
-                                    <div className="progress-bar bg-success" role="progressbar" style={{width: '100%'}} aria-valuenow={100} aria-valuemin={0} aria-valuemax={100} />
-                                    </div>
-                                </div>
-                                </div>
-                                {/* Color System */}
-                                <div className="row">
-                                <div className="col-lg-6 mb-4">
-                                    <div className="card bg-primary text-white shadow">
-                                    <div className="card-body">
-                                        Primary
-                                        <div className="text-white-50 small">#4e73df</div>
-                                    </div>
-                                    </div>
-                                </div>
-                                <div className="col-lg-6 mb-4">
-                                    <div className="card bg-success text-white shadow">
-                                    <div className="card-body">
-                                        Success
-                                        <div className="text-white-50 small">#1cc88a</div>
-                                    </div>
-                                    </div>
-                                </div>
-                                <div className="col-lg-6 mb-4">
-                                    <div className="card bg-info text-white shadow">
-                                    <div className="card-body">
-                                        Info
-                                        <div className="text-white-50 small">#36b9cc</div>
-                                    </div>
-                                    </div>
-                                </div>
-                                <div className="col-lg-6 mb-4">
-                                    <div className="card bg-warning text-white shadow">
-                                    <div className="card-body">
-                                        Warning
-                                        <div className="text-white-50 small">#f6c23e</div>
-                                    </div>
-                                    </div>
-                                </div>
-                                <div className="col-lg-6 mb-4">
-                                    <div className="card bg-danger text-white shadow">
-                                    <div className="card-body">
-                                        Danger
-                                        <div className="text-white-50 small">#e74a3b</div>
-                                    </div>
-                                    </div>
-                                </div>
-                                <div className="col-lg-6 mb-4">
-                                    <div className="card bg-secondary text-white shadow">
-                                    <div className="card-body">
-                                        Secondary
-                                        <div className="text-white-50 small">#858796</div>
-                                    </div>
-                                    </div>
-                                </div>
-                                <div className="col-lg-6 mb-4">
-                                    <div className="card bg-light text-black shadow">
-                                    <div className="card-body">
-                                        Light
-                                        <div className="text-black-50 small">#f8f9fc</div>
-                                    </div>
-                                    </div>
-                                </div>
-                                <div className="col-lg-6 mb-4">
-                                    <div className="card bg-dark text-white shadow">
-                                    <div className="card-body">
-                                        Dark
-                                        <div className="text-white-50 small">#5a5c69</div>
-                                    </div>
-                                    </div>
-                                </div>
-                                </div>
-                            </div>
-                            <div className="col-lg-6 mb-4">
-                                {/* Illustrations */}
-                                <div className="card shadow mb-4">
-                                <div className="card-header py-3">
-                                    <h6 className="m-0 font-weight-bold text-primary">Illustrations</h6>
-                                </div>
-                                <div className="card-body">
-                                    <div className="text-center">
-                                    <img className="img-fluid px-3 px-sm-4 mt-3 mb-4" style={{width: '25rem'}} src="img/undraw_posting_photo.svg" alt="..." />
-                                    </div>
-                                    <p>Add some quality, svg illustrations to your project courtesy of <a target="_blank" rel="nofollow" href="https://undraw.co/">unDraw</a>, a
-                                    constantly updated collection of beautiful svg images that you can use
-                                    completely free and without attribution!</p>
-                                    <a target="_blank" rel="nofollow" href="https://undraw.co/">Browse Illustrations on
-                                    unDraw →</a>
-                                </div>
-                                </div>
-                                {/* Approach */}
-                                <div className="card shadow mb-4">
-                                <div className="card-header py-3">
-                                    <h6 className="m-0 font-weight-bold text-primary">Development Approach</h6>
-                                </div>
-                                <div className="card-body">
-                                    <p>SB Admin 2 makes extensive use of Bootstrap 4 utility classes in order to reduce
-                                    CSS bloat and poor page performance. Custom CSS classes are used to create
-                                    custom components and custom utility classes.</p>
-                                    <p className="mb-0">Before working with this theme, you should become familiar with the
-                                    Bootstrap framework, especially the utility classes.</p>
-                                </div>
-                                </div>
-                            </div>
                             </div>
                         </div>
-                        {/* /.container-fluid */}
-                        </div>
-                        {/* End of Main Content */}
-                        {/* Footer */}
-                        <footer className="sticky-footer bg-white">
-                        <div className="container my-auto">
-                            <div className="copyright text-center my-auto">
-                            <span>Copyright © Your Website 2021</span>
+                        {/*/.col*/}
+                        <div className="col-sm-6 col-lg-3">
+                            <div className="card text-white bg-flat-color-3">
+                                <div className="card-body pb-0">
+                                    <div className="dropdown float-right">
+                                        <button className="btn bg-transparent dropdown-toggle theme-toggle text-light" type="button" id="dropdownMenuButton3" data-toggle="dropdown">
+                                            <i className="fa fa-cog" />
+                                        </button>
+                                        <div className="dropdown-menu" aria-labelledby="dropdownMenuButton3">
+                                            <div className="dropdown-menu-content">
+                                                <a className="dropdown-item" href="#">Action</a>
+                                                <a className="dropdown-item" href="#">Another action</a>
+                                                <a className="dropdown-item" href="#">Something else here</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <h4 className="mb-0">
+                                        <span className="count">10468</span>
+                                    </h4>
+                                    <p className="text-light">Members online</p>
+                                </div>
+                                <div className="chart-wrapper px-0" style={{ height: '70px' }} height={70}>
+                                    <canvas id="widgetChart3" />
+                                </div>
                             </div>
                         </div>
-                        </footer>
-                        {/* End of Footer */}
-                    </div>
-                    {/* End of Content Wrapper */}
-                    </div>
-                </div>
-              );
-          
+                        {/*/.col*/}
+                        <div className="col-sm-6 col-lg-3">
+                            <div className="card text-white bg-flat-color-4">
+                                <div className="card-body pb-0">
+                                    <div className="dropdown float-right">
+                                        <button className="btn bg-transparent dropdown-toggle theme-toggle text-light" type="button" id="dropdownMenuButton4" data-toggle="dropdown">
+                                            <i className="fa fa-cog" />
+                                        </button>
+                                        <div className="dropdown-menu" aria-labelledby="dropdownMenuButton4">
+                                            <div className="dropdown-menu-content">
+                                                <a className="dropdown-item" href="#">Action</a>
+                                                <a className="dropdown-item" href="#">Another action</a>
+                                                <a className="dropdown-item" href="#">Something else here</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <h4 className="mb-0">
+                                        <span className="count">10468</span>
+                                    </h4>
+                                    <p className="text-light">Members online</p>
+                                    <div className="chart-wrapper px-3" style={{ height: '70px' }} height={70}>
+                                        <canvas id="widgetChart4" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {/*/.col*/}
+                        <div className="col-lg-3 col-md-6">
+                            <div className="social-box facebook">
+                                <i className="fa fa-facebook" />
+                                <ul>
+                                    <li>
+                                        <span className="count">40</span> k
+                                        <span>friends</span>
+                                    </li>
+                                    <li>
+                                        <span className="count">450</span>
+                                        <span>feeds</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            {/*/social-box*/}
+                        </div>
+                        {/*/.col*/}
+                        <div className="col-lg-3 col-md-6">
+                            <div className="social-box twitter">
+                                <i className="fa fa-twitter" />
+                                <ul>
+                                    <li>
+                                        <span className="count">30</span> k
+                                        <span>friends</span>
+                                    </li>
+                                    <li>
+                                        <span className="count">450</span>
+                                        <span>tweets</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            {/*/social-box*/}
+                        </div>
+                        {/*/.col*/}
+                        <div className="col-lg-3 col-md-6">
+                            <div className="social-box linkedin">
+                                <i className="fa fa-linkedin" />
+                                <ul>
+                                    <li>
+                                        <span className="count">40</span> +
+                                        <span>contacts</span>
+                                    </li>
+                                    <li>
+                                        <span className="count">250</span>
+                                        <span>feeds</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            {/*/social-box*/}
+                        </div>
+                        {/*/.col*/}
+                        <div className="col-lg-3 col-md-6">
+                            <div className="social-box google-plus">
+                                <i className="fa fa-google-plus" />
+                                <ul>
+                                    <li>
+                                        <span className="count">94</span> k
+                                        <span>followers</span>
+                                    </li>
+                                    <li>
+                                        <span className="count">92</span>
+                                        <span>circles</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            {/*/social-box*/}
+                        </div>
+                        {/*/.col*/}
+                        <div className="col-xl-6">
+                            <div className="card">
+                                <div className="card-body">
+                                    <div className="row">
+                                        <div className="col-sm-4">
+                                            <h4 className="card-title mb-0">Traffic</h4>
+                                            <div className="small text-muted">October 2017</div>
+                                        </div>
+                                        {/*/.col*/}
+                                        <div className="col-sm-8 hidden-sm-down">
+                                            <button type="button" className="btn btn-primary float-right bg-flat-color-1"><i className="fa fa-cloud-download" /></button>
+                                            <div className="btn-toolbar float-right" role="toolbar" aria-label="Toolbar with button groups">
+                                                <div className="btn-group mr-3" data-toggle="buttons" aria-label="First group">
+                                                    <label className="btn btn-outline-secondary">
+                                                        <input type="radio" name="options" id="option1" /> Day
+                                                    </label>
+                                                    <label className="btn btn-outline-secondary active">
+                                                        <input type="radio" name="options" id="option2" defaultChecked /> Month
+                                                    </label>
+                                                    <label className="btn btn-outline-secondary">
+                                                        <input type="radio" name="options" id="option3" /> Year
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {/*/.col*/}
+                                    </div>
+                                    {/*/.row*/}
+                                    <div className="chart-wrapper mt-4">
+                                        <canvas id="trafficChart" style={{ height: '200px' }} height={200} />
+                                    </div>
+                                </div>
+                                <div className="card-footer">
+                                    <ul>
+                                        <li>
+                                            <div className="text-muted">Visits</div>
+                                            <strong>29.703 Users (40%)</strong>
+                                            <div className="progress progress-xs mt-2" style={{ height: '5px' }}>
+                                                <div className="progress-bar bg-success" role="progressbar" style={{ width: '40%' }} aria-valuenow={40} aria-valuemin={0} aria-valuemax={100} />
+                                            </div>
+                                        </li>
+                                        <li className="hidden-sm-down">
+                                            <div className="text-muted">Unique</div>
+                                            <strong>24.093 Users (20%)</strong>
+                                            <div className="progress progress-xs mt-2" style={{ height: '5px' }}>
+                                                <div className="progress-bar bg-info" role="progressbar" style={{ width: '20%' }} aria-valuenow={20} aria-valuemin={0} aria-valuemax={100} />
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div className="text-muted">Pageviews</div>
+                                            <strong>78.706 Views (60%)</strong>
+                                            <div className="progress progress-xs mt-2" style={{ height: '5px' }}>
+                                                <div className="progress-bar bg-warning" role="progressbar" style={{ width: '60%' }} aria-valuenow={60} aria-valuemin={0} aria-valuemax={100} />
+                                            </div>
+                                        </li>
+                                        <li className="hidden-sm-down">
+                                            <div className="text-muted">New Users</div>
+                                            <strong>22.123 Users (80%)</strong>
+                                            <div className="progress progress-xs mt-2" style={{ height: '5px' }}>
+                                                <div className="progress-bar bg-danger" role="progressbar" style={{ width: '80%' }} aria-valuenow={80} aria-valuemin={0} aria-valuemax={100} />
+                                            </div>
+                                        </li>
+                                        <li className="hidden-sm-down">
+                                            <div className="text-muted">Bounce Rate</div>
+                                            <strong>40.15%</strong>
+                                            <div className="progress progress-xs mt-2" style={{ height: '5px' }}>
+                                                <div className="progress-bar" role="progressbar" style={{ width: '40%' }} aria-valuenow={40} aria-valuemin={0} aria-valuemax={100} />
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-xl-3 col-lg-6">
+                            <section className="card">
+                                <div className="twt-feed blue-bg">
+                                    <div className="corner-ribon black-ribon">
+                                        <i className="fa fa-twitter" />
+                                    </div>
+                                    <div className="fa fa-twitter wtt-mark" />
+                                    <div className="media">
+                                        <a href="#">
+                                            <img className="align-self-center rounded-circle mr-3" style={{ width: '85px', height: '85px' }} alt="" src="images/admin.jpg" />
+                                        </a>
+                                        <div className="media-body">
+                                            <h2 className="text-white display-6">Jim Doe</h2>
+                                            <p className="text-light">Project Manager</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="weather-category twt-category">
+                                    <ul>
+                                        <li className="active">
+                                            <h5>750</h5>
+                                            Tweets
+                                        </li>
+                                        <li>
+                                            <h5>865</h5>
+                                            Following
+                                        </li>
+                                        <li>
+                                            <h5>3645</h5>
+                                            Followers
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div className="twt-write col-sm-12">
+                                    <textarea placeholder="Write your Tweet and Enter" rows={1} className="form-control t-text-area" defaultValue={""} />
+                                </div>
+                                <footer className="twt-footer">
+                                    <a href="#"><i className="fa fa-camera" /></a>
+                                    <a href="#"><i className="fa fa-map-marker" /></a>
+                                    New Castle, UK
+                                    <span className="pull-right">
+                                        32
+                                    </span>
+                                </footer>
+                            </section>
+                        </div>
+                        <div className="col-xl-3 col-lg-6">
+                            <div className="card">
+                                <div className="card-body">
+                                    <div className="stat-widget-one">
+                                        <div className="stat-icon dib"><i className="ti-money text-success border-success" /></div>
+                                        <div className="stat-content dib">
+                                            <div className="stat-text">Total Profit</div>
+                                            <div className="stat-digit">1,012</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-xl-3 col-lg-6">
+                            <div className="card">
+                                <div className="card-body">
+                                    <div className="stat-widget-one">
+                                        <div className="stat-icon dib"><i className="ti-user text-primary border-primary" /></div>
+                                        <div className="stat-content dib">
+                                            <div className="stat-text">New Customer</div>
+                                            <div className="stat-digit">961</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-xl-3 col-lg-6">
+                            <div className="card">
+                                <div className="card-body">
+                                    <div className="stat-widget-one">
+                                        <div className="stat-icon dib"><i className="ti-layout-grid2 text-warning border-warning" /></div>
+                                        <div className="stat-content dib">
+                                            <div className="stat-text">Active Projects</div>
+                                            <div className="stat-digit">770</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-xl-6">
+                            <div className="card">
+                                <div className="card-header">
+                                    <h4>World</h4>
+                                </div>
+                                <div className="Vector-map-js">
+                                    <div id="vmap" className="vmap" style={{ height: '265px' }} />
+                                </div>
+                            </div>
+                            {/* /# card */}
+                        </div>
+                    </div> {/* .content */}
+                </div>{/* /#right-panel */}
+                {/* Right Panel */}
+            </div>
+        );
+
     }
 
 }

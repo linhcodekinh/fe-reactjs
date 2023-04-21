@@ -12,6 +12,7 @@ const initialState = {
     language: 'vi',
     adminHomePath: '/admin',
     clientHomePath: '/',
+    path: '',
     contentOfConfirmModal: {
         ...initContentOfConfirmModal
     }

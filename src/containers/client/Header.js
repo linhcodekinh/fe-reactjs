@@ -7,6 +7,7 @@ class Header extends Component {
 
     constructor(props) {
         super(props);
+        
     } 
 
     render() {
@@ -27,13 +28,13 @@ class Header extends Component {
                                 <li><Link to="/test">Thi Thử Ngay</Link></li>
                                 <li className="dropdown"><a href="#"><span>Luyện Tập Từng Phần</span> <i className="bi bi-chevron-down "></i></a>
                                     <ul>
-                                        <li><Link to="/part1">Part 1</Link></li>
-                                        <li><Link to="/part2">Part 2</Link></li>
-                                        <li><Link to="/part3">Part 3</Link></li>
-                                        <li><Link to="/part4">Part 4</Link></li>
-                                        <li><Link to="/part5">Part 5</Link></li>
-                                        <li><Link to="/part6">Part 6</Link></li>
-                                        <li><Link to="/part7">Part 7</Link></li>
+                                        <li><Link to={{pathname: '/part', data: 'part1'}}>Part 1</Link></li>
+                                        <li><Link to={{pathname: '/part', data: 'part2'}}>Part 2</Link></li>
+                                        <li><Link to={{pathname: '/part', data: 'part3'}}>Part 3</Link></li>
+                                        <li><Link to={{pathname: '/part', data: 'part4'}}>Part 4</Link></li>
+                                        <li><Link to={{pathname: '/part', data: 'part5'}}>Part 5</Link></li>
+                                        <li><Link to={{pathname: '/part', data: 'part6'}}>Part 6</Link></li>
+                                        <li><Link to={{pathname: '/part', data: 'part7'}}>Part 7</Link></li>
                                         {/* <li className="dropdown"><a href="#"><span>Deep Drop Down</span> <i className="bi bi-chevron-right"></i></a>
                                             <ul>
                                                 <li><a href="#">Deep Drop Down 1</a></li>

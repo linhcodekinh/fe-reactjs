@@ -18,7 +18,7 @@ import System from '../routes/admin/System';
 import { CustomToastCloseButton } from '../components/CustomToast';
 import ConfirmModal from '../components/ConfirmModal';
 import Home from './client/Home';
-import Part1 from './client/Part1';
+import Part from './client/Part';
 
 class App extends Component {
 
@@ -61,7 +61,7 @@ class App extends Component {
                 <Router history={history}>
                     <div className="main-container">
                         <ConfirmModal />
-                        { <Header />}
+                        {/* { <Header />} */}
                         {console.log('this.props.isLoggedIn' ,this.props.isLoggedIn)}
                         <div className="content-container">
                                 <Switch>
@@ -69,13 +69,7 @@ class App extends Component {
                                     <Route path={path.admin.ADMIN} exact component={(Admin)} />
                                     <Route path={path.admin.SYSTEM} component={(System)} />
                                     <Route path={path.client.HOME} exact component={(Home)} />
-                                    <Route path={path.client.PART1} exact component={(Part1)} />
-                                    <Route path={path.client.PART2} exact component={(Home)} />
-                                    <Route path={path.client.PART3} exact component={(Home)} />
-                                    <Route path={path.client.PART4} exact component={(Home)} />
-                                    <Route path={path.client.PART5} exact component={(Home)} />
-                                    <Route path={path.client.PART6} exact component={(Home)} />
-                                    <Route path={path.client.PART7} exact component={(Home)} />
+                                    <Route path={path.client.PART} exact component={(Part)} />
                                 </Switch>
                         </div>
                         <ToastContainer

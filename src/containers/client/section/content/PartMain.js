@@ -1,23 +1,70 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import bgimg from '../../../../assets/images/part1-bg.png'; // Tell Webpack this JS file uses this image
+import imgavaPart1 from '../../../../assets/images/part1-ava.png'; // Tell Webpack this JS file uses this image
+import imgavaPart2 from '../../../../assets/images/part2-ava.png';
+import imgavaPart3 from '../../../../assets/images/part3-ava.png'; 
+// import imgavaPart4 from '../../../../assets/images/part4-ava.png'; 
 
 class ImageBG extends Component {
 
+    constructor(props) {
+        super(props)
+        this.state = {
+            avaimg: '',
+        }
+    }
+
+    checkImg = (dataP) => {
+        let avaimg = ''
+        let dataPart = dataP.data
+        console.log('checkImg props dataPart', dataPart)
+        if (dataPart === 'part1') {
+            avaimg = 'imgavaPart1'
+        } else if (dataPart === 'part2') {
+            avaimg = 'imgavaPart2'
+        } else if (dataPart === 'part3') {
+            avaimg = 'imgavaPart3' 
+        } else if (dataPart === 'part4') {
+            avaimg = 'imgavaPart2'
+        } else if (dataPart === 'part5') {
+            avaimg = 'imgavaPart2'
+        } else if (dataPart === 'part6') {
+            avaimg = 'imgavaPart2'
+        } else if (dataPart === 'part7') {
+            avaimg = 'imgavaPart2'
+        }
+        console.log('avaimg props dataPart', avaimg)
+        return avaimg
+    }
+
     componentDidUpdate = () => {
-        console.log('componentDidUpdate props ImageBG', this.props)
+        let dataP = this.props.data
+        let avaimg = this.checkImg(dataP)
+        if (this.state.avaimg !== avaimg) {
+            this.setState({
+                avaimg: avaimg
+            })
+        }
     }
 
     componentDidMount = () => {
-        console.log('componentDidMount props ImageBG', this.props)
+     
     }
 
     render() {
-        return (
-            
-            <img src={bgimg} alt="bg" className="img-fluid" />
-        
-        )
+        if(this.state.avaimg === 'imgavaPart1'){
+            return (
+                <img src={imgavaPart1} alt="bg" className="img-fluid" />
+            )
+        }else if(this.state.avaimg === 'imgavaPart2'){
+            return (
+                <img src={imgavaPart2} alt="bg" className="img-fluid" />
+            )
+        }else {
+            return (
+                <img src={imgavaPart3} alt="bg" className="img-fluid" />
+            )
+        }
     }
 }
 
@@ -28,7 +75,7 @@ class PartMain extends Component {
     }
 
     componentDidUpdate = () => {
-        console.log('componentDidUpdate props ', this.props)
+        console.log('componentDidUpdate PartMain props ', this.props)
     }
 
     render() {
@@ -39,7 +86,7 @@ class PartMain extends Component {
                     <article className="blog-details">
 
                         <div className="post-img">
-                            <ImageBG data={this.props}/>
+                            <ImageBG data={this.props} />
                         </div>
 
                         <h2 className="title">Dolorum optio tempore voluptas dignissimos cumque fuga qui quibusdam quia</h2>
@@ -80,7 +127,7 @@ class PartMain extends Component {
                                 Quia et suscipit non sequi. Maxime sed odit. Beatae nesciunt nesciunt accusamus quia aut ratione aspernatur dolor. Sint harum eveniet dicta exercitationem minima. Exercitationem omnis asperiores natus aperiam dolor consequatur id ex sed. Quibusdam rerum dolores sint consequatur quidem ea.
                                 Beatae minima sunt libero soluta sapiente in rem assumenda. Et qui odit voluptatem. Cum quibusdam voluptatem voluptatem accusamus mollitia aut atque aut.
                             </p>
-                            <img src={bgimg} alt="bg" className="img-fluid" />
+                            <img src={imgavaPart1} alt="bg" className="img-fluid" />
 
                             <h3>Ut repellat blanditiis est dolore sunt dolorum quae.</h3>
                             <p>
@@ -110,7 +157,7 @@ class PartMain extends Component {
                     </article>
 
                     <div className="post-author d-flex align-items-center">
-                        <img src={bgimg} alt="bg" className="img-fluid" />
+                        <img src={imgavaPart1} alt="bg" className="img-fluid" />
                         <div>
                             <h4>Jane Smith</h4>
                             <div className="social-links">
@@ -129,7 +176,7 @@ class PartMain extends Component {
 
                         <div id="comment-1" className="comment">
                             <div className="d-flex">
-                                <div className="comment-img"><img src={bgimg} alt="bg" className="img-fluid" />   </div>
+                                <div className="comment-img"><img src={imgavaPart1} alt="bg" className="img-fluid" />   </div>
                                 <div>
                                     <h5><a href="">Georgia Reader</a> <a href="#" className="reply"><i className="bi bi-reply-fill"></i> Reply</a></h5>
                                     <time dateTime="2020-01-01">01 Jan,2022</time>

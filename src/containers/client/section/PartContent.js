@@ -14,6 +14,7 @@ class PartContent extends Component {
 
 
     }
+    
     componentDidUpdate = () => {
         if(this.state.part !== localStorage.getItem('dataPart')){
             this.setState({

@@ -2,14 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './scss/Main.scss'
 
-import backgroundImg1 from '../../../assets/images/bg-01.jpg'
-import backgroundImg2 from '../../../assets/images/bg-01.jpg'
-import backgroundImg3 from '../../../assets/images/bg-01.jpg'
-import backgroundImg4 from '../../../assets/images/bg-01.jpg'
-import backgroundImg5 from '../../../assets/images/bg-01.jpg'
-import backgroundImg6 from '../../../assets/images/bg-01.jpg'
-import backgroundImg7 from '../../../assets/images/bg-01.jpg'
-
 class Main extends Component {
 
     render() {
@@ -23,7 +15,8 @@ class Main extends Component {
                     quidem hic quas.</p>
                 <br/>
                 <div className="row" data-aos="fade-up">
-                    <div className="col-md-5 img-fluid" style={{backgroundImage: `url(${backgroundImg1})`}}>
+                    <div className="col-md-5">
+                        <img src="assets/img/features-1.svg" class="img-fluid" alt=""/>
                     </div>
                     <div className="col-md-7 pt-4">
                         <h5>Phần 1</h5>
@@ -45,7 +38,8 @@ class Main extends Component {
                 </div>
                 <br/>
                 <div className="row" data-aos="fade-up">
-                    <div className="col-md-5 order-1 order-md-2 img-fluid" style={{backgroundImage: `url(${backgroundImg2})`}}>
+                    <div class="col-md-5 order-1 order-md-2">
+                        <img src="assets/img/features-2.svg" class="img-fluid" alt=""/>
                     </div>
                     <div className="col-md-7 pt-5 order-2 order-md-1">
                         <h5>Phần 2</h5>
@@ -67,7 +61,8 @@ class Main extends Component {
                 </div>
                 <br/>
                 <div className="row" data-aos="fade-up">
-                    <div className="col-md-5 img-fluid" style={{backgroundImage: `url(${backgroundImg3})`}}>
+                    <div class="col-md-5">
+                        <img src="assets/img/features-3.svg" class="img-fluid" alt=""/>
                     </div>
                     <div className="col-md-7 pt-5">
                         <h5>Phần 3</h5>
@@ -87,7 +82,8 @@ class Main extends Component {
                 </div>
                 <br/>
                 <div className="row" data-aos="fade-up">
-                    <div className="col-md-5 order-1 order-md-2 img-fluid" style={{backgroundImage: `url(${backgroundImg4})`}}>
+                    <div class="col-md-5 order-1 order-md-2">
+                        <img src="assets/img/features-4.svg" class="img-fluid" alt=""/>
                     </div>
                     <div className="col-md-7 pt-5 order-2 order-md-1">
                         <h5>Phần 4</h5>
@@ -117,7 +113,8 @@ class Main extends Component {
 
 
                 <div className="row" data-aos="fade-up">
-                    <div className="col-md-5 img-fluid" style={{backgroundImage: `url(${backgroundImg1})`}}>
+                    <div class="col-md-5">
+                        <img src="assets/img/features-1.svg" class="img-fluid" alt=""/>
                     </div>
                     <div className="col-md-7 pt-4">
                         <h5>Phần 5</h5>
@@ -136,7 +133,8 @@ class Main extends Component {
                 </div>
                 <br/>
                 <div className="row" data-aos="fade-up">
-                    <div className="col-md-5 order-1 order-md-2 img-fluid" style={{backgroundImage: `url(${backgroundImg2})`}}>
+                    <div class="col-md-5 order-1 order-md-2">
+                        <img src="assets/img/features-2.svg" class="img-fluid" alt=""/>
                     </div>
                     <div className="col-md-7 pt-5 order-2 order-md-1">
                         <h5>Phần 6</h5>
@@ -148,14 +146,15 @@ class Main extends Component {
                         </p>
                         <ul>
                             <li><i className=" bi bi-check" style={{color: "#5578ff"}}></i>
-                                <span> Số câu: 16 (ứng với 4 đoạn văn, mỗi /bg-01.jpgđoạn 4 câu hỏi)</span>
+                                <span> Số câu: 16 (ứng với 4 đoạn văn, mỗi đoạn 4 câu hỏi)</span>
                             </li>
                         </ul>
                     </div>
                 </div>
                 <br/>
                 <div className="row" data-aos="fade-up">
-                    <div className="col-md-5 img-fluid" style={{backgroundImage: `url(${backgroundImg3})`}}>
+                    <div class="col-md-5">
+                        <img src="assets/img/features-3.svg" class="img-fluid" alt=""/>
                     </div>
                     <div className="col-md-7 pt-5">
                         <h5>Phần 7</h5>

@@ -5,10 +5,14 @@ import { ConnectedRouter as Router } from 'connected-react-router';
 import { history } from '../redux'
 import { ToastContainer } from 'react-toastify';
 
-
 import { userIsAuthenticated, userIsNotAuthenticated } from '../hoc/authentication';
-
 import { path } from '../utils'
+// import the library
+import { library } from '@fortawesome/fontawesome-svg-core'
+// import your icons
+import { fab } from '@fortawesome/free-brands-svg-icons'
+import { fas } from '@fortawesome/free-solid-svg-icons'
+import { far } from '@fortawesome/free-regular-svg-icons'
 
 import Admin from '../routes/admin/Admin';
 import Login from './auth/Login';
@@ -19,6 +23,8 @@ import { CustomToastCloseButton } from '../components/CustomToast';
 import ConfirmModal from '../components/ConfirmModal';
 import Home from './client/Home';
 import Part from './client/Part';
+
+import User from './admin/dispatch/User';
 
 class App extends Component {
 
@@ -62,12 +68,14 @@ class App extends Component {
                     <div className="main-container">
                         <ConfirmModal />
                         {/* { <Header />} */}
-                        {console.log('this.props.isLoggedIn' ,this.props.isLoggedIn)}
                         <div className="content-container">
                                 <Switch>
                                     <Route path={path.LOG_IN} component={userIsNotAuthenticated(Login)} />
+                                    
                                     <Route path={path.admin.ADMIN} exact component={(Admin)} />
                                     <Route path={path.admin.SYSTEM} component={(System)} />
+                                    <Route path={path.admin.USER} exact component={(User)} />
+                                    
                                     <Route path={path.client.HOME} exact component={(Home)} />
                                     <Route path={path.client.PART} exact component={(Part)} />
                                 </Switch>
@@ -98,3 +106,4 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
+library.add(fab, fas, far)

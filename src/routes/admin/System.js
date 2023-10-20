@@ -4,7 +4,7 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import UserManage from '../../containers/admin/system/UserManage';
 import ProductManage from '../../containers/admin/system/ProductManage';
 import RegisterPackageGroupOrAcc from '../../containers/admin/system/RegisterPackageGroupOrAcc';
-import Home from '../../containers/admin/Home';
+import Main from '../../containers/admin/Main';
 
 class System extends Component {
     render() {
@@ -14,7 +14,7 @@ class System extends Component {
             <div className="system-container">
                 <div className="system-list">
                     <Switch>
-                        <Route path="/admin/home" component={Home} />
+                        <Route path="/admin/home" component={Main} />
                         <Route path="/admin/user-manage" component={UserManage} />
                         <Route path="/admin/product-manage" component={ProductManage} />
                         <Route path="/admin/register-package-group-or-account" component={RegisterPackageGroupOrAcc} />

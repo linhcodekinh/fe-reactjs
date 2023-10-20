@@ -2,6 +2,7 @@ export const path = {
     admin : {
         HOME: '/',
         ADMIN: '/admin',
+        USER: '/admin/user-manage',
         SYSTEM: '/system'
     },
     client : {

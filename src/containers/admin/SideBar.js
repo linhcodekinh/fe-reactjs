@@ -87,8 +87,9 @@ class SideBar extends Component {
                             aria-expanded="true"
                             aria-controls="collapseUtilities"
                         >
-                            <i className="fas fa-fw fa-wrench" />
-                            <span>Utilities</span>
+                            {/* <i className="fas fa-fw fa-wrench" /> */}
+                            <FontAwesomeIcon icon={['fas','wrench']}/>
+                            <span> Utilities</span>
                         </a>
                         <div
                             id="collapseUtilities"

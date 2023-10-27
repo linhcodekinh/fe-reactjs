@@ -115,7 +115,7 @@ class Login extends Component {
                                     <span
                                         onClick={() => { this.handleShowAndHidePassword() }}
                                     >
-                                        <FontAwesomeIcon className="ffar" icon={this.state.isShowPassword ? ['far', 'eye'] : ['far', 'eye-slash']} />
+                                        <FontAwesomeIcon className="f-far-eye" icon={this.state.isShowPassword ? ['far', 'eye'] : ['far', 'eye-slash']} />
                                     </span>
                                 </div>
                                 <div className='col-12' style={{ color: 'red' }}>

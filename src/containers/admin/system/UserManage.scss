@@ -151,21 +151,23 @@ a {
 
 .fa-toggle {
   font-size: 23px;
-  .fa-toggle-on:before {
+  .fa-toggle-on {
     color: royalblue;
   }
-  .fa-toggle-off:before {
+  .fa-toggle-off {
     color: grey;
   }
 }
 
 .fa-edit-delete{
   font-size: 18px;
-  .fa-edit:before {
+  letter-spacing: 10px;
+  .fa-edit {
     font-weight: normal;
     color: yellowgreen;
+    //color: darkred;
   }
-  .fa-trash-alt:before {
+  .fa-trash-alt {
     margin-left: 12px;
     font-weight: normal;
     color: darkred;

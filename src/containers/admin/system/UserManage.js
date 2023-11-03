@@ -6,6 +6,7 @@ import './UserManage.scss';
 import { getAllUsers, getAllPositions, getAllRole, getAllType, createNewUser, deleteUser } from '../../../services/userService';
 import ModalUser from './ModalUser';
 import { emitter } from '../../../utils/emitter';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 class UserManage extends Component {
 
@@ -50,7 +51,6 @@ class UserManage extends Component {
     }, () => {
       console.log('this.state.arrAccountChecked', 'this.state.checkedAll', this.state.arrAccountChecked, this.state.checkedAll);
     });
-
   }
   // Return classes based on whether item is checked
   isActive = (id) => this.state.arrAccountChecked.includes(id) ? "active" : "";
@@ -272,7 +272,6 @@ class UserManage extends Component {
                               if (indexT === 0) {
                                 return (
                                   <div key={indexT}>
-                                    {itemT.type.name}
                                     <br />
                                   </div>
                                 )
@@ -283,10 +282,10 @@ class UserManage extends Component {
                               }
                             })}
                           </td>
-                          <td className='fa-toggle'><i className={(item.isEnabled && item.isEnabled === 'true' || item.isEnabled === 1) ? 'fa fa-toggle-on' : 'fa fa-toggle-off'}></i></td>
+                          <td className='fa-toggle'><FontAwesomeIcon icon={(item.isEnabled && item.isEnabled === 'true' || item.isEnabled === 1) ? ['fas', 'fa-toggle-on'] : ['fas', 'fa-toggle-off']} /></td>
                           <td className='fa-edit-delete'>
-                            <button><i className="fa fa-edit"></i></button>
-                            <button onClick={() => { this.handleDeleteUser(item) }}><i className="fa fa-trash-alt"></i></button>
+                            <button className="btn btn-info btn-circle btn-sm" onClick={() => { this.handleDeleteUser(item) }}><FontAwesomeIcon icon={['fas','fa-edit']}/></button>
+                            <button className="btn btn-danger btn-circle btn-sm" onClick={() => { this.handleDeleteUser(item) }}> <FontAwesomeIcon icon={['fas','fa-trash-alt']}/></button>
                           </td>
                         </tr>
                         {/* <tr className="spacer"><td colSpan={2} /></tr> */}

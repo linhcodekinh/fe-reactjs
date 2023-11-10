@@ -192,12 +192,22 @@ class UserManage extends Component {
             toggleModalUser={this.toggleModalUser}
             createNew={this.createNew}
           />
-          <div className="card-header py-3">
+          <div className="card-header py-3" >
             {/* <h6 className="m-0 font-weight-bold text-primary">DataTables Example</h6> */}
-            <button className='btn btn-primary px-3'
-              onClick={() => this.handleAddNewUser()}
-            ><i className='fas fa-plus' /> Add new user</button>
+            <button onClick={() => this.handleAddNewUser()} className="btn btn-sm btn-primary btn-icon-split" style={{ float: "right" }}>
+              <span className="icon text-white-50">
+                <FontAwesomeIcon icon={['fas', 'fa-plus']} />
+              </span>
+              <span className="text">Add new user</span>
+            </button>
+            <button onClick={() => this.handleAddNewUser()} className="btn btn-sm btn-danger btn-icon-split" style={{ float: "right", marginRight: "10px"}} disabled>
+              <span className="icon text-white-50">
+                <FontAwesomeIcon icon={['fas', 'fa-trash']} />
+              </span>
+              <span className="text">Delete</span>
+            </button>
           </div>
+
           <div className="card-body">
             <div className="table-responsive custom-table-responsive">
               <table className="table table-bordered custom-table" id="dataTable" width="100%" cellSpacing="0">
@@ -284,8 +294,8 @@ class UserManage extends Component {
                           </td>
                           <td className='fa-toggle'><FontAwesomeIcon icon={(item.isEnabled && item.isEnabled === 'true' || item.isEnabled === 1) ? ['fas', 'fa-toggle-on'] : ['fas', 'fa-toggle-off']} /></td>
                           <td className='fa-edit-delete'>
-                            <button className="btn btn-info btn-circle btn-sm" onClick={() => { this.handleDeleteUser(item) }}><FontAwesomeIcon icon={['fas','fa-edit']}/></button>
-                            <button className="btn btn-danger btn-circle btn-sm" onClick={() => { this.handleDeleteUser(item) }}> <FontAwesomeIcon icon={['fas','fa-trash-alt']}/></button>
+                            <button className="btn btn-info btn-circle btn-sm" onClick={() => { this.handleDeleteUser(item) }}><FontAwesomeIcon icon={['fas', 'fa-edit']} /></button>
+                            <button className="btn btn-danger btn-circle btn-sm" onClick={() => { this.handleDeleteUser(item) }}> <FontAwesomeIcon icon={['fas', 'fa-trash']} /></button>
                           </td>
                         </tr>
                         {/* <tr className="spacer"><td colSpan={2} /></tr> */}

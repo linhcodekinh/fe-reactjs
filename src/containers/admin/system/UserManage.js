@@ -19,6 +19,7 @@ class UserManage extends Component {
       arrRole: [],
       arrType: [],
       arrCount: '',
+      isDisabled: "disabled",
       checkedAll: false,
       isOpenModalUser: false
     }
@@ -50,6 +51,15 @@ class UserManage extends Component {
       arrAccountChecked: updatedList
     }, () => {
       console.log('this.state.arrAccountChecked', 'this.state.checkedAll', this.state.arrAccountChecked, this.state.checkedAll);
+      if(updatedList.length >= 1){
+        this.setState({
+          isDisabled: null
+        })
+      }else{
+        this.setState({
+          isDisabled: "disabled"
+        })
+      }
     });
   }
   // Return classes based on whether item is checked
@@ -76,11 +86,14 @@ class UserManage extends Component {
           checkedAllList[i] = allList[i].id;
         }
         this.setState({
-          arrAccountChecked: [...checkedAllList]
+          arrAccountChecked: [...checkedAllList],
+          isDisabled: null
         });
       } else {
+        console.log('co check');
         this.setState({
-          arrAccountChecked: []
+          arrAccountChecked: [],
+          isDisabled: "disabled"
         });
       }
     })
@@ -174,6 +187,7 @@ class UserManage extends Component {
 
   render() {
     let arrAccount = this.state.arrAccount;
+    let disabled = this.state.isDisabled;
     console.log('render UserManage')
     return (
       <div className="container-fluid">
@@ -200,7 +214,7 @@ class UserManage extends Component {
               </span>
               <span className="text">Add new user</span>
             </button>
-            <button onClick={() => this.handleAddNewUser()} className="btn btn-sm btn-danger btn-icon-split" style={{ float: "right", marginRight: "10px"}} disabled>
+            <button onClick={() => this.handleAddNewUser()} className="btn btn-sm btn-danger btn-icon-split" style={{ float: "right", marginRight: "10px"}}   disabled={disabled}>
               <span className="icon text-white-50">
                 <FontAwesomeIcon icon={['fas', 'fa-trash']} />
               </span>

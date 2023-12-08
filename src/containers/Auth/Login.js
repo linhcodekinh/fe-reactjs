@@ -79,7 +79,7 @@ class Login extends Component {
     render() {
         //JSX
         return (
-            <div>
+            <div className='login-class'>
                 <div className="limiter">
                     <div className="container-login100" style={{ backgroundImage: `url(${backgroundImg})` }}>
                         <div className="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">

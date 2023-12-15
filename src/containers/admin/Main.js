@@ -7,17 +7,23 @@ import Footer from './Footer.js';
 import SideBar from './SideBar.js';
 import { extend } from 'lodash';
 import UserManage from './system/UserManage.js';
+import UserAdd from './system/UserAdd.js';
 class ViewMain extends Component {
   constructor(props) {
     super(props)
   }
   render() {
     // console.log("view main: ", this.props.view)
-    if (this.props.view === 'user') {
+    if (this.props.view === 'view') {
       return (
         <UserManage />
       );
-    }else {
+    }else if (this.props.view === 'add') {
+      return (
+        <UserAdd />
+      );
+    }
+    else {
       return (
         <Home />
       );

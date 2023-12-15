@@ -71,7 +71,7 @@ class SideBar extends Component {
                         <div id="collapseTwo" className="collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionSidebar">
                             <div className="bg-white py-2 collapse-inner rounded">
                                 <h6 className="collapse-header">Custom Components:</h6>
-                                <Link to={{ pathname: '/admin/user-manage' }} className="collapse-item">User</Link>
+                                <Link to={{ pathname: '/admin/user-manage', view: 'view' }} className="collapse-item">User</Link>
                                 {/* <a className="collapse-item" href="buttons.html"></a> */}
                                 <a className="collapse-item" href="cards.html">Cards</a>
                             </div>

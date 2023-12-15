@@ -7,6 +7,7 @@ import { getAllUsers, getAllPositions, getAllRole, getAllType, createNewUser, de
 import ModalUser from './ModalUser';
 import { emitter } from '../../../utils/emitter';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Link } from 'react-router-dom';
 
 class UserManage extends Component {
 
@@ -208,12 +209,15 @@ class UserManage extends Component {
           />
           <div className="card-header py-3" >
             {/* <h6 className="m-0 font-weight-bold text-primary">DataTables Example</h6> */}
-            <button onClick={() => this.handleAddNewUser()} className="btn btn-sm btn-primary btn-icon-split" style={{ float: "right" }}>
-              <span className="icon text-white-50">
-                <FontAwesomeIcon icon={['fas', 'fa-plus']} />
-              </span>
-              <span className="text">Add new user</span>
-            </button>
+            {/* <button onClick={() => this.handleAddNewUser()} className="btn btn-sm btn-primary btn-icon-split" style={{ float: "right" }}> */}
+            <Link to={{pathname: '/admin/user-manage/add', view: 'add'}}>
+              <button className="btn btn-sm btn-primary btn-icon-split" style={{ float: "right" }}>
+                <span className="icon text-white-50">
+                  <FontAwesomeIcon icon={['fas', 'fa-plus']} />
+                </span>
+                <span className="text">Add new user</span>
+              </button>
+            </Link>
             <button onClick={() => this.handleAddNewUser()} className="btn btn-sm btn-danger btn-icon-split" style={{ float: "right", marginRight: "10px"}}   disabled={disabled}>
               <span className="icon text-white-50">
                 <FontAwesomeIcon icon={['fas', 'fa-trash']} />

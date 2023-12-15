@@ -19,9 +19,9 @@ class Admin extends Component {
             return (
                 <Switch>
                     <Route path="/admin" component={Main} />
-                    <Route path="/admin/product-manage" component={ProductManage} />
+                    {/* <Route path="/admin/product-manage" component={ProductManage} />
                     <Route path="/admin/user-manage" component={UserManage} />
-                    <Route path="/admin/register-package-group-or-account" component={RegisterPackageGroupOrAcc} />
+                    <Route path="/admin/register-package-group-or-account" component={RegisterPackageGroupOrAcc} /> */}
                     <Route component={() => { return (<Redirect to={adminHomePath} />) }} />
                 </Switch>
             );

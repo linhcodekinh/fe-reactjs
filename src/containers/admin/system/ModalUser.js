@@ -26,14 +26,15 @@ class ModalUser extends Component {
             userName: '',
             email: '',
             password: '',
-            passwordConfirm: '',
+            confirmPassword: '',
             isEnabled: true,
             name: '',
             valueDate: null,
             idCard: '',
             positionId: '',
             idRoleList: [],
-            idTypeList: []
+            idTypeList: [], 
+            validPass: false
             // datetime: new Date().toISOString(),
 
         }
@@ -128,6 +129,31 @@ class ModalUser extends Component {
         })  
     }
 
+    handleBlur = () => {
+        if(this.state.password !== this.state.confirmPassword){
+            this.setState({
+                validPass: true
+            }, console.log(this.state.validPass))
+        }else{
+            this.setState({
+                validPass: false
+            }, console.log(this.state.validPass))
+        }
+        
+    }
+
+    renderPasswordConfirmError = () => {
+        if (this.state.validPass === true && this.state.password !== this.state.confirmPassword) {
+            console.log("this.state.validPass: ", this.state.validPass)
+            return (
+              <div>
+                <label className="error-pass">Please enter the same password again.</label>
+              </div>
+            );
+        }
+        return null;
+    }
+
     // handleChange(e) {
     //     console.log("Fruit Selected!!");
     //     this.setState({ fruit: e.target.value });
@@ -145,7 +171,7 @@ class ModalUser extends Component {
 
     checkValidInput = () => {
         let isValid = true;
-        let arrInput = ['userName', 'email', 'password', 'name', 'gender']
+        let arrInput = ['userName', 'email', 'password', 'name', 'gender','address1', 'address2']
         for (let i = 0; i < arrInput.length; i++) {
             if (!this.state[arrInput[i]]) {
                 isValid = false
@@ -194,10 +220,6 @@ class ModalUser extends Component {
 
     }
 
-    componentWillMount() {
-
-    }
-
     render() {
         //console.log('check createNew props ', this.props.createNew())
         let arrPos = this.props.arrPos;
@@ -216,7 +238,7 @@ class ModalUser extends Component {
                 <ModalBody>
                     <div className="formbold-main-wrapper">
                         <div className="formbold-form-wrapper">
-                            <img src="assets/img/features-11.svg" class="img-fluid" alt="" />
+                            <img src="assets/img/banner.png" class="img-fluid" alt="" />
                             <form action="https://formbold.com/s/FORM_ID" method="POST">
                                 <div className="formbold-input-flex">
                                     <div>
@@ -387,11 +409,14 @@ class ModalUser extends Component {
                                             name="confirmPassword"
                                             placeholder="Your confirm password"
                                             type="password"
+                                            onBlur={this.handleBlur}
                                             onChange={(e) => this.handleOnChangeText(e, 'confirmPassword')}
                                         />
                                     </div>
+                                   
                                 </div>
-
+                                {this.renderPasswordConfirmError()}
+                                <br/>                
                                 <div htmlFor="active" className="formbold-input-flex">
                                     <div>
                                         <label className="formbold-form-label">
@@ -408,7 +433,7 @@ class ModalUser extends Component {
                                                 checked={this.state.isEnabled === true ? "true" : ""}
                                             />TRUE
                                         </label>
-                                        {"         "}
+                                        {` `}
                                         <label className="label-radio">
                                             <input
                                                 name="isEnabled"
@@ -425,50 +450,60 @@ class ModalUser extends Component {
                                             {" "}
                                             Account Type{" "}
                                         </label>
-                                        <label className="label-checkbox">
-                                            <input
-                                                name="accType"
-                                                type="checkbox"
-                                                //onChange={(e) => this.handleOnChangeActive(e)}
-                                                checked={true}
-                                                //checked={this.state.isEnabled === true ? "true" : ""}
-                                            />MEMBER
+                                        {arrType && arrType.map((item, index) => {
+                                            return (
+                                                <label className="label-radio" key={index}>
+                                                    <input
+                                                        name="idTypeList"
+                                                        type="checkbox"
+                                                        value={item.id}
+                                                        onChange={(e) => this.handleOnCheckBox(e, 'idTypeList')}
+                                                    />{item.name}{` `}
+                                                </label>
+                                            )
+                                        })}
+                                    </div>
+                                </div>
+                                <div htmlFor="active" className="formbold-input-flex">
+                                    <div>
+                                        <label htmlFor="accType" className="formbold-form-label">
+                                            {" "}
+                                            Account Role{" "}
                                         </label>
-                                        {"         "}
-                                        <label className="label-checkbox">
-                                            <input
-                                                name="accType"
-                                                type="checkbox"
-                                               //onChange={(e) => this.handleOnChangeActive(e)}
-                                                //value={false}
-                                            />EMPLOYEE
+                                        {arrRole && arrRole.map((item, index) => {
+                                            return (
+                                                <label className="label-radio" key={index}>
+                                                    <input
+                                                        name="idRoleList"
+                                                        type="checkbox"
+                                                        value={item.id}
+                                                        onChange={(e) => this.handleOnCheckBox(e, 'idRoleList')}
+                                                    />{item.name}{` `}
+                                                </label>
+                                            )
+                                        })}
+                                    </div>
+                                    <div>
+                                        <label htmlFor="position" className="formbold-form-label">
+                                            {" "}
+                                            Position{" "}
                                         </label>
-
+                                        {arrPos && arrPos.map((item, index) => {
+                                            return (
+                                                <label className="label-radio" key={index}>
+                                                    <input
+                                                        name="positionId"
+                                                        type="radio"
+                                                        value={item.id}
+                                                        onChange={(e) => this.handleOnChangePos(e)}
+                                                    />{item.name}{` `}
+                                                </label>
+                                            )
+                                        })}
                                     </div>
                                 </div>
 
-
-                                <div className="formbold-mb-3">
-                                    <label htmlFor="position" className="formbold-form-label">
-                                        {" "}
-                                        Position{" "}
-                                    </label>
-                                    {arrPos && arrPos.map((item, index) => {
-                                        return (
-
-                                            <label className="label-radio" key={index}>
-                                                <input
-                                                    name="positionId"
-                                                    type="radio"
-                                                    value={item.id}
-                                                    onChange={(e) => this.handleOnChangePos(e)}
-                                                />{item.name}
-                                            </label>
-                                        )
-                                    })}
-                                </div>
-
-                                <div className="formbold-mb-3">
+                                {/* <div className="formbold-mb-3">
                                     <label htmlFor="message" className="formbold-form-label">
                                         Cover Letter
                                     </label>
@@ -479,7 +514,7 @@ class ModalUser extends Component {
                                         className="formbold-form-input"
                                         defaultValue={""}
                                     />
-                                </div>
+                                </div> 
                                 <div className="formbold-form-file-flex">
                                     <label htmlFor="upload" className="formbold-form-label">
                                         Upload Resume
@@ -491,7 +526,7 @@ class ModalUser extends Component {
                                         className="formbold-form-file"
                                     />
                                 </div>
-                                <button className="formbold-btn">Apply Now</button>
+                                <button className="formbold-btn">Apply Now</button> */}
                             </form>
                         </div>
                     </div>

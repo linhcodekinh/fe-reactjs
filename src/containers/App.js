@@ -2,7 +2,8 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 import { ConnectedRouter as Router } from 'connected-react-router';
-import { history } from '../redux'
+// import { history } from '../redux'
+import history from '../routes/history.js'
 import { ToastContainer } from 'react-toastify';
 
 import { userIsAuthenticated, userIsNotAuthenticated } from '../hoc/authentication';
@@ -75,7 +76,8 @@ class App extends Component {
                                     <Route path={path.admin.ADMIN} exact component={(Admin)} />
                                     <Route path={path.admin.SYSTEM} component={(System)} />
                                     <Route path={path.admin.USER} exact component={(User)} />
-                                    
+                                    <Route path={path.admin.USERADD} exact component={(User)} />
+
                                     <Route path={path.client.HOME} exact component={(Home)} />
                                     <Route path={path.client.PART} exact component={(Part)} />
                                 </Switch>

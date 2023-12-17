@@ -13,15 +13,13 @@ class User extends Component {
         this.state = {
             view: ''
         }
-
-        this.check = ''
         console.log('props after pop', this.props)
     }
 
     shouldComponentUpdate = (nextProps) => {
         console.log('shouldComponentUpdate',nextProps)
         if(nextProps.location.view !== null && nextProps.location.view !== undefined){
-            this.check = nextProps.location.view
+            localStorage.setItem('view', nextProps.location.view)
         }
         console.log('true or false',(nextProps.location.view !== this.state.view))
         return nextProps.location.view !== this.state.view;
@@ -29,9 +27,9 @@ class User extends Component {
     
     componentDidUpdate = () => {
         console.log('componentDidUpdate',this.state)
-        if(this.state.view !== this.check){
+        if(this.state.view !== localStorage.getItem('view')){
             this.setState({
-                view : this.check
+                view : localStorage.getItem('view')
             })
         }
     }
@@ -39,7 +37,7 @@ class User extends Component {
     componentDidMount = () => {
         console.log('componentDidMount',this.state)
         this.setState({
-            view : this.props.location.view
+            view : localStorage.getItem('view')
         })
     }
     
@@ -53,8 +51,8 @@ class User extends Component {
         }
         console.log('props pop', this.state.view)  
       }
+    })
 
-    });
     componentWillUnmount() {
         console.log('componentWillUnmount state',this.state)
         console.log('componentWillUnmount props',this.props)

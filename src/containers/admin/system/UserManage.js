@@ -268,7 +268,6 @@ class UserManage extends Component {
                     let arrRole = item.accountRoleList;
                     let arrType = item.accountTypeList;
                     return (
-                      <>
                         <tr className={this.isActive(item.id)} key={index}>
                           <th scope="row">
                             <label className="control control--checkbox">
@@ -315,9 +314,8 @@ class UserManage extends Component {
                             <button className="btn btn-info btn-circle btn-sm" onClick={() => { this.handleDeleteUser(item) }}><FontAwesomeIcon icon={['fas', 'fa-edit']} /></button>
                             <button className="btn btn-danger btn-circle btn-sm" onClick={() => { this.handleDeleteUser(item) }}> <FontAwesomeIcon icon={['fas', 'fa-trash']} /></button>
                           </td>
+                        {/* <tr ><td colSpan={2} /></tr> */}
                         </tr>
-                        {/* <tr className="spacer"><td colSpan={2} /></tr> */}
-                      </>
                     )
                   })
                   }

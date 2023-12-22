@@ -8,24 +8,30 @@ import SideBar from './SideBar.js';
 import { extend } from 'lodash';
 import UserManage from './system/UserManage.js';
 import UserAdd from './system/UserAdd.js';
+import LoadingBar from 'react-top-loading-bar'
+
 class ViewMain extends Component {
   constructor(props) {
     super(props)
+    this.state = {
+   
+    }
   }
+
   render() {
     // console.log("view main: ", this.props.view)
     if (this.props.view === 'view') {
       return (
-        <UserManage />
+        <UserManage setProgress={this.props.setProgress} />
       );
-    }else if (this.props.view === 'add') {
+    } else if (this.props.view === 'add') {
       return (
-        <UserAdd />
+        <UserAdd setProgress={this.props.setProgress} />
       );
     }
     else {
       return (
-        <Home />
+        <Home setProgress={this.props.setProgress}/>
       );
     }
   }
@@ -36,7 +42,16 @@ class Main extends Component {
     super(props)
 
     this.state = {
+      progress: 0
     }
+  }
+
+  onLoaderFinished = (progress) => {
+    if (this.state.progress === 80) this.state.progress = 0
+    console.log("this.state.progress, ", this.state.progress)
+    this.setState({
+      progress: parseInt(this.state.progress) + parseInt(progress)
+    })
   }
 
   componentDidMount() {
@@ -49,12 +64,17 @@ class Main extends Component {
     console.log("render main", this.props.view)
     return (
       <div id="page-top">
+        <LoadingBar
+          color='#f11946'
+          progress={this.state.progress}
+        // onLoaderFinished={this.onLoaderFinished}
+        />
         <div id="wrapper">
           <SideBar />
           <div id="content-wrapper" className="d-flex flex-column">
             <div id="content">
               <Header />
-              <ViewMain view={this.props.view} />
+              <ViewMain view={this.props.view} setProgress={this.onLoaderFinished}/>
             </div>
             <Footer />
           </div>

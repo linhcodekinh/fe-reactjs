@@ -85,6 +85,7 @@ class CustomScrollbars extends Component {
 
     render() {
         const { className, disableVerticalScroll, disableHorizontalScroll, children,...otherProps } = this.props;
+        console.log(this.props)
         return (
             <Scrollbars
                 ref={this.ref}

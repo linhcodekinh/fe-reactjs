@@ -14,7 +14,8 @@ class Home extends Component {
   }
 
   componentDidMount = () => {
-   //if (this.props.history.action === "POP") {
+    this.props.setProgress(100);
+    //if (this.props.history.action === "POP") {
     //    console.log("back here.....", this.props);
     //}
   }

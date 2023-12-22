@@ -7,7 +7,7 @@ import history from '../routes/history.js'
 import { ToastContainer } from 'react-toastify';
 
 import { userIsAuthenticated, userIsNotAuthenticated } from '../hoc/authentication';
-import { path } from '../utils'
+import { path, ToastUtil } from '../utils'
 // import the library
 import { library } from '@fortawesome/fontawesome-svg-core'
 // import your icons
@@ -48,17 +48,17 @@ class App extends Component {
     sticky = () => {
         let selectHeader = document.querySelector('#header')
         if (selectHeader) {
-            const scrollTop =  window.scrollY
+            const scrollTop = window.scrollY
             scrollTop >= 100 ? selectHeader.classList.add('sticked') : selectHeader.classList.remove('sticked')
         }
     }
 
     componentDidMount() {
         this.handlePersistorState();
-        window.addEventListener('scroll', this.sticky , true);
+        window.addEventListener('scroll', this.sticky, true);
     }
 
-    componentWillUnmount= () => {
+    componentWillUnmount = () => {
         window.removeEventListener('scroll', this.sticky, true)
     }
 
@@ -70,24 +70,57 @@ class App extends Component {
                         <ConfirmModal />
                         {/* { <Header />} */}
                         <div className="content-container">
-                                <Switch>
-                                    <Route path={path.LOG_IN} component={userIsNotAuthenticated(Login)} />
-                                    
-                                    <Route path={path.admin.ADMIN} exact component={(Admin)} />
-                                    <Route path={path.admin.SYSTEM} component={(System)} />
-                                    <Route path={path.admin.USER} exact component={(User)} />
-                                    <Route path={path.admin.USERADD} exact component={(User)} />
+                            <Switch>
+                                <Route path={path.LOG_IN} component={userIsNotAuthenticated(Login)} />
 
-                                    <Route path={path.client.HOME} exact component={(Home)} />
-                                    <Route path={path.client.PART} exact component={(Part)} />
-                                </Switch>
+                                <Route path={path.admin.ADMIN} exact component={(Admin)} />
+                                <Route path={path.admin.SYSTEM} component={(System)} />
+                                <Route path={path.admin.USER} exact component={(User)} />
+                                <Route path={path.admin.USERADD} exact component={(User)} />
+
+
+                                <Route path={path.client.HOME} exact component={(Home)} />
+                                <Route path={path.client.PART} exact component={(Part)} />
+                            </Switch>
                         </div>
                         <ToastContainer
-                            className="toast-container" toastClassName="toast-item" bodyClassName="toast-item-body"
-                            autoClose={false} hideProgressBar={true} pauseOnHover={false}
-                            pauseOnFocusLoss={true} closeOnClick={false} draggable={false}
+                        // className="toast-container" 
+                            toastClassName="toast-item" 
+                        // bodyClassName="toast-item-body"
+                            newestOnTop={true}
+                            autoClose={true} 
+                            hideProgressBar={false} 
+                            pauseOnHover={true}
+                            pauseOnFocusLoss={true} 
+                            closeOnClick={false} 
+                            draggable={false}
+                            theme="light"
                             closeButton={<CustomToastCloseButton />}
                         />
+
+                        {/* <ToastContainer
+                            position="bottom-right"
+                            autoClose={5000}
+                            hideProgressBar={false}
+                            newestOnTop={false}
+                            closeOnClick={false}
+                            rtl={false}
+                            pauseOnFocusLoss={false}
+                            draggable={false}
+                            pauseOnHover={false}
+                            theme="light"
+                        /> */}
+
+                        {/* toast.success('🦄 Wow so easy!', {
+                            position: "bottom-right",
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: false,
+                            pauseOnHover: false,
+                            draggable: false,
+                            progress: undefined,
+                            theme: "light",
+                        }); */}
                     </div>
                 </Router>
             </Fragment>

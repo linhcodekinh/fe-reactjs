@@ -136,6 +136,7 @@ class UserManage extends Component {
         arrType: responseType
       })
     }
+    await this.props.setProgress(100);
   }
 
   getAllUserFromReact = async () => {

@@ -1,30 +1,31 @@
 import React, { Component, Fragment } from 'react';
 import { FormattedMessage, FormattedTime } from 'react-intl';
-
 import CustomScrollBar from '../components/CustomScrollbars';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './CustomToast.scss';
 
 class CustomToast extends Component {
 
     render() {
         const { titleId, message, messageId, time } = this.props;
+        console.log(message)
         return (
             <Fragment>
-                <div className="custom-toast">
+                <div className="toast-item">
                     <div className="toast-title">
+                        <FontAwesomeIcon icon={['fa', 'fa-exclamation-triangle']} />{" "}
+                        <FormattedMessage id={titleId} />
                         {time && (
                             <span className="date">
                                 <FormattedTime hour='numeric' minute='numeric' second='numeric' hour12={true} value={time} />
                             </span>
                         )}
-                        <i className="fa fa-fw fa-exclamation-triangle" />
-                        <FormattedMessage id={titleId} />
                     </div>
                     {
                         (message && typeof message === 'object') ?
                             <CustomScrollBar autoHeight={true} autoHeightMin={50} autoHeightMax={100}>
                                 {
+
                                     message.map((msg, index) => {
                                         return (
                                             <Fragment key={index}>
@@ -49,7 +50,7 @@ export class CustomToastCloseButton extends Component {
     render() {
         return (
             <button type="button" className="toast-close" onClick={this.props.closeToast}>
-                <i className="fa fa-fw fa-times-circle" />
+                <FontAwesomeIcon icon={['fa', 'fa-times-circle']} />
             </button>
         );
     }

@@ -6,7 +6,7 @@ import history from '../../../routes/history.js'
 import { path } from '../../../utils/constant.js'
 
 import { ToastUtil } from '../../../utils'
-import { red } from '@mui/material/colors';
+import { FormattedMessage, FormattedTime } from 'react-intl';
 
 class UserAdd extends Component {
 
@@ -223,14 +223,14 @@ class UserAdd extends Component {
         }
         this.props.setProgress(100);
     }
-    
+
 
     showToastMessage = () => {
-        let dataMessage = ['common.confirm', 'common.confirm', 'common.confirm','common.confirm', 'common.confirm', 'common.confirm','common.confirm', 'common.confirm', 'common.confirm','common.confirm', 'common.confirm', 'common.confirm','common.confirm', 'common.confirm', 'common.confirm','common.confirm', 'common.confirm', 'common.confirm','common.confirm', 'common.confirm', 'common.confirm','common.confirm', 'common.confirm', 'common.confirm','common.confirm', 'common.confirm', 'common.confirm','common.confirm', 'common.confirm', 'common.confirm','common.confirm', 'common.confirm', 'common.confirm','common.confirm', 'common.confirm', 'common.confirm','common.confirm', 'common.confirm', 'common.confirm','common.confirm', 'common.confirm', 'common.confirm']
+        let dataMessage = ['common.confirm', 'common.confirm', 'common.confirm', 'common.confirm', 'common.confirm', 'common.confirm', 'common.confirm', 'common.confirm', 'common.confirm', 'common.confirm', 'common.confirm', 'common.confirm', 'common.confirm', 'common.confirm', 'common.confirm', 'common.confirm', 'common.confirm', 'common.confirm', 'common.confirm', 'common.confirm', 'common.confirm', 'common.confirm', 'common.confirm', 'common.confirm', 'common.confirm', 'common.confirm', 'common.confirm', 'common.confirm', 'common.confirm', 'common.confirm', 'common.confirm', 'common.confirm', 'common.confirm', 'common.confirm', 'common.confirm', 'common.confirm', 'common.confirm', 'common.confirm', 'common.confirm', 'common.confirm', 'common.confirm', 'common.confirm']
         ToastUtil.show('INFO', 'common.confirm', 'common.confirm', false)
     }
 
-    
+
 
     render() {
         //console.log('check createNew props ', this.props.createNew())
@@ -245,7 +245,7 @@ class UserAdd extends Component {
                 </div>
                 <div className="container-fluid">
                     <div className='row'>
-                      
+
                     </div>
                     <div className='row'>
                         <h1 className="h3 mb-2 text-gray-800">Account {">"} Add</h1>
@@ -257,16 +257,16 @@ class UserAdd extends Component {
                     {/* formbold-main-wrapper */}
                     <div className='row'>
                         <div className="col-lg-4">
+                            <img src="assets/img/banner.png" className="img-fluid" alt="" />
                             <div className="formbold-form-wrapper">
-                                <img src="assets/img/banner.png" className="img-fluid" alt="" />
                                 <div className="formbold-input-flex">
                                     <div>
                                         <label htmlFor="firstName" className="formbold-form-label">
                                             {" "}
-                                            First Name{" "}
+                                            <FormattedMessage id="system.user-manage.first-name" />{" "}
                                         </label>
                                         <input
-                                            autofocus
+                                            autoFocus
                                             type="text"
                                             name="firstName"
                                             id="firstName"
@@ -278,7 +278,7 @@ class UserAdd extends Component {
                                     <div>
                                         <label htmlFor="lastName" className="formbold-form-label">
                                             {" "}
-                                            Last Name{" "}
+                                            <FormattedMessage id="system.user-manage.last-name" />{" "}
                                         </label>
                                         <input
                                             type="text"
@@ -295,7 +295,7 @@ class UserAdd extends Component {
                                     <div>
                                         <label htmlFor="dob" className="formbold-form-label">
                                             {" "}
-                                            Date of Birth{" "}
+                                            <FormattedMessage id="system.user-manage.date-of-birth" />{" "}
                                         </label>
                                         <input
                                             type="date"
@@ -307,7 +307,7 @@ class UserAdd extends Component {
 
                                     </div>
                                     <div>
-                                        <label className="formbold-form-label">Gender</label>
+                                        <label className="formbold-form-label"><FormattedMessage id="system.user-manage.gender" /></label>
                                         <select
                                             className="formbold-form-input"
                                             name="occupation"
@@ -315,9 +315,17 @@ class UserAdd extends Component {
                                             value={this.state.gender}
                                             onChange={this.handleOnChangeGender}
                                         >
-                                            <option value="male">Male</option>
-                                            <option value="female">Female</option>
-                                            <option value="others">Others</option>
+                                            <FormattedMessage id='system.user-manage.male' key={'op' + '-' + '0'}>
+                                                {(message) => <option value='0'>{message}</option>}
+                                            </FormattedMessage>
+                                            <FormattedMessage id='system.user-manage.female' key={'op' + '-' + '1'}>
+                                                {(message) => <option value='1'>{message}</option>}
+                                            </FormattedMessage>
+                                            <FormattedMessage id='system.user-manage.others' key={'op' + '-' + '2'}>
+                                                {(message) => <option value='2'>{message}</option>}
+                                            </FormattedMessage>
+                                            {/* <option value="1"><FormattedMessage id="system.user-manage.gender" /></option>
+                                            <option value="2"><FormattedMessage id="system.user-manage.gender" /></option> */}
                                             {/* {options.map((option) => (
                                         <option value={option.value}>{option.label}</option>
                                     ))} */}
@@ -328,7 +336,7 @@ class UserAdd extends Component {
                                 <div className="formbold-mb-3 formbold-input-wrapp">
                                     <label htmlFor="phone" className="formbold-form-label">
                                         {" "}
-                                        Phone{" "}
+                                        <FormattedMessage id="system.user-manage.phone-number" />{" "}
                                     </label>
                                     <div>
                                         <input
@@ -348,11 +356,11 @@ class UserAdd extends Component {
                                         />
                                     </div>
                                 </div>
-                                <br />
+                                {/* <br /> */}
                                 <div className="formbold-mb-3 ">
                                     <label htmlFor="address1" className="formbold-form-label">
                                         {" "}
-                                        Address{" "}
+                                        <FormattedMessage id="system.user-manage.address" />{" "}
                                     </label>
                                     <input
                                         type="text"
@@ -374,13 +382,13 @@ class UserAdd extends Component {
                             </div>
                         </div>
                         <div className="col-lg-4">
+                            <img src="assets/img/banner.png" className="img-fluid" alt="" />
                             <div className="formbold-form-wrapper">
-                                <img src="assets/img/banner.png" className="img-fluid" alt="" />
                                 <div className="formbold-input-flex">
                                     <div>
                                         <label htmlFor="userName" className="formbold-form-label">
                                             {" "}
-                                            User Name{" "}
+                                            <FormattedMessage id="system.user-manage.user-name" />{" "}
                                         </label>
                                         <input
                                             id="userName"
@@ -395,7 +403,7 @@ class UserAdd extends Component {
                                 <div className="formbold-mb-3 formbold-input-wrapp">
                                     <label htmlFor="email" className="formbold-form-label">
                                         {" "}
-                                        Email{" "}
+                                        <FormattedMessage id="system.user-manage.email" />{" "}
                                     </label>
                                     <div>
                                         <input
@@ -426,12 +434,12 @@ class UserAdd extends Component {
                                         />
                                     </div>
                                 </div>
-                                <br />
+                  
                                 <div className="formbold-input-flex">
                                     <div>
                                         <label htmlFor="password" className="formbold-form-label">
                                             {" "}
-                                            Password{" "}
+                                            <FormattedMessage id="system.user-manage.password" />{" "}
                                         </label>
                                         <input
                                             className="formbold-form-input"
@@ -445,7 +453,7 @@ class UserAdd extends Component {
                                     <div>
                                         <label htmlFor="confirmPassword" className="formbold-form-label">
                                             {" "}
-                                            Confirm Password{" "}
+                                            <FormattedMessage id="system.user-manage.retype-password" />{" "}
                                         </label>
                                         <input
                                             className="formbold-form-input"
@@ -464,13 +472,13 @@ class UserAdd extends Component {
                             </div>
                         </div>
                         <div className="col-lg-4">
+                            <img src="assets/img/banner.png" className="img-fluid" alt="" />
                             <div className="formbold-form-wrapper">
-                                <img src="assets/img/banner.png" className="img-fluid" alt="" />
                                 <div htmlFor="active" className="formbold-input-flex">
                                     <div>
                                         <label className="formbold-form-label">
                                             {" "}
-                                            Active{" "}
+                                            <FormattedMessage id="system.user-manage.active" />{" "}
                                         </label>
 
                                         <label className="label-radio">
@@ -480,34 +488,37 @@ class UserAdd extends Component {
                                                 onChange={(e) => this.handleOnChangeActive(e)}
                                                 value={true}
                                                 checked={this.state.isEnabled === true ? "true" : ""}
-                                            />TRUE
+                                            />{" "}<FormattedMessage id="system.user-manage.true" />
                                         </label>
-                                        {` `}
+                                        <br />
                                         <label className="label-radio">
                                             <input
                                                 name="isEnabled"
                                                 type="radio"
                                                 onChange={(e) => this.handleOnChangeActive(e)}
                                                 value={false}
-                                            />FALSE
+                                            />{" "}<FormattedMessage id="system.user-manage.false" />
                                         </label>
 
                                     </div>
                                     <div>
                                         <label htmlFor="accType" className="formbold-form-label">
                                             {" "}
-                                            Account Type{" "}
+                                            <FormattedMessage id="system.user-manage.account-type" />{" "}
                                         </label>
                                         {arrType && arrType.map((item, index) => {
                                             return (
-                                                <label className="label-radio" key={index}>
-                                                    <input
-                                                        name="idTypeList"
-                                                        type="checkbox"
-                                                        value={item.id}
-                                                        onChange={(e) => this.handleOnCheckBox(e, 'idTypeList')}
-                                                    />{item.name}{` `}
-                                                </label>
+                                                <>
+                                                    <label className="label-radio" key={index}>
+                                                        <input
+                                                            name="idTypeList"
+                                                            type="checkbox"
+                                                            value={item.id}
+                                                            onChange={(e) => this.handleOnCheckBox(e, 'idTypeList')}
+                                                        />{" "}{item.name}
+                                                    </label>
+                                                    <br />
+                                                </>
                                             )
                                         })}
                                     </div>
@@ -516,36 +527,42 @@ class UserAdd extends Component {
                                     <div>
                                         <label htmlFor="accRole" className="formbold-form-label">
                                             {" "}
-                                            Account Role{" "}
+                                            <FormattedMessage id="system.user-manage.account-role" />{" "}
                                         </label>
                                         {arrRole && arrRole.map((item, index) => {
                                             return (
-                                                <label className="label-radio" key={index}>
-                                                    <input
-                                                        name="idRoleList"
-                                                        type="checkbox"
-                                                        value={item.id}
-                                                        onChange={(e) => this.handleOnCheckBox(e, 'idRoleList')}
-                                                    />{item.name}{` `}
-                                                </label>
+                                                <>
+                                                    <label className="label-radio" key={index}>
+                                                        <input
+                                                            name="idRoleList"
+                                                            type="checkbox"
+                                                            value={item.id}
+                                                            onChange={(e) => this.handleOnCheckBox(e, 'idRoleList')}
+                                                        />{" "}{item.name}
+                                                    </label>
+                                                    <br />
+                                                </>
                                             )
                                         })}
                                     </div>
                                     <div>
                                         <label htmlFor="position" className="formbold-form-label">
                                             {" "}
-                                            Position{" "}
+                                            <FormattedMessage id="system.user-manage.position" />{" "}
                                         </label>
                                         {arrPos && arrPos.map((item, index) => {
                                             return (
-                                                <label className="label-radio" key={index}>
-                                                    <input
-                                                        name="positionId"
-                                                        type="radio"
-                                                        value={item.id}
-                                                        onChange={(e) => this.handleOnChangePos(e)}
-                                                    />{item.name}{` `}
-                                                </label>
+                                                <>
+                                                    <label className="label-radio" key={index}>
+                                                        <input
+                                                            name="positionId"
+                                                            type="radio"
+                                                            value={item.id}
+                                                            onChange={(e) => this.handleOnChangePos(e)}
+                                                        />{" "}{item.name}
+                                                    </label>
+                                                    <br />
+                                                </>
                                             )
                                         })}
                                     </div>

@@ -18,6 +18,7 @@ class IntlProviderWrapper extends Component {
 
     render() {
         const { children, language } = this.props;
+        console.log("props IntlProviderWrapper ", this.props)
         return (
             <IntlProvider
                 locale={language}

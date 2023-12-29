@@ -1,17 +1,20 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getAllPositions, getAllRole, getAllType, createNewUser } from '../../../services/userService';
+import { getAllPositions, getAllRole, getAllType, createNewUser } from '../../../../services/userService.js';
 import './UserAdd.scss';
-import history from '../../../routes/history.js'
-import { path } from '../../../utils/constant.js'
+import history from '../../../../routes/history.js'
+import { path } from '../../../../utils/constant.js'
 
-import { ToastUtil } from '../../../utils'
+import { ToastUtil } from '../../../../utils/index.js'
 import { FormattedMessage, FormattedTime } from 'react-intl';
+import { setContentOfConfirmModal } from '../../../../store/actions/appActions.js';
+import { ThreeDots, Audio, RevolvingDot, RotatingLines } from 'react-loader-spinner'
 
 class UserAdd extends Component {
 
     constructor(props) {
         super(props)
+        this.dataInsert = {}
         this.state = {
             firstName: '',
             lastName: '',
@@ -37,9 +40,12 @@ class UserAdd extends Component {
             arrPos: [],
             arrRole: [],
             arrType: [],
-            progress: 0
+            progress: 0,
+            contentOfConfirmModal: {},
+            showSpinner: false
             // datetime: new Date().toISOString(),
         }
+
         console.log(this.props)
     }
 
@@ -155,13 +161,11 @@ class UserAdd extends Component {
         return isValid;
     }
 
-
-
     handleAddNew = () => {
         let isValid = this.checkValidInput();
         console.log('check isValid', isValid)
         if (isValid === true) {
-            let data = {
+            this.dataInsert = {
                 userName: this.state.userName,
                 email: this.state.email + "@" + this.state.email1 + "." + this.state.email2,
                 password: this.state.password,
@@ -177,25 +181,40 @@ class UserAdd extends Component {
                 idRoleList: this.state.idRoleList,
                 idTypeList: this.state.idTypeList
             }
-            this.createNew(data);
+            this.setState({
+                contentOfConfirmModal: { isOpen: true, messageId: "common.confirm-this-task", handleFunc: this.createNew, dataFunc: this.dataInsert }
+            }, () => {
+                this.props.setContentOfConfirmModal(this.state.contentOfConfirmModal)
+            })
         }
-        //console.log('check state', this.state)
     }
 
     createNew = async (data) => {
         try {
+            this.setState({
+                showSpinner: true
+            })
             let res = await createNewUser(data)
             if (res[0] && !res[0].bindingFailure) {
-                alert(res[0].defaultMessage)
+                this.setState({
+                    showSpinner: false
+                }, () => {
+                    ToastUtil.show('ERROR', 'common.unknown-error', res[0].defaultMessage, false)
+                })
             } else if (res && res.message) {
-                alert(res.message)
+                this.setState({
+                    showSpinner: false
+                }, () => {
+                    ToastUtil.show('SUCCESS', 'common.confirm', res.message, false)
+                })
                 //history.go(-1)
-                ToastUtil.show('SUCCESS', 'common.confirm', 'common.confirm', false)
-                history.push({ pathname: path.admin.USER, view: 'view' })
+                //history.push({ pathname: path.admin.USER, view: 'view' })
             }
             console.log('response create user: ', res)
+
         } catch (e) {
             console.log(e)
+            throw e
         }
     }
 
@@ -225,34 +244,61 @@ class UserAdd extends Component {
     }
 
 
-    showToastMessage = () => {
-        let dataMessage = ['common.confirm', 'common.confirm', 'common.confirm', 'common.confirm', 'common.confirm', 'common.confirm', 'common.confirm', 'common.confirm', 'common.confirm', 'common.confirm', 'common.confirm', 'common.confirm', 'common.confirm', 'common.confirm', 'common.confirm', 'common.confirm', 'common.confirm', 'common.confirm', 'common.confirm', 'common.confirm', 'common.confirm', 'common.confirm', 'common.confirm', 'common.confirm', 'common.confirm', 'common.confirm', 'common.confirm', 'common.confirm', 'common.confirm', 'common.confirm', 'common.confirm', 'common.confirm', 'common.confirm', 'common.confirm', 'common.confirm', 'common.confirm', 'common.confirm', 'common.confirm', 'common.confirm', 'common.confirm', 'common.confirm', 'common.confirm']
-        ToastUtil.show('INFO', 'common.confirm', 'common.confirm', false)
-    }
-
-
-
     render() {
         //console.log('check createNew props ', this.props.createNew())
         let arrPos = this.state.arrPos;
         let arrRole = this.state.arrRole;
         let arrType = this.state.arrType;
-
         return (
             <>
-                <div className="container-fluid">
+                <ThreeDots
+                    visible={this.state.showSpinner}
+                    height="60"
+                    width="60"
+                    color="#4e73df"
+                    radius="9"
+                    ariaLabel="three-dots-loading"
+                    wrapperStyle={{}}
+                    wrapperClass="audio-class"
+                />
+                {/* <Audio
+                    height="60"
+                    width="60"
+                    radius="9"
+                    color="green"
+                    ariaLabel="loading"
+                    wrapperStyle
+                    wrapperClass="audio-class"
+                /> */}
 
-                </div>
-                <div className="container-fluid">
-                    <div className='row'>
+                {/* <RevolvingDot
+                    visible={true}
+                    height="5"
+                    width="5"
+                    color="#4fa94d"
+                    ariaLabel="revolving-dot-loading"
+                    wrapperStyle={{}}
+                    wrapperClass="audio-class"
+                /> */}
+                {/* 
+                <RotatingLines
+                    visible={true}
+                    height="96"
+                    width="96"
+                    color="grey"
+                    strokeWidth="5"
+                    animationDuration="0.75"
+                    ariaLabel="rotating-lines-loading"
+                    wrapperStyle={}
+                    wrapperClass="audio-class"
+                /> */}
 
-                    </div>
+                <div className={this.state.showSpinner === true ? "container-fluid disabled" : "container-fluid"}>
                     <div className='row'>
                         <h1 className="h3 mb-2 text-gray-800">Account {">"} Add</h1>
                         <p className="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
                             For more information about DataTables, please visit the <a target="_blank"
                                 href="https://datatables.net">official DataTables documentation</a>.</p>
-                        {/* <button onClick={this.showToastMessage}>Notify</button> */}
                     </div>
                     {/* formbold-main-wrapper */}
                     <div className='row'>
@@ -265,29 +311,33 @@ class UserAdd extends Component {
                                             {" "}
                                             <FormattedMessage id="system.user-manage.first-name" />{" "}
                                         </label>
-                                        <input
-                                            autoFocus
-                                            type="text"
-                                            name="firstName"
-                                            id="firstName"
-                                            placeholder="Your first name"
-                                            className="formbold-form-input"
-                                            onChange={(e) => this.handleOnChangeText(e, 'firstName')}
-                                        />
+                                        <FormattedMessage id='system.user-manage.input-first-name'>
+                                            {(msg) => (<input
+                                                autoFocus
+                                                type="text"
+                                                name="firstName"
+                                                id="firstName"
+                                                placeholder={msg}
+                                                className="formbold-form-input"
+                                                onChange={(e) => this.handleOnChangeText(e, 'firstName')}
+                                            />)}
+                                        </FormattedMessage>
                                     </div>
                                     <div>
                                         <label htmlFor="lastName" className="formbold-form-label">
                                             {" "}
                                             <FormattedMessage id="system.user-manage.last-name" />{" "}
                                         </label>
-                                        <input
-                                            type="text"
-                                            name="lastName"
-                                            id="lastName"
-                                            placeholder="Your last name"
-                                            className="formbold-form-input"
-                                            onChange={(e) => this.handleOnChangeText(e, 'lastName')}
-                                        />
+                                        <FormattedMessage id='system.user-manage.input-last-name'>
+                                            {(msg) => (<input
+                                                type="text"
+                                                name="lastName"
+                                                id="lastName"
+                                                placeholder={msg}
+                                                className="formbold-form-input"
+                                                onChange={(e) => this.handleOnChangeText(e, 'lastName')}
+                                            />)}
+                                        </FormattedMessage>
                                     </div>
                                 </div>
 
@@ -304,7 +354,6 @@ class UserAdd extends Component {
                                             onChange={this.handleOnChangeDate}
                                             className="formbold-form-input"
                                         />
-
                                     </div>
                                     <div>
                                         <label className="formbold-form-label"><FormattedMessage id="system.user-manage.gender" /></label>
@@ -344,126 +393,156 @@ class UserAdd extends Component {
                                             name="areacode"
                                             id="areacode"
                                             placeholder="+84"
-                                            className="formbold-form-input formbold-w-15"
+                                            className="formbold-form-input formbold-w-25"
                                         />
-                                        <input
-                                            type="text"
-                                            name="phone"
-                                            id="phone"
-                                            placeholder="Phone number"
-                                            className="formbold-form-input"
-                                            onChange={(e) => this.handleOnChangeText(e, 'phone')}
-                                        />
+                                        <FormattedMessage id='system.user-manage.input-phone-number'>
+                                            {(msg) => (<input
+                                                type="text"
+                                                name="phone"
+                                                id="phone"
+                                                placeholder={msg}
+                                                className="formbold-form-input"
+                                                onChange={(e) => this.handleOnChangeText(e, 'phone')}
+                                            />)}
+                                        </FormattedMessage>
                                     </div>
                                 </div>
                                 {/* <br /> */}
-                                <div className="formbold-mb-3 ">
+                                <div className="formbold-mb-3">
                                     <label htmlFor="address1" className="formbold-form-label">
                                         {" "}
                                         <FormattedMessage id="system.user-manage.address" />{" "}
                                     </label>
-                                    <input
-                                        type="text"
-                                        name="address1"
-                                        id="address1"
-                                        placeholder="Street address"
-                                        className="formbold-form-input formbold-mb-3"
-                                        onChange={(e) => this.handleOnChangeText(e, 'address1')}
-                                    />
-                                    <input
-                                        type="text"
-                                        name="address2"
-                                        id="address2"
-                                        placeholder="Street address line 2"
-                                        className="formbold-form-input"
-                                        onChange={(e) => this.handleOnChangeText(e, 'address2')}
-                                    />
+                                    <FormattedMessage id='system.user-manage.input-address1'>
+                                        {(msg) => (
+                                            <input
+                                                type="text"
+                                                name="address1"
+                                                id="address1"
+                                                placeholder={msg}
+                                                className="formbold-form-input formbold-mb-3"
+                                                onChange={(e) => this.handleOnChangeText(e, 'address1')}
+                                            />
+                                        )}
+                                    </FormattedMessage>
+                                    <FormattedMessage id='system.user-manage.input-address2'>
+                                        {(msg) => (
+                                            <input
+                                                type="text"
+                                                name="address2"
+                                                id="address2"
+                                                placeholder={msg}
+                                                className="formbold-form-input"
+                                                onChange={(e) => this.handleOnChangeText(e, 'address2')}
+                                            />
+                                        )}
+                                    </FormattedMessage>
                                 </div>
                             </div>
                         </div>
                         <div className="col-lg-4">
                             <img src="assets/img/banner.png" className="img-fluid" alt="" />
                             <div className="formbold-form-wrapper">
-                                <div className="formbold-input-flex">
-                                    <div>
-                                        <label htmlFor="userName" className="formbold-form-label">
-                                            {" "}
-                                            <FormattedMessage id="system.user-manage.user-name" />{" "}
-                                        </label>
-                                        <input
+                                <div className="formbold-input-wrapp">
+                                    <label htmlFor="userName" className="formbold-form-label">
+                                        {" "}
+                                        <FormattedMessage id="system.user-manage.user-name" />{" "}
+                                    </label>
+                                    <FormattedMessage id='system.user-manage.input-user-name'>
+                                        {(msg) => (<input
                                             id="userName"
                                             name="userName"
-                                            placeholder="Your user name"
+                                            placeholder={msg}
                                             type="text"
                                             onChange={(e) => this.handleOnChangeText(e, 'userName')}
                                             className="formbold-form-input"
-                                        />
-                                    </div>
+                                        />)}
+                                    </FormattedMessage>
                                 </div>
-                                <div className="formbold-mb-3 formbold-input-wrapp">
+                                <div className="formbold-input-wrapp">
                                     <label htmlFor="email" className="formbold-form-label">
                                         {" "}
                                         <FormattedMessage id="system.user-manage.email" />{" "}
                                     </label>
                                     <div>
-                                        <input
-                                            type="text"
-                                            name="email"
-                                            id="email"
-                                            placeholder="youremail123"
-                                            className="formbold-form-input"
-                                            onChange={(e) => this.handleOnChangeText(e, 'email')}
-                                        />
+                                        <FormattedMessage id='system.user-manage.input-email'>
+                                            {(msg) => (
+                                                <input
+                                                    type="text"
+                                                    name="email"
+                                                    id="email"
+                                                    placeholder={msg}
+                                                    className="formbold-form-input"
+                                                    onChange={(e) => this.handleOnChangeText(e, 'email')}
+                                                />
+                                            )}
+                                        </FormattedMessage>
                                         <p className='p-email'>@</p>
-                                        <input
-                                            type="text"
-                                            name="email1"
-                                            id="email1"
-                                            placeholder="email"
-                                            className="formbold-form-input formbold-w-35"
-                                            onChange={(e) => this.handleOnChangeText(e, 'email1')}
-                                        />
+                                        <FormattedMessage id='system.user-manage.input-email1'>
+                                            {(msg) => (
+                                                <input
+                                                    type="text"
+                                                    name="email1"
+                                                    id="email1"
+                                                    placeholder={msg}
+                                                    className="formbold-form-input formbold-w-35"
+                                                    onChange={(e) => this.handleOnChangeText(e, 'email1')}
+                                                />
+                                            )}
+                                        </FormattedMessage>
                                         <p className='p-email'>.</p>
-                                        <input
-                                            type="text"
-                                            name="email2"
-                                            placeholder="com"
-                                            id="email2"
-                                            className="formbold-form-input formbold-w-35"
-                                            onChange={(e) => this.handleOnChangeText(e, 'email2')}
-                                        />
+                                        <FormattedMessage id='system.user-manage.input-email2'>
+                                            {(msg) => (
+                                                <input
+                                                    type="text"
+                                                    name="email2"
+                                                    placeholder={msg}
+                                                    id="email2"
+                                                    className="formbold-form-input formbold-w-35"
+                                                    onChange={(e) => this.handleOnChangeText(e, 'email2')}
+                                                />
+                                            )}
+                                        </FormattedMessage>
                                     </div>
                                 </div>
-                  
+
                                 <div className="formbold-input-flex">
                                     <div>
                                         <label htmlFor="password" className="formbold-form-label">
                                             {" "}
                                             <FormattedMessage id="system.user-manage.password" />{" "}
                                         </label>
-                                        <input
-                                            className="formbold-form-input"
-                                            id="password"
-                                            name="password"
-                                            placeholder="Your password"
-                                            type="password"
-                                            onChange={(e) => this.handleOnChangeText(e, 'password')}
-                                        />
+                                        <FormattedMessage id='system.user-manage.input-password'>
+                                            {(msg) => (
+                                                <input
+                                                    className="formbold-form-input"
+                                                    id="password"
+                                                    name="password"
+                                                    placeholder={msg}
+                                                    type="password"
+                                                    onChange={(e) => this.handleOnChangeText(e, 'password')}
+                                                />
+                                            )}
+                                        </FormattedMessage>
                                     </div>
                                     <div>
                                         <label htmlFor="confirmPassword" className="formbold-form-label">
                                             {" "}
                                             <FormattedMessage id="system.user-manage.retype-password" />{" "}
                                         </label>
-                                        <input
-                                            className="formbold-form-input"
-                                            id="confirmPassword"
-                                            name="confirmPassword"
-                                            placeholder="Your confirm password"
-                                            type="password"
-                                            onBlur={this.handleBlur}
-                                            onChange={(e) => this.handleOnChangeText(e, 'confirmPassword')}
-                                        />
+                                        <FormattedMessage id='system.user-manage.input-retype-password'>
+                                            {(msg) => (
+                                                <input
+                                                    className="formbold-form-input"
+                                                    id="confirmPassword"
+                                                    name="confirmPassword"
+                                                    placeholder={msg}
+                                                    type="password"
+                                                    onBlur={this.handleBlur}
+                                                    onChange={(e) => this.handleOnChangeText(e, 'confirmPassword')}
+                                                />
+                                            )}
+                                        </FormattedMessage>
                                     </div>
                                 </div>
                                 <div className="formbold-mb-3 formbold-input-wrapp">
@@ -597,7 +676,7 @@ class UserAdd extends Component {
                         className="formbold-btn"
                         onClick={() => { this.handleAddNew() }}
                     >
-                        Apply Now
+                        <FormattedMessage id="system.user-manage.add-user" />
                     </button>
                 </div>
             </>
@@ -608,11 +687,13 @@ class UserAdd extends Component {
 
 const mapStateToProps = state => {
     return {
+        contentOfConfirmModal: state.app.contentOfConfirmModal
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
+        setContentOfConfirmModal: (contentOfConfirmModal) => dispatch(setContentOfConfirmModal(contentOfConfirmModal))
     };
 };
 

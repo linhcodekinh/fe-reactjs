@@ -18,7 +18,9 @@
         "fail-to-load-all-code": "Fail to load data from allcode",
         "sum": "Sum",
         "date-range-invalid": "Date range invalid",
-        "warn": "Warning"
+        "warn": "Warning",
+        "yes": "Yes",
+        "no": "No"
     },
     "login": {
         "login": "Login",
@@ -61,16 +63,26 @@
             "account-type": "Account Type",
             "account-role": "Account Role",
             "position": "Position",
-
+            "add-user": "Add user",
+            "input-first-name": "Input first name",
+            "input-last-name": "Input last name",
+            "input-phone-number": "Input phone number",
+            "input-address1": "Input address 1",
+            "input-address2": "Input address 2",
+            "input-user-name": "Input user name",
+            "input-email": "Input email address",
+            "input-email1": "gmail",
+            "input-email2": "com",
+            "input-password": "Input password",
+            "input-retype-password": "Input retype password",
           
 
             "fail-to-load-fouser": "Fail to load system users list",
             "user-id": "User ID",
             "usertype": "User type",
-            "fullname": "Fullname",
-            "mobile": "Phone",
-            "status": "Status",
-            "add-user": "Add user",
+        
+    
+
             "edit-user": "Edit user information",
             "add-user-success": "Add user successfully",
             "edit-user-success": "Change user information successfully",

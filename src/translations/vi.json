@@ -18,7 +18,9 @@
         "fail-to-load-all-code": "Không thể tải về dữ liệu allcode",
         "sum": "Tổng",
         "date-range-invalid": "Khoảng thời gian không hợp lệ",
-        "warn": "Cảnh báo"
+        "warn": "Cảnh báo",
+        "yes": "Có",
+        "no": "Không"
     },
     "login": {
         "login": "Đăng nhập",
@@ -61,15 +63,29 @@
             "account-type": "Loại tài khoản",
             "account-role": "Vài trò của tài khoản",
             "position": "Vị trí",
+            "add-user": "Thêm người dùng",
+            "input-first-name": "Nhập tên",
+            "input-last-name": "Nhập họ",
+            "input-phone-number": "Nhập số điện thoại",
+            "input-address1": "Nhập địa chỉ 1",
+            "input-address2": "Nhập địa chỉ 2",
+            "input-user-name": "Nhập tên đăng nhập",
+            "input-email": "Nhập địa chỉ hòm mail",
+            "input-email1": "gmail",
+            "input-email2": "com",
+            "input-password": "Nhập mật khẩu",
+            "input-retype-password": "Nhập lại mật khẩu",
+
+
+
 
             "fail-to-load-fouser": "Không thể tải về danh sách người dùng",
             "user-id": "Mã người sử dụng",
             "usertype": "Loại người dùng",
-            "username": "Tên người dùng",
-            "fullname": "Tên đầy đủ",
-            "mobile": "Số điện thoại",
+         
+   
+        
             "status": "Trạng thái",
-            "add-user": "Thêm người dùng",
             "edit-user": "Sửa thông tin người dùng",
             "add-user-success": "Thêm người dùng thành công",
             "edit-user-success": "Thay đổi thông tin người dùng thành công",

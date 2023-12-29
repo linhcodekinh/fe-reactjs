@@ -5,12 +5,12 @@ import moment from 'moment';
 import { KeyCodeUtils } from "../../utils";
 import './DatePicker.scss';
 
-// const CustomInput = ({ value, defaultValue, inputRef, onInputChange, onInputBlur, ...props }) => {
-//     return <input {...props} className='custom-form-control custom-date-input' defaultValue={defaultValue} ref={inputRef}
-//         onChange={onInputChange}
-//         onBlur={onInputBlur}
-//     />;
-// };
+const CustomInput = ({ value, defaultValue, inputRef, onInputChange, onInputBlur, ...props }) => {
+    return <input {...props} className='custom-form-control custom-date-input' defaultValue={defaultValue} ref={inputRef}
+        onChange={onInputChange}
+        onBlur={onInputBlur}
+    />;
+};
 
 class DatePicker extends Component {
 
@@ -74,30 +74,30 @@ class DatePicker extends Component {
         return str;
     }
 
-    // autoFormatonBlur = (value) => {
-    //     var input = value;
-    //     var values = input.split('/').map(function (v, i) {
-    //         return v.replace(/\D/g, '')
-    //     });
-    //     var output = '';
+    autoFormatonBlur = (value) => {
+        var input = value;
+        var values = input.split('/').map(function (v, i) {
+            return v.replace(/\D/g, '')
+        });
+        var output = '';
 
-    //     if (values.length == 3) {
-    //         var year = values[2].length !== 4 ? parseInt(values[2]) + 2000 : parseInt(values[2]);
-    //         var month = parseInt(values[0]) - 1;
-    //         var day = parseInt(values[1]);
-    //         var d = new Date(year, month, day);
-    //         if (!isNaN(d)) {
-    //             //document.getElementById('result').innerText = d.toString();
-    //             var dates = [d.getMonth() + 1, d.getDate(), d.getFullYear()];
-    //             output = dates.map(function (v) {
-    //                 v = v.toString();
-    //                 return v.length == 1 ? '0' + v : v;
-    //             }).join(' / ');
-    //         };
-    //     };
-    //     // this.value = output;
-    //     return output;
-    // }
+        if (values.length == 3) {
+            var year = values[2].length !== 4 ? parseInt(values[2]) + 2000 : parseInt(values[2]);
+            var month = parseInt(values[0]) - 1;
+            var day = parseInt(values[1]);
+            var d = new Date(year, month, day);
+            if (!isNaN(d)) {
+                //document.getElementById('result').innerText = d.toString();
+                var dates = [d.getMonth() + 1, d.getDate(), d.getFullYear()];
+                output = dates.map(function (v) {
+                    v = v.toString();
+                    return v.length == 1 ? '0' + v : v;
+                }).join(' / ');
+            };
+        };
+        // this.value = output;
+        return output;
+    }
 
     autoFormatOnChange = (value, seperator) => {
         var input = value;
@@ -151,15 +151,15 @@ class DatePicker extends Component {
         }
         return (
             <Flatpickr
-                ref={this.nodeRef}
-                value={value}
-                onChange={onChange}
+                //ref={this.nodeRef}
+                //value={value}
+                //onChange={onChange}
                 options={options}
-                // render={
-                //     ({ defaultValue, value, ...props }, ref) => {
-                //         return <CustomInput defaultValue={defaultValue} inputRef={ref} onInputChange={this.onInputChange} onInputBlur={this.onInputBlur} />
-                //     }
-                // }
+                render={
+                    ({ defaultValue, value, ...props }, ref) => {
+                        return <CustomInput defaultValue={defaultValue} inputRef={ref} onInputChange={this.onInputChange} onInputBlur={this.onInputBlur} />
+                    }
+                }
                 {...otherProps}
             />
         );

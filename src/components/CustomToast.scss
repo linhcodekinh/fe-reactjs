@@ -8,23 +8,23 @@
   // white-space: pre-wrap;
   // box-shadow: 0 0 1px 1px $box-shadow-color;
   // -webkit-box-shadow: 0 0 1px 1px $box-shadow-color;
-  top: 4rem;
+  //top: 4rem;
 
-  &.Toastify__toast--success {
-    background: $common-green;
-  }
+  // &.Toastify__toast--success {
+  //   background: $common-green;
+  // }
 
-  &.Toastify__toast--error {
-    background: $common-red;
-  }
+  // &.Toastify__toast--error {
+  //   background: $common-red;
+  // }
 
-  .Toastify__toast--warn {
-    background: $common-orange;
-  }
+  // .Toastify__toast--warn {
+  //   background: $common-orange;
+  // }
 
-  &.Toastify__toast--info {
-    background: $colormain;
-  }
+  // &.Toastify__toast--info {
+  //   background: $colormain;
+  // }
 
   // .toast-item-body { 
   //   color: $common-text-color;
@@ -34,7 +34,7 @@
 
   .toast-title {
     font-weight: bold;
-    font-size: $base-size;
+    font-size: 15px;
     margin: 0 20px 5px 0;
 
 
@@ -44,7 +44,7 @@
 
     .date {
       float: right;
-      font-size: $base-size - 2px;
+      font-size: 13px;
       vertical-align: middle;
       margin-right: 5px;
       margin-bottom: 0;
@@ -58,7 +58,7 @@
   }
 
   .toast-content {
-    font-size: $base-size - 2px;
+    font-size: 13px;
   }
 }
 
@@ -68,12 +68,12 @@
   position: absolute;
   right: 10px;
   top: 9px;
-  color: $common-text-color;
-  font-size: $base-size;
+  color: white;
+  font-size: 15px;
   padding: 0;
   cursor: pointer;
   background: transparent;
   border: 0;
-  -webkit-appearance: none;
+  //-webkit-appearance: none;
   transition: opacity 0.2s ease-out;
 }

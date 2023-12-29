@@ -16,3 +16,8 @@ export const userLoginFail = () => ({
 export const processLogout = () => ({
     type: actionTypes.PROCESS_LOGOUT
 })
+
+export const changeUserView = (view) => ({
+    type: actionTypes.CHANGE_USER_VIEW,
+    view: view
+})

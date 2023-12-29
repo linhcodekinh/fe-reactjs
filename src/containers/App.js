@@ -77,6 +77,7 @@ class App extends Component {
                                 <Route path={path.admin.SYSTEM} component={(System)} />
                                 <Route path={path.admin.USER} exact component={(User)} />
                                 <Route path={path.admin.USERADD} exact component={(User)} />
+                                <Route path={path.admin.USEREDIT} exact component={(User)} />
 
 
                                 <Route path={path.client.HOME} exact component={(Home)} />

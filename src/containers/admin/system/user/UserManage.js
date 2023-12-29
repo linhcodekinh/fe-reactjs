@@ -3,11 +3,12 @@ import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import './UserManage.scss';
-import { getAllUsers, getAllPositions, getAllRole, getAllType, createNewUser, deleteUser } from '../../../services/userService';
-import ModalUser from './ModalUser';
-import { emitter } from '../../../utils/emitter';
+import { getAllUsers, getAllPositions, getAllRole, getAllType, createNewUser, deleteUser } from '../../../../services/userService';
+import ModalUser from '../ModalUser';
+import { emitter } from '../../../../utils/emitter';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
+import  {changeUserView } from '../../../../store/actions/userActions';
 
 class UserManage extends Component {
 
@@ -52,11 +53,11 @@ class UserManage extends Component {
       arrAccountChecked: updatedList
     }, () => {
       console.log('this.state.arrAccountChecked', 'this.state.checkedAll', this.state.arrAccountChecked, this.state.checkedAll);
-      if(updatedList.length >= 1){
+      if (updatedList.length >= 1) {
         this.setState({
           isDisabled: null
         })
-      }else{
+      } else {
         this.setState({
           isDisabled: "disabled"
         })
@@ -187,6 +188,11 @@ class UserManage extends Component {
     }
   }
 
+  changeUserView = (view) => {
+    console.log("changeView ", view)
+    this.props.changeUserView(view)
+  }
+
   render() {
     let arrAccount = this.state.arrAccount;
     let disabled = this.state.isDisabled;
@@ -194,10 +200,6 @@ class UserManage extends Component {
     return (
       <div className="container-fluid">
         {/* Page Heading */}
-        <h1 className="h3 mb-2 text-gray-800">Component {">"} Account</h1>
-        <p className="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
-          For more information about DataTables, please visit the <a target="_blank"
-            href="https://datatables.net">official DataTables documentation</a>.</p>
         {/* DataTales Example */}
         <div className="card shadow mb-4">
           <ModalUser
@@ -209,9 +211,13 @@ class UserManage extends Component {
             createNew={this.createNew}
           />
           <div className="card-header py-3" >
+            <h1 className="h3 mb-2 text-gray-800">Component {">"} Account</h1>
+            <p className="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
+              For more information about DataTables, please visit the <a target="_blank"
+                href="https://datatables.net">official DataTables documentation</a>.</p>
             {/* <h6 className="m-0 font-weight-bold text-primary">DataTables Example</h6> */}
             {/* <button onClick={() => this.handleAddNewUser()} className="btn btn-sm btn-primary btn-icon-split" style={{ float: "right" }}> */}
-            <Link to={{pathname: '/admin/user-manage/add', view: 'add'}}>
+            <Link to={{ pathname: '/admin/user-manage/add', view: 'add' }}>
               <button className="btn btn-sm btn-primary btn-icon-split" style={{ float: "right" }}>
                 <span className="icon text-white-50">
                   <FontAwesomeIcon icon={['fas', 'fa-plus']} />
@@ -219,7 +225,7 @@ class UserManage extends Component {
                 <span className="text">Add new user</span>
               </button>
             </Link>
-            <button onClick={() => this.handleAddNewUser()} className="btn btn-sm btn-danger btn-icon-split" style={{ float: "right", marginRight: "10px"}}   disabled={disabled}>
+            <button onClick={() => this.handleAddNewUser()} className="btn btn-sm btn-danger btn-icon-split" style={{ float: "right", marginRight: "10px" }} disabled={disabled}>
               <span className="icon text-white-50">
                 <FontAwesomeIcon icon={['fas', 'fa-trash']} />
               </span>
@@ -269,54 +275,59 @@ class UserManage extends Component {
                     let arrRole = item.accountRoleList;
                     let arrType = item.accountTypeList;
                     return (
-                        <tr className={this.isActive(item.id)} key={index}>
-                          <th scope="row">
-                            <label className="control control--checkbox">
-                              <input type="checkbox" onChange={(e) => { this.handleChecked(e) }} value={item.id} checked={this.isChecked(item.id)} />
-                              <div className="control__indicator" />
-                            </label>
-                          </th>
-                          <td>{item.id}</td>
-                          <td><a href="#">{item.userName}</a></td>
-                          <td>{item.email}</td>
-                          <td>
-                            {arrRole.map((itemR, indexR) => {
-                              if (indexR === 0) {
-                                return (
-                                  <div key={indexR}>
-                                    {itemR.role.name}
-                                    <br />
-                                  </div>
-                                )
-                              } else {
-                                return (
-                                  <small className="d-block" key={indexR}>,{itemR.role.name}</small>
-                                )
-                              }
-                            })}
-                          </td>
-                          <td>
-                            {arrType.map((itemT, indexT) => {
-                              if (indexT === 0) {
-                                return (
-                                  <div key={indexT}>
-                                    <br />
-                                  </div>
-                                )
-                              } else {
-                                return (
-                                  <small className="d-block" key={indexT}>,{itemT.type.name}</small>
-                                )
-                              }
-                            })}
-                          </td>
-                          <td className='fa-toggle'><FontAwesomeIcon icon={(item.isEnabled && item.isEnabled === 'true' || item.isEnabled === 1) ? ['fas', 'fa-toggle-on'] : ['fas', 'fa-toggle-off']} /></td>
-                          <td className='fa-edit-delete'>
-                            <button className="btn btn-info btn-circle btn-sm" onClick={() => { this.handleDeleteUser(item) }}><FontAwesomeIcon icon={['fas', 'fa-edit']} /></button>
-                            <button className="btn btn-danger btn-circle btn-sm" onClick={() => { this.handleDeleteUser(item) }}> <FontAwesomeIcon icon={['fas', 'fa-trash']} /></button>
-                          </td>
+                      <tr className={this.isActive(item.id)} key={index}>
+                        <th scope="row">
+                          <label className="control control--checkbox">
+                            <input type="checkbox" onChange={(e) => { this.handleChecked(e) }} value={item.id} checked={this.isChecked(item.id)} />
+                            <div className="control__indicator" />
+                          </label>
+                        </th>
+                        <td>{item.id}</td>
+                        <td>
+                            <Link to={{ pathname: '/admin/user-manage/edit', view: 'edit' }}
+                            >
+                              <span onClick={()=>this.changeUserView('edit')}>{item.userName}</span>
+                            </Link>
+                        </td>
+                        <td>{item.email}</td>
+                        <td>
+                          {arrRole.map((itemR, indexR) => {
+                            if (indexR === 0) {
+                              return (
+                                <div key={indexR}>
+                                  {itemR.role.name}
+                                  <br />
+                                </div>
+                              )
+                            } else {
+                              return (
+                                <small className="d-block" key={indexR}>,{itemR.role.name}</small>
+                              )
+                            }
+                          })}
+                        </td>
+                        <td>
+                          {arrType.map((itemT, indexT) => {
+                            if (indexT === 0) {
+                              return (
+                                <div key={indexT}>
+                                  <br />
+                                </div>
+                              )
+                            } else {
+                              return (
+                                <small className="d-block" key={indexT}>,{itemT.type.name}</small>
+                              )
+                            }
+                          })}
+                        </td>
+                        <td className='fa-toggle'><FontAwesomeIcon icon={(item.isEnabled && item.isEnabled === 'true' || item.isEnabled === 1) ? ['fas', 'fa-toggle-on'] : ['fas', 'fa-toggle-off']} /></td>
+                        <td className='fa-edit-delete'>
+                          <button className="btn btn-info btn-circle btn-sm" onClick={() => { this.handleDeleteUser(item) }}><FontAwesomeIcon icon={['fas', 'fa-edit']} /></button>
+                          <button className="btn btn-danger btn-circle btn-sm" onClick={() => { this.handleDeleteUser(item) }}> <FontAwesomeIcon icon={['fas', 'fa-trash']} /></button>
+                        </td>
                         {/* <tr ><td colSpan={2} /></tr> */}
-                        </tr>
+                      </tr>
                     )
                   })
                   }
@@ -338,6 +349,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
+    changeUserView: (view) => dispatch(changeUserView(view))
   };
 };
 

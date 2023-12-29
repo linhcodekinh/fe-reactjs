@@ -6,8 +6,9 @@ import Header from './Header.js';
 import Footer from './Footer.js';
 import SideBar from './SideBar.js';
 import { extend } from 'lodash';
-import UserManage from './system/UserManage.js';
-import UserAdd from './system/UserAdd.js';
+import UserManage from './system/user/UserManage.js';
+import UserAdd from './system/user/UserAdd.js';
+import UserEdit from './system/user/UserEdit.js';
 import LoadingBar from 'react-top-loading-bar'
 
 class ViewMain extends Component {
@@ -19,7 +20,7 @@ class ViewMain extends Component {
   }
 
   render() {
-    // console.log("view main: ", this.props.view)
+    console.log("view main: ", this.props)
     if (this.props.view === 'view') {
       return (
         <UserManage setProgress={this.props.setProgress} />
@@ -29,6 +30,11 @@ class ViewMain extends Component {
         <UserAdd setProgress={this.props.setProgress} />
       );
     }
+    // else if (this.props.view === 'edit') {
+    //   return (
+    //     <UserEdit setProgress={this.props.setProgress} />
+    //   );
+    // }
     else {
       return (
         <Home setProgress={this.props.setProgress}/>

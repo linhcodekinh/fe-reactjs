@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'icomoon';
-  src: url('../../../assets/font/icomoon/fonts/icomoon.woff?10si43') format('woff');
+  src: url('../../../../assets/font/icomoon/fonts/icomoon.woff?10si43') format('woff');
   // src:  url('../../assests/font/icomoon/fonts/icomoon.eot?10si43#iefix') format('embedded-opentype'),
   //   url('../../assets/font/icomoon/fonts/icomoon.ttf?10si43') format('truetype'),
   //   url('../../assets/font/icomoon/fonts/icomoon.woff?10si43') format('woff'),
@@ -273,7 +273,7 @@ font-size: 18px;
     padding: 3px 12px;
     outline: none;
     white-space: nowrap;
-    -webkit-user-select: none;
+    //-webkit-user-select: none;
     cursor: pointer;
     color: #637381;
     font-weight: 500;
@@ -290,7 +290,7 @@ font-size: 18px;
     padding: 14px 25px;
     border: none;
     font-weight: 500;
-    background-color: #6a64f1;
+    background-color: #4e73df;
     color: white;
     cursor: pointer;
     margin-top: 25px;

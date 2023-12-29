@@ -1,11 +1,12 @@
 import actionTypes from '../actions/actionTypes';
 
 const initialState = {
-    isLoggedIn: false,
-    userInfo: null
+    isLoggedIn: true,
+    userInfo: null,
+    userView: 'view'
 }
 
-const appReducer = (state = initialState, action) => {
+const userReducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.USER_LOGIN_SUCCESS:
             return {
@@ -25,9 +26,17 @@ const appReducer = (state = initialState, action) => {
                 isLoggedIn: false,
                 userInfo: null
             }
+        case actionTypes.CHANGE_USER_VIEW:
+            console.log("userView", action.view)
+            return {
+                ...state,
+                isLoggedIn: true,
+                userInfo: action.userInfo,
+                userView: action.view
+            }
         default:
             return state;
     }
 }
 
-export default appReducer;
+export default userReducer;

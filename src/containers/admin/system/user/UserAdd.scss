@@ -24,6 +24,10 @@
   margin-bottom: 15px;
 }
 
+.formbold-input-wrapp {
+  margin-bottom: 15px;
+}
+
 .formbold-input-flex {
   display: flex;
   gap: 20px;
@@ -109,7 +113,7 @@ select.formbold-form-input,
   padding: 14px 25px;
   border: none;
   font-weight: 500;
-  background-color: #6a64f1;
+  background-color: #4e73df;
   color: white;
   cursor: pointer;
   margin-top: 25px;
@@ -126,8 +130,25 @@ select.formbold-form-input,
 .formbold-w-15 {
   width: 15%;
 }
+.formbold-w-25 {
+  width: 25%;
+}
+.formbold-w-30 {
+  width: 30%;
+}
 .p-email{
   font-size: 15px;
   font-weight: bold;
   margin: auto;
+}
+.audio-class{
+  position: absolute;
+  top: 50%;
+  left: 55%;
+  transform: translate(-50%, -55%);
+  z-index: 10;
+}
+.disabled{
+  opacity: 0.5;
+  pointer-events: none;
 }

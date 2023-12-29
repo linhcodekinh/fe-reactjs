@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
-import { Modal } from 'reactstrap';
+import {
+    Button, Modal, ModalHeader, ModalBody, ModalFooter
+} from 'reactstrap';
 
 import './ConfirmModal.scss';
 import * as actions from "../store/actions";
@@ -39,6 +41,7 @@ class ConfirmModal extends Component {
 
     onAcceptBtnClick = () => {
         const { contentOfConfirmModal } = this.props;
+        console.log('data ', this.dataFunc)
         if (contentOfConfirmModal.handleFunc) {
             contentOfConfirmModal.handleFunc(contentOfConfirmModal.dataFunc);
         }
@@ -56,43 +59,42 @@ class ConfirmModal extends Component {
 
     render() {
         const { contentOfConfirmModal } = this.props;
-
+        console.log('this.props ', this.props)
         return (
-            <Modal isOpen={contentOfConfirmModal.isOpen} className='confirm-modal' centered={true}>
-                <div className="modal-header">
-                    <div className="modal-title">
-                        <FormattedMessage id={"common.confirm"} />
-                    </div>
-                    <div className="col-auto">
-                        <button className="btn btn-close" onClick={this.onClose}>
-                            <i className="fal fa-times" />
-                        </button>
-                    </div>
-                </div>
-
+            <Modal
+                isOpen={contentOfConfirmModal.isOpen}
+                toggle={this.onClose}
+                className='confirm-modal' 
+                centered={true}
+            >
+            <ModalHeader
+            //toggle={() => this.toggle()}
+            ><FormattedMessage id="common.confirm"/>
+                {/* <div >
+                    <button className="btn btn-close" onClick={this.onClose}>
+                        <i className="fal fa-times" />
+                    </button>
+                </div> */}
+            </ModalHeader>
+            <ModalBody>
                 <div className="modal-body">
                     <div className="confirm-modal-content">
                         <div className="row">
                             <div className="col-12">
                                 <FormattedMessage id={contentOfConfirmModal.messageId ? contentOfConfirmModal.messageId : "common.confirm-this-task"} />
                             </div>
-
-                            <hr />
-
-                            <div className="col-12">
-                                <div className="btn-container text-center">
-                                    <button className="btn btn-add" onClick={this.onClose} >
-                                        <FormattedMessage id="common.close" />
-                                    </button>
-                                    <button ref={this.acceptBtnRef} className="btn btn-add" onClick={this.onAcceptBtnClick}>
-                                        <FormattedMessage id={"common.accept"} />
-                                    </button>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
-            </Modal >
+            </ModalBody>
+            <ModalFooter>
+                <Button
+                    color="primary px-3"
+                    onClick={() => { this.onAcceptBtnClick() }}
+                ><FormattedMessage id="common.yes"/></Button>{' '}
+                <Button color="secondary px-3" onClick={this.onClose}><FormattedMessage id="common.no"/></Button>
+            </ModalFooter>
+        </Modal >
         );
     }
 
@@ -100,7 +102,6 @@ class ConfirmModal extends Component {
 
 const mapStateToProps = state => {
     return {
-        lang: state.app.language,
         contentOfConfirmModal: state.app.contentOfConfirmModal
     };
 };

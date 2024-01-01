@@ -217,12 +217,12 @@ class UserManage extends Component {
                 href="https://datatables.net">official DataTables documentation</a>.</p>
             {/* <h6 className="m-0 font-weight-bold text-primary">DataTables Example</h6> */}
             {/* <button onClick={() => this.handleAddNewUser()} className="btn btn-sm btn-primary btn-icon-split" style={{ float: "right" }}> */}
-            <Link to={{ pathname: '/admin/user-manage/add', view: 'add' }}>
+            <Link to={{ pathname: '/admin/user-manage/add'}}>
               <button className="btn btn-sm btn-primary btn-icon-split" style={{ float: "right" }}>
                 <span className="icon text-white-50">
                   <FontAwesomeIcon icon={['fas', 'fa-plus']} />
                 </span>
-                <span className="text">Add new user</span>
+                <span className="text" onClick={()=>this.changeUserView('add')}>Add new user</span>
               </button>
             </Link>
             <button onClick={() => this.handleAddNewUser()} className="btn btn-sm btn-danger btn-icon-split" style={{ float: "right", marginRight: "10px" }} disabled={disabled}>
@@ -284,9 +284,8 @@ class UserManage extends Component {
                         </th>
                         <td>{item.id}</td>
                         <td>
-                            <Link to={{ pathname: '/admin/user-manage/edit', view: 'edit' }}
-                            >
-                              <span onClick={()=>this.changeUserView('edit')}>{item.userName}</span>
+                            <Link onClick={()=>this.changeUserView('edit')} to={{ pathname: '/admin/user-manage/edit'}}>
+                              <span>{item.userName}</span>
                             </Link>
                         </td>
                         <td>{item.email}</td>

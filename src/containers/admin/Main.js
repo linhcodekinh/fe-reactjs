@@ -30,11 +30,11 @@ class ViewMain extends Component {
         <UserAdd setProgress={this.props.setProgress} />
       );
     }
-    // else if (this.props.view === 'edit') {
-    //   return (
-    //     <UserEdit setProgress={this.props.setProgress} />
-    //   );
-    // }
+    else if (this.props.view === 'edit') {
+      return (
+        <UserEdit setProgress={this.props.setProgress} />
+      );
+    }
     else {
       return (
         <Home setProgress={this.props.setProgress}/>

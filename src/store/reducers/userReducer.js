@@ -27,7 +27,6 @@ const userReducer = (state = initialState, action) => {
                 userInfo: null
             }
         case actionTypes.CHANGE_USER_VIEW:
-            console.log("userView", action.view)
             return {
                 ...state,
                 isLoggedIn: true,

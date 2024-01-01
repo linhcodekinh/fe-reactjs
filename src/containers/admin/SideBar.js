@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import  { changeUserView } from '../../store/actions/userActions';
 
 class SideBar extends Component {
     constructor(props) {
@@ -19,6 +20,11 @@ class SideBar extends Component {
         this.setState({
             isExpand: !this.state.isExpand
         })
+    }
+
+    changeUserView = (view) => {
+        console.log("changeView ", view)
+        this.props.changeUserView(view)
     }
 
     render() {
@@ -71,7 +77,9 @@ class SideBar extends Component {
                         <div id="collapseTwo" className="collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionSidebar">
                             <div className="bg-white py-2 collapse-inner rounded">
                                 <h6 className="collapse-header">Custom Components:</h6>
-                                <Link to={{ pathname: '/admin/user-manage', view: 'view' }} className="collapse-item">User</Link>
+                                <Link onClick={()=>this.changeUserView('view')} to={{ pathname: '/admin/user-manage'}} className="collapse-item">
+                                    <span>User</span>
+                                </Link>
                                 {/* <a className="collapse-item" href="buttons.html"></a> */}
                                 <a className="collapse-item" href="cards.html">Cards</a>
                             </div>
@@ -212,6 +220,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
+        changeUserView: (view) => dispatch(changeUserView(view))
     };
 };
 

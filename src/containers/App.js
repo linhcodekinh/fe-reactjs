@@ -24,6 +24,7 @@ import { CustomToastCloseButton } from '../components/CustomToast';
 import ConfirmModal from '../components/ConfirmModal';
 import Home from './client/Home';
 import Part from './client/Part';
+import Test from './client/dispatch/Test.js';
 
 import User from './admin/dispatch/User';
 
@@ -82,6 +83,7 @@ class App extends Component {
 
                                 <Route path={path.client.HOME} exact component={(Home)} />
                                 <Route path={path.client.PART} exact component={(Part)} />
+                                <Route path={path.client.TEST} exact component={(Test)} />
                             </Switch>
                         </div>
                         <ToastContainer

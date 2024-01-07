@@ -10,6 +10,7 @@ export const path = {
     client : {
         HOME: '/',
         PART: '/part',
+        TEST: '/test'
     },
     LOG_IN: '/login',
     LOG_OUT: '/logout',

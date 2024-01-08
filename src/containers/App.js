@@ -72,14 +72,12 @@ class App extends Component {
                         {/* { <Header />} */}
                         <div className="content-container">
                             <Switch>
-                                <Route path={path.LOG_IN} component={userIsNotAuthenticated(Login)} />
+                                {/* <Route path={path.LOG_IN} component={userIsNotAuthenticated(Login)} /> */}
+                                <Route path={path.LOG_IN} component={(Login)} />
 
                                 <Route path={path.admin.ADMIN} exact component={(Admin)} />
                                 <Route path={path.admin.SYSTEM} component={(System)} />
                                 <Route path={path.admin.USER} exact component={(User)} />
-                                <Route path={path.admin.USERADD} exact component={(User)} />
-                                <Route path={path.admin.USEREDIT} exact component={(User)} />
-
 
                                 <Route path={path.client.HOME} exact component={(Home)} />
                                 <Route path={path.client.PART} exact component={(Part)} />

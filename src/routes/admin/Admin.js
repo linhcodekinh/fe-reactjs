@@ -10,12 +10,12 @@ import Main from '../../containers/admin/Main';
 class Admin extends Component {
 
     render() {
-        const { isLoggedIn, adminHomePath} = this.props;
-        if(isLoggedIn && isLoggedIn === true) {
-            return (
-                <Redirect to='/login' />
-            );
-        } else {
+         const { isLoggedIn, adminHomePath} = this.props;
+        // if(isLoggedIn && isLoggedIn === true) {
+        //     return (
+        //         <Redirect to='/login' />
+        //     );
+        // } else {
             return (
                 <Switch>
                     <Route path="/admin" component={Main} />
@@ -25,7 +25,7 @@ class Admin extends Component {
                     <Route component={() => { return (<Redirect to={adminHomePath} />) }} />
                 </Switch>
             );
-        }
+        // }
     }
 
 }

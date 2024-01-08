@@ -16,7 +16,19 @@ class ViewMain extends Component {
     super(props)
     this.state = {
    
+      
     }
+
+  }
+
+  componentDidUpdate = () => {
+    console.log('componentDidUpdate ViewMain', this.props)
+   
+  }
+
+  componentDidMount = () => {
+      console.log('componentDidMount ViewMain', this.props)
+    
   }
 
   render() {
@@ -32,7 +44,7 @@ class ViewMain extends Component {
     }
     else if (this.props.view === 'edit') {
       return (
-        <UserEdit setProgress={this.props.setProgress} />
+        <UserEdit setProgress={this.props.setProgress} id={this.props.id}/>
       );
     }
     else {
@@ -80,7 +92,7 @@ class Main extends Component {
           <div id="content-wrapper" className="d-flex flex-column">
             <div id="content">
               <Header />
-              <ViewMain view={this.props.view} setProgress={this.onLoaderFinished}/>
+              <ViewMain view={this.props.view} setProgress={this.onLoaderFinished} id={this.props.id}/>
             </div>
             <Footer />
           </div>

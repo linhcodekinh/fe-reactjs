@@ -30,4 +30,8 @@ const deleteUser = (id) => {
     return axios.patch(`api/public/account/${id}`)
 }
 
-export { handleLoginApi, getAllUsers, getAllPositions, getAllRole, getAllType, createNewUser, deleteUser }
+const getUser = (id) => {
+    return axios.get(`api/public/account/${id}`)
+}
+
+export { handleLoginApi, getAllUsers, getAllPositions, getAllRole, getAllType, createNewUser, deleteUser, getUser }

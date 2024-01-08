@@ -217,12 +217,20 @@ class UserManage extends Component {
                 href="https://datatables.net">official DataTables documentation</a>.</p>
             {/* <h6 className="m-0 font-weight-bold text-primary">DataTables Example</h6> */}
             {/* <button onClick={() => this.handleAddNewUser()} className="btn btn-sm btn-primary btn-icon-split" style={{ float: "right" }}> */}
-            <Link to={{ pathname: '/admin/user-manage/add'}}>
-              <button className="btn btn-sm btn-primary btn-icon-split" style={{ float: "right" }}>
+            <Link to={{ pathname: '/admin'}}>
+              <button className="btn btn-sm btn-secondary btn-icon-split" style={{ float: "right" }}>
+                <span className="icon text-white-50">
+                  <FontAwesomeIcon icon={['fas', 'fa-arrow-left']} />
+                </span>
+                <span className="text">Back</span>
+              </button>
+            </Link>
+            <Link to={{ pathname: '/admin/user-manage'}} onClick={()=>this.changeUserView('add')}>
+              <button className="btn btn-sm btn-primary btn-icon-split" style={{ float: "right", marginRight: "10px" }}>
                 <span className="icon text-white-50">
                   <FontAwesomeIcon icon={['fas', 'fa-plus']} />
                 </span>
-                <span className="text" onClick={()=>this.changeUserView('add')}>Add new user</span>
+                <span className="text">Add new user</span>
               </button>
             </Link>
             <button onClick={() => this.handleAddNewUser()} className="btn btn-sm btn-danger btn-icon-split" style={{ float: "right", marginRight: "10px" }} disabled={disabled}>
@@ -272,6 +280,8 @@ class UserManage extends Component {
                 </tfoot> */}
                 <tbody>
                   {arrAccount && arrAccount.map((item, index) => {
+                    var iRole = 1;
+                    var iType = 1;
                     let arrRole = item.accountRoleList;
                     let arrType = item.accountTypeList;
                     return (
@@ -284,14 +294,15 @@ class UserManage extends Component {
                         </th>
                         <td>{item.id}</td>
                         <td>
-                            <Link onClick={()=>this.changeUserView('edit')} to={{ pathname: '/admin/user-manage/edit'}}>
+                            <Link onClick={()=>this.changeUserView('edit')} to={{ pathname: '/admin/user-manage', id: item.id}}>
                               <span>{item.userName}</span>
                             </Link>
                         </td>
                         <td>{item.email}</td>
                         <td>
                           {arrRole.map((itemR, indexR) => {
-                            if (indexR === 0) {
+                            if (iRole === 1) {
+                              iRole++
                               return (
                                 <div key={indexR}>
                                   {itemR.role.name}
@@ -307,9 +318,11 @@ class UserManage extends Component {
                         </td>
                         <td>
                           {arrType.map((itemT, indexT) => {
-                            if (indexT === 0) {
+                            if (iType === 1) {
+                              iType++
                               return (
                                 <div key={indexT}>
+                                  {itemT.type.name}
                                   <br />
                                 </div>
                               )

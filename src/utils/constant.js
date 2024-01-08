@@ -3,9 +3,7 @@ export const path = {
         HOME: '/',
         ADMIN: '/admin',
         USER: '/admin/user-manage',
-        SYSTEM: '/system',
-        USERADD: '/admin/user-manage/add',
-        USEREDIT: '/admin/user-manage/edit'
+        SYSTEM: '/system'
     },
     client : {
         HOME: '/',

@@ -31,8 +31,8 @@ class UserAdd extends Component {
             email: '',
             email1: '',
             email2: '',
-            password: '',
-            confirmPassword: '',
+            //password: '',
+            //confirmPassword: '',
             isEnabled: true,
             name: '',
             valueDate: null,
@@ -245,7 +245,7 @@ class UserAdd extends Component {
     componentDidUpdate = (preProps, prevState, snapshot) => {
         if (preProps.isAddLoadingRedux !== this.props.isAddLoadingRedux) {
             this.setState({
-                isAddLoading: this.props.isAddDoneRedux,
+                isAddLoading: this.props.isAddLoadingRedux,
                 isAdd: false
             })
         }

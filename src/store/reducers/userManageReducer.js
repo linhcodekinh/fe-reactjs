@@ -107,7 +107,7 @@ const userManageReducer = (state = initialState, action) => {
             return {
                 ...state,
                 aUser: {},
-                isLoadAUserDone: true
+                isAUserLoading: true
             }
         default:
             return state;

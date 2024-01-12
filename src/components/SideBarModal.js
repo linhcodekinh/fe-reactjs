@@ -157,8 +157,6 @@ class SideBarModal extends Component {
                     </div>
 
                 </div>
-
-
         );
     }
 

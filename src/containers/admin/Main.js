@@ -44,7 +44,7 @@ class ViewMain extends Component {
     }
     else if (this.props.view === 'edit') {
       return (
-        <UserEdit setProgress={this.props.setProgress} id={this.props.id}/>
+        <UserEdit setProgress={this.props.setProgress}/>
       );
     }
     else {
@@ -92,7 +92,7 @@ class Main extends Component {
           <div id="content-wrapper" className="d-flex flex-column">
             <div id="content">
               <Header />
-              <ViewMain view={this.props.view} setProgress={this.onLoaderFinished} id={this.props.id}/>
+              <ViewMain view={this.props.view} setProgress={this.onLoaderFinished}/>
             </div>
             <Footer />
           </div>

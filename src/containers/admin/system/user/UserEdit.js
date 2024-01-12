@@ -12,6 +12,7 @@ import { ThreeDots, Audio, RevolvingDot, RotatingLines } from 'react-loader-spin
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { changeUserView } from '../../../../store/actions/userActions';
+import { getAUserStart, setAUserIdEdit } from '../../../../store/actions/userManageActions.js';
 
 class UserEdit extends Component {
 
@@ -19,11 +20,11 @@ class UserEdit extends Component {
         super(props)
         this.dataInsert = {}
         this.state = {
-            user: {},
+            aUser: {},
             firstName: '',
             lastName: '',
             dateOfBirth: '',
-            gender: 'Male',
+            gender: '2',
             phone: '',
             address1: '',
             address2: '',
@@ -47,7 +48,8 @@ class UserEdit extends Component {
             progress: 0,
             contentOfConfirmModal: {},
             showSpinner: false,
-            showPos: false
+            showPos: false,
+            isAUserLoading: true
             // datetime: new Date().toISOString(),
         }
 
@@ -225,34 +227,34 @@ class UserEdit extends Component {
         }
     }
 
-    async componentDidMount() {
-        let responseUser = await getUser(this.props.id);
-        let responseRole = await getAllRole();
-        let responseType = await getAllType();
-
-        if (responseUser) {
-            this.setState({
-                user: responseUser,
-                idRoleList: responseUser.arrRoleId,
-                idTypeList: responseUser.arrTypeId
-            }, () => {
-                console.log('user state ', this.state)
-            })
-        }
-
-        if (responseRole) {
-            this.setState({
-                arrRole: responseRole
-            })
-        }
-
-        if (responseType) {
-            this.setState({
-                arrType: responseType
-            })
-        }
-
+    componentDidMount() {
+        let idLocalStorage = JSON.parse(localStorage.getItem("persist:userManage")).userIdEdit;
+        this.props.getAUserStart(this.props.userIdEditRedux || idLocalStorage);
         this.props.setProgress(100);
+    }
+
+    componentDidUpdate = (preProps, prevState, snapshot) => {
+        if (preProps.aUserRedux !== this.props.aUserRedux) {
+            console.log(this.props.aUserRedux.member.dateOfBirth)
+          this.setState({
+            idRoleList: this.props.aUserRedux.arrRoleId,
+            idTypeList: this.props.aUserRedux.arrTypeId,
+            isAUserLoading: this.props.isAUserLoadingRedux,
+
+            firstName: this.props.aUserRedux.member.firstName,
+            lastName: this.props.aUserRedux.member.lastName,
+            dateOfBirth: this.props.aUserRedux.member.dateOfBirth,
+            gender: this.props.aUserRedux.member.gender,
+            phone: this.props.aUserRedux.member.phone,
+            address1: this.props.aUserRedux.member.address,
+            isEnabled: this.props.aUserRedux.isEnabled,
+            userName: this
+           
+          }, () => {
+            //console.log("this.state edit", this.state)
+          })
+          //this.props.getAUserStart(this.props.userIdEditRedux);
+        }
     }
 
     changeUserView = (view) => {
@@ -263,7 +265,6 @@ class UserEdit extends Component {
 
     render() {
         //console.log('check createNew props ', this.props.createNew())
-        let user = this.state.user;
         let arrRole = this.state.arrRole;
         let arrType = this.state.arrType;
 
@@ -275,7 +276,7 @@ class UserEdit extends Component {
         return (
             <>
                 <ThreeDots
-                    visible={this.state.showSpinner}
+                    visible={this.state.isAUserLoading}
                     height="60"
                     width="60"
                     color="#4e73df"
@@ -285,10 +286,10 @@ class UserEdit extends Component {
                     wrapperClass="audio-class"
                 />
 
-                <div className={this.state.showSpinner === true ? "container-fluid disabled" : "container-fluid"}>
+                <div className="container-fluid">
                     <div className="card shadow mb-4">
                         <div className="card-header py-3" >
-                            <h1 className="h3 mb-2 text-gray-800">Component {">"} Account</h1>
+                            <h1 className="h3 mb-2 text-gray-800">Account {">"} Edit</h1>
                             <p className="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
                                 For more information about DataTables, please visit the <a target="_blank"
                                     href="https://datatables.net">official DataTables documentation</a>.</p>
@@ -305,6 +306,7 @@ class UserEdit extends Component {
 
                         </div>
                         {/* formbold-main-wrapper */}
+                        <div className={this.state.isAUserLoading ? 'disabled' : ''}>
                         <div className='row'>
                             <div className="col-lg-4">
                                 <img src="assets/img/banner.png" className="img-fluid" alt="" />
@@ -323,7 +325,7 @@ class UserEdit extends Component {
                                                     id="firstName"
                                                     placeholder={msg}
                                                     className="formbold-form-input"
-                                                    value={user.firstName}
+                                                    value={this.state.firstName}
                                                     onChange={(e) => this.handleOnChangeText(e, 'firstName')}
                                                 />)}
                                             </FormattedMessage>
@@ -340,7 +342,7 @@ class UserEdit extends Component {
                                                     id="lastName"
                                                     placeholder={msg}
                                                     className="formbold-form-input"
-                                                    value={user.lastName}
+                                                    value={this.state.lastName}
                                                     onChange={(e) => this.handleOnChangeText(e, 'lastName')}
                                                 />)}
                                             </FormattedMessage>
@@ -357,7 +359,7 @@ class UserEdit extends Component {
                                                 type="date"
                                                 name="dob"
                                                 id="dob"
-                                                value={user.dateOfBirth}
+                                                value={this.state.dateOfBirth}
                                                 onChange={this.handleOnChangeDate}
                                                 className="formbold-form-input"
                                             />
@@ -368,8 +370,8 @@ class UserEdit extends Component {
                                                 className="formbold-form-input"
                                                 name="occupation"
                                                 id="occupation"
-                                                value={this.state.gender}
                                                 onChange={this.handleOnChangeGender}
+                                                defaultValue={this.state.gender}
                                             >
                                                 <FormattedMessage id='system.user-manage.male' key={'op' + '-' + '0'}>
                                                     {(message) => <option value='0'>{message}</option>}
@@ -688,6 +690,7 @@ class UserEdit extends Component {
                             <FormattedMessage id="system.user-manage.add-user" />
                         </button>
                     </div>
+                    </div>
                 </div>
             </>
         )
@@ -697,14 +700,19 @@ class UserEdit extends Component {
 
 const mapStateToProps = state => {
     return {
-        contentOfConfirmModal: state.app.contentOfConfirmModal
+        contentOfConfirmModal: state.app.contentOfConfirmModal,
+        aUserRedux: state.userManage.aUser,
+        isAUserLoadingRedux: state.userManage.isAUserLoading,
+        userIdEditRedux: state.userManage.userIdEdit
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
         changeUserView: (view) => dispatch(changeUserView(view)),
-        setContentOfConfirmModal: (contentOfConfirmModal) => dispatch(setContentOfConfirmModal(contentOfConfirmModal))
+        setContentOfConfirmModal: (contentOfConfirmModal) => dispatch(setContentOfConfirmModal(contentOfConfirmModal)),
+        getAUserStart: (id) => dispatch(getAUserStart(id)),
+        setAUserIdEdit: (id) => dispatch(setAUserIdEdit(id)),
     };
 };
 

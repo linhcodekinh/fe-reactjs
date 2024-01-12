@@ -40,7 +40,7 @@ class User extends Component {
     render() {
         console.log('props after pop', this.props)
         return (
-            <Main view={this.state.view} id={this.props.location.id} />
+            <Main view={this.state.view} />
         );
         
     }

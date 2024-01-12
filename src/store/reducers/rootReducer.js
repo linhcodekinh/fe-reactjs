@@ -4,6 +4,7 @@ import { connectRouter } from 'connected-react-router';
 import appReducer from "./appReducer";
 import adminReducer from "./adminReducer";
 import userReducer from "./userReducer";
+import userManageReducer from "./userManageReducer";
 
 import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
 import storage from 'redux-persist/lib/storage';
@@ -12,6 +13,12 @@ import { persistReducer } from 'redux-persist';
 const persistCommonConfig = {
     storage: storage,
     stateReconciler: autoMergeLevel2,
+};
+
+const userManagePersistConfig = {
+    ...persistCommonConfig,
+    key: 'userManage',
+    whitelist: ['userIdEdit']
 };
 
 const userPersistConfig = {
@@ -29,5 +36,7 @@ const appPersistConfig = {
 export default (history) => combineReducers({
     router: connectRouter(history),
     user: persistReducer(userPersistConfig, userReducer),
+    userManage: persistReducer(userManagePersistConfig, userManageReducer),
+    //userManage: userManageReducer,
     app: persistReducer(appPersistConfig, appReducer)
 })

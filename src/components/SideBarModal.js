@@ -37,10 +37,11 @@ class SideBarModal extends Component {
 
     render() {
         return (
-                <div
-                    className={this.props.isOpen ? "modal-dialog show" : "modal-dialog"}
-                    role="document"
-                >
+            <div
+                className={this.props.isOpen ? "modal-dialog-side-bar show" : "modal-dialog-side-bar" }
+                role="document"
+            >
+            
                     <div className="modal-content">
                         <div className="modal-header">
                             <button
@@ -68,95 +69,31 @@ class SideBarModal extends Component {
                                 aaaaaaaaaaaaaaaa
                                 aaaaaaaaaaaaaaaa
 
-                                aaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaa
-                                aaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaa
-                                aaaaaaaaaaaaaaaa
-                                aaaaaaaaaaaaaaaa
-
-                                aaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaa
-                                aaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaa
-                                aaaaaaaaaaaaaaaa
-                                aaaaaaaaaaaaaaaa
-
-                                aaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaa
-                                aaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaa
-                                aaaaaaaaaaaaaaaa
-                                aaaaaaaaaaaaaaaa
-
-                                aaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaa
-                                aaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaa
-                                aaaaaaaaaaaaaaaa
-                                aaaaaaaaaaaaaaaa
-
-                                aaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaa
-                                aaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaa
-                                aaaaaaaaaaaaaaaa
-                                aaaaaaaaaaaaaaaa
-
-                                aaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaa
-                                aaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaa
-                                aaaaaaaaaaaaaaaa
-                                aaaaaaaaaaaaaaaa
-
-                                aaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaa
-                                aaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaa
-
-                                aaaaaaaaaaaaaaaa
-                                aaaaaaaaaaaaaaaa
-
-                                aaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaa
-                                aaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaa
-                                aaaaaaaaaaaaaaaa
-                                aaaaaaaaaaaaaaaa
-
-                                aaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaa
-                                aaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaa
-                                aaaaaaaaaaaaaaaa
-                                aaaaaaaaaaaaaaaa
-
-                                aaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaa
-                                aaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaa
-                                aaaaaaaaaaaaaaaa
-                                aaaaaaaaaaaaaaaa
-
-                                aaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaa
-                                aaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaa
-                                aaaaaaaaaaaaaaaa
-                                aaaaaaaaaaaaaaaa
-
-                                aaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaa
-                                aaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaa
-
-
-                                v
-                                aaaaaaaaaaaaaaaa
-                                aaaaaaaaaaaaaaaa
-
-                                aaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaa
-                                aaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaa
-                                aaaaaaaaaaaaaaaa
-                                aaaaaaaaaaaaaaaa
-
-                                aaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaa
-                                aaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaa
-                                aaaaaaaaaaaaaaaa
-                                aaaaaaaaaaaaaaaa
-
-                                aaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaa
-                                aaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaa
 
                             </p>
 
 
                         </div>
 
-                        <div className="modal-footer" style={{bottom: 0,marginBottom: '20px', position: "fixed", width: "10%", height: "10%", border: "1px solid gray", backgroundColor: "orange"}}>
-                            <p> footer</p>
+                        <div style={{ bottom: 0, position: "fixed", width: "21%"}}>
+                            {/* <div style={{position: "fixed", width: "6%",border: "1px solid gray"}}> 2footer</div>
+                            <div style={{marginLeft: "6%",position: "fixed", width: "6%",border: "1px solid gray"}}> 3footer</div>                            
+                            <div style={{marginLeft: "12%",position: "fixed",width: "6%",border: "1px solid gray"}}> 1footer</div> */}
 
+                            <table>
+                                <tr>
+                                    <td style={{width: "7%", border: "1px solid gray", padding: "3%"}}>Emil</td>
+                                    <td style={{width: "7%", border: "1px solid gray", padding: "3%"}}>Tobias</td>
+                                    <td style={{width: "7%", border: "1px solid gray", padding: "3%"}}>Linus</td>
+                                </tr>
+                            </table>
                         </div>
+                       
                     </div>
 
                 </div>
+
+     
         );
     }
 

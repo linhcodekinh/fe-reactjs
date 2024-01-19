@@ -14,6 +14,7 @@ const initialState = {
     isAUserLoading: true,
     isDeleteLoading: true,
     isAddLoading: true,
+    isUpdateLoading: true,
     userIdEdit: ''
 
 }
@@ -70,7 +71,6 @@ const userManageReducer = (state = initialState, action) => {
                 listAllPos: []
             }
         case actionTypes.DELETE_USER_SUCCEED:
-            console.log('here DELETE_USER_SUCCEED')
             return {
                 ...state,
                 isDeleteLoading: false
@@ -80,13 +80,22 @@ const userManageReducer = (state = initialState, action) => {
                 ...state,
                 isDeleteLoading: true
             }
+        case actionTypes.UPDATE_DELETE_USER_LOADING:
+            return {
+                ...state,
+                isDeleteLoading: true
+            }
         case actionTypes.ADD_USER_SUCCEED:
-            console.log('here ADD_USER_SUCCEED')
             return {
                 ...state,
                 isAddLoading: false,
             }
         case actionTypes.ADD_USER_FAILED:
+            return {
+                ...state,
+                isAddLoading: true
+            }
+        case actionTypes.UPDATE_ADD_USER_LOADING:
             return {
                 ...state,
                 isAddLoading: true
@@ -97,7 +106,6 @@ const userManageReducer = (state = initialState, action) => {
                 userIdEdit: action.userIdEdit
             }
         case actionTypes.GET_A_USER_SUCCEED:
-            console.log('here GET_A_USER_SUCCEED')
             return {
                 ...state,
                 aUser: action.resGetAUser,
@@ -108,6 +116,21 @@ const userManageReducer = (state = initialState, action) => {
                 ...state,
                 aUser: {},
                 isAUserLoading: true
+            }
+        case actionTypes.UPDATE_USER_SUCCEED:
+            return {
+                ...state,
+                isUpdateLoading: false,
+            }
+        case actionTypes.UPDATE_USER_FAILED:
+            return {
+                ...state,
+                isUpdateLoading: true
+            }
+        case actionTypes.UPDATE_EDIT_USER_LOADING:
+            return {
+                ...state,
+                isUpdateLoading: true
             }
         default:
             return state;

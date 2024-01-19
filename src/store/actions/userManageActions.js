@@ -1,5 +1,5 @@
 import actionTypes from './actionTypes.js';
-import { getAllUsers, getAllPositions, getAllRole, getAllType, deleteUser, createNewUser, getUser } from '../../services/userService.js';
+import { getAllUsers, getAllPositions, getAllRole, getAllType, deleteUser, createNewUser, getUser, updatedUser } from '../../services/userService.js';
 import { ToastUtil } from '../../utils/index.js'
 
 export const fetchAllUserStart = () => {
@@ -111,15 +111,27 @@ export const fetchAllPosFailed = () => ({
     type: actionTypes.FETCH_ALL_POS_FAILED
 })
 
+export const deleteMultiUserStart = (ids) => {
+    console.log('ids', ids)
+    return async (dispatch, getState) => {
+        for (let i = 0; i < ids.length; i++) {
+            console.log('ids ', i, ids[i])
+            dispatch(deleteUserStart(ids[i]))
+        }
+    }
+}
 
 export const deleteUserStart = (id) => {
     return async (dispatch, getState) => {
         try {
             let resDeleteUser = await deleteUser(id);
             if (resDeleteUser && resDeleteUser.message) {
-                ToastUtil.show('SUCCESS', 'common.confirm', resDeleteUser.message, false)
-                dispatch(deleteUserSucceed())
-                dispatch(fetchAllUserStart())
+                setTimeout(() => {
+                    ToastUtil.show('SUCCESS', 'common.confirm', resDeleteUser.message, false)
+                    dispatch(deleteUserSucceed())
+                    dispatch(fetchAllUserStart())
+                    dispatch(updateDeleteUserLoading())
+                }, 500)
             } else {
                 ToastUtil.show('ERROR', 'common.error', 'error', false)
                 dispatch(deleteUserFailed());
@@ -131,6 +143,10 @@ export const deleteUserStart = (id) => {
     }
 }
 
+export const updateDeleteUserLoading = () => ({
+    type: actionTypes.UPDATE_DELETE_USER_LOADING,
+})
+
 export const deleteUserSucceed = () => ({
     type: actionTypes.DELETE_USER_SUCCEED,
 })
@@ -138,7 +154,6 @@ export const deleteUserSucceed = () => ({
 export const deleteUserFailed = () => ({
     type: actionTypes.DELETE_USER_FAILED
 })
-
 
 export const addUserStart = (data) => {
     return async (dispatch, getState) => {
@@ -150,6 +165,7 @@ export const addUserStart = (data) => {
             } else if (resAddUser && resAddUser.message) {
                 ToastUtil.show('SUCCESS', 'common.confirm', resAddUser.message, false)
                 dispatch(addUserSucceed())
+                dispatch(updateAddUserLoading())
             }
         } catch (e) {
             dispatch(addUserFailed());
@@ -160,6 +176,10 @@ export const addUserStart = (data) => {
 
 export const addUserSucceed = () => ({
     type: actionTypes.ADD_USER_SUCCEED,
+})
+
+export const updateAddUserLoading = () => ({
+    type: actionTypes.UPDATE_ADD_USER_LOADING,
 })
 
 export const addUserFailed = () => ({
@@ -195,6 +215,40 @@ export const getAUserFailed = () => ({
 export const setAUserIdEdit = (userIdEdit) => ({
     type: actionTypes.EDIT_USER_ID,
     userIdEdit: userIdEdit
+})
+
+
+export const updateUserStart = (id, data) => {
+    return async (dispatch, getState) => {
+        try {
+            let resUpdateUser = await updatedUser(id, data);
+            if (resUpdateUser[0] && !resUpdateUser[0].bindingFailure) {
+                ToastUtil.show('ERROR', 'common.unknown-error', resUpdateUser[0].defaultMessage, false)
+                dispatch(updateUserFailed());
+            } else if (resUpdateUser && resUpdateUser.message) {
+                setTimeout(() => {
+                    ToastUtil.show('SUCCESS', 'common.confirm', resUpdateUser.message, false)
+                    dispatch(updateUserSucceed())
+                    dispatch(updateEditUserLoading())
+                }, 500)
+            }
+        } catch (e) {
+            dispatch(updateUserFailed());
+            console.log('updateUserFailed error', e)
+        }
+    }
+}
+
+export const updateUserSucceed = () => ({
+    type: actionTypes.UPDATE_USER_SUCCEED,
+})
+
+export const updateEditUserLoading = () => ({
+    type: actionTypes.UPDATE_EDIT_USER_LOADING,
+})
+
+export const updateUserFailed = () => ({
+    type: actionTypes.UPDATE_USER_FAILED
 })
 
 

@@ -23,7 +23,12 @@ const getAllRole = () => {
 
 const createNewUser = (data) => {
     console.log('check data from service: ', data)
-    return axios.post('api/public/account', data)
+    return axios.post('api/public/account/', data)
+} 
+
+const updatedUser = (id, data) => {
+    console.log('check data from service: ',id, data)
+    return axios.put(`api/public/account/${id}`, data)
 } 
 
 const deleteUser = (id) => {
@@ -34,4 +39,4 @@ const getUser = (id) => {
     return axios.get(`api/public/account/${id}`)
 }
 
-export { handleLoginApi, getAllUsers, getAllPositions, getAllRole, getAllType, createNewUser, deleteUser, getUser }
+export { handleLoginApi, getAllUsers, getAllPositions, getAllRole, getAllType, createNewUser, deleteUser, getUser, updatedUser }

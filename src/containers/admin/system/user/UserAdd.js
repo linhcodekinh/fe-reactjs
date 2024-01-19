@@ -31,8 +31,6 @@ class UserAdd extends Component {
             email: '',
             email1: '',
             email2: '',
-            //password: '',
-            //confirmPassword: '',
             isEnabled: true,
             name: '',
             valueDate: null,
@@ -49,11 +47,10 @@ class UserAdd extends Component {
             showSpinner: false,
             showPos: false,
             isAdd: false,
-            isAddLoading: true
-            // datetime: new Date().toISOString(),
+            isRoleLoading: true,
+            isTypeLoading: true,
+            isPosLoading: true
         }
-
-        console.log(this.props)
     }
 
     handleOnCheckBox = (e, id) => {
@@ -158,9 +155,9 @@ class UserAdd extends Component {
 
     checkValidInput = () => {
         let isValid = true;
-        let arrInput = ['userName', 'email', 'email1', 'email2', 'password', 'firstName', 'lastName', 'gender', 'address1', 'address2']
+        let arrInput = ['userName', 'email', 'email1', 'email2', 'password', 'firstName', 'gender', 'lastName', 'address1', 'address2']
         for (let i = 0; i < arrInput.length; i++) {
-            if (this.state[arrInput[i]] == '') {
+            if (this.state[arrInput[i]] === '') {
                 console.log('this.state[arrInput[i]] ', this.state[arrInput[i]])
                 isValid = false
                 ToastUtil.show('WARN', 'common.warn', 'Missing parameter: ' + arrInput[i], false)
@@ -245,24 +242,25 @@ class UserAdd extends Component {
     componentDidUpdate = (preProps, prevState, snapshot) => {
         if (preProps.isAddLoadingRedux !== this.props.isAddLoadingRedux) {
             this.setState({
-                isAddLoading: this.props.isAddLoadingRedux,
                 isAdd: false
             })
         }
         if (preProps.roleRedux !== this.props.roleRedux) {
             this.setState({
                 arrRole: this.props.roleRedux,
+                isRoleLoading: this.props.isRoleLoadingRedux
             })
         }
         if (preProps.typeRedux !== this.props.typeRedux) {
             this.setState({
                 arrType: this.props.typeRedux,
+                isTypeLoading: this.props.isTypeLoadingRedux
             })
         }
         if (preProps.posRedux !== this.props.posRedux) {
-            console.log('this.props.posRedux ', this.props.posRedux)
             this.setState({
                 arrPos: this.props.posRedux,
+                isPosLoading: this.props.isPosLoadingRedux
             })
         }
     }
@@ -281,13 +279,11 @@ class UserAdd extends Component {
 
         console.log('arrPos ', arrPos)
 
-
-
-        let showAddLoading = (this.state.isAdd === true && !this.state.isAddLoading === true)
+        let showLoading = (this.state.isAdd === true && this.props.isAddLoadingRedux === true) || (this.state.isRoleLoading === true && this.state.isTypeLoading === true && this.state.isPosLoading === true)
         return (
             <>
                 <ThreeDots
-                    visible={showAddLoading}
+                    visible={showLoading}
                     height="60"
                     width="60"
                     color="#4e73df"
@@ -328,24 +324,24 @@ class UserAdd extends Component {
                     wrapperClass="audio-class"
                 /> */}
 
-                <div className={showAddLoading ? "container-fluid disabled" : "container-fluid"}>
+                <div className={showLoading ? "container-fluid disabled" : "container-fluid"}>
                     <div className="card shadow mb-4">
                         <div className="card-header py-3" >
-                            <h1 className="h3 mb-2 text-gray-800">Component {">"} Account</h1>
-                            <p className="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
-                                For more information about DataTables, please visit the <a target="_blank"
-                                    href="https://datatables.net">official DataTables documentation</a>.</p>
-                            {/* <h6 className="m-0 font-weight-bold text-primary">DataTables Example</h6> */}
-                            {/* <button onClick={() => this.handleAddNewUser()} className="btn btn-sm btn-primary btn-icon-split" style={{ float: "right" }}> */}
-                            <Link to={{ pathname: '/admin/user-manage' }} onClick={() => this.changeUserView('view')}>
-                                <button className="btn btn-sm btn-secondary btn-icon-split" style={{ float: "right" }}>
-                                    <span className="icon text-white-50">
-                                        <FontAwesomeIcon icon={['fas', 'fa-arrow-left']} />
-                                    </span>
-                                    <span className="text">Back</span>
-                                </button>
-                            </Link>
-
+                            <div className='row'>
+                                <div className='col-6'>
+                                    <h4 className="mb-2 text-gray-800">Component {">"} Account</h4>
+                                </div>
+                                <div className='col-6'>
+                                    <Link to={{ pathname: '/admin/user-manage' }} onClick={() => this.changeUserView('view')}>
+                                        <button className="btn btn-sm btn-secondary btn-icon-split" style={{ float: "right" }}>
+                                            <span className="icon text-white-50">
+                                                <FontAwesomeIcon icon={['fas', 'fa-arrow-left']} />
+                                            </span>
+                                            <span className="text">Back</span>
+                                        </button>
+                                    </Link>
+                                </div>
+                            </div>
                         </div>
                         {/* formbold-main-wrapper */}
                         <div className='row'>
@@ -752,7 +748,10 @@ const mapStateToProps = state => {
         roleRedux: state.userManage.listAllRole,
         typeRedux: state.userManage.listAllType,
         posRedux: state.userManage.listAllPos,
-        isAddLoadingRedux: state.userManage.isAddLoading
+        isAddLoadingRedux: state.userManage.isAddLoading,
+        isRoleLoadingRedux: state.userManage.isRoleLoading,
+        isTypeLoadingRedux: state.userManage.isTypeLoading,
+        isPosLoadingRedux: state.userManage.isPosLoading
     };
 };
 

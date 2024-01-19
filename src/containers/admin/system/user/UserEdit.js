@@ -12,31 +12,24 @@ import { ThreeDots, Audio, RevolvingDot, RotatingLines } from 'react-loader-spin
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { changeUserView } from '../../../../store/actions/userActions';
-import { fetchAllPosStart, fetchAllRoleStart, fetchAllTypeStart, getAUserStart } from '../../../../store/actions/userManageActions.js';
+import { fetchAllPosStart, fetchAllRoleStart, fetchAllTypeStart, getAUserStart, updateUserStart } from '../../../../store/actions/userManageActions.js';
 
 class UserEdit extends Component {
 
     constructor(props) {
         super(props)
-        this.dataInsert = {}
+        this.dataUpdate = {}
         this.state = {
-            aUser: {},
             firstName: '',
             lastName: '',
             dateOfBirth: '',
-            gender: '2',
+            gender: 0,
             phone: '',
             address1: '',
             address2: '',
             userName: '',
-            email: '',
-            email1: '',
-            email2: '',
-            password: '',
-            confirmPassword: '',
             isEnabled: true,
             name: '',
-            valueDate: null,
             idCard: '',
             positionId: '',
             idRoleList: [],
@@ -49,7 +42,8 @@ class UserEdit extends Component {
             contentOfConfirmModal: {},
             showSpinner: false,
             showPos: false,
-            isAUserLoading: true
+            isAUserLoading: true,
+            isUpdate: false
             // datetime: new Date().toISOString(),
         }
 
@@ -158,7 +152,7 @@ class UserEdit extends Component {
 
     checkValidInput = () => {
         let isValid = true;
-        let arrInput = ['userName', 'email', 'email1', 'email2', 'password', 'firstName', 'lastName', 'gender', 'address1', 'address2']
+        let arrInput = ['userName', 'firstName', 'lastName', 'address1', 'address2']
         for (let i = 0; i < arrInput.length; i++) {
             if (!this.state[arrInput[i]]) {
                 isValid = false
@@ -170,61 +164,40 @@ class UserEdit extends Component {
         return isValid;
     }
 
-    handleAddNew = () => {
+    handleBeforeUpdate = () => {
         let isValid = this.checkValidInput();
         console.log('check isValid', isValid)
         if (isValid === true) {
-            this.dataInsert = {
+            this.dataUpdate = {
                 userName: this.state.userName,
-                email: this.state.email + "@" + this.state.email1 + "." + this.state.email2,
-                password: this.state.password,
                 isEnabled: this.state.isEnabled,
                 firstName: this.state.firstName,
                 lastName: this.state.lastName,
-                gender: this.state.gender,
+                gender: Number(this.state.gender),
                 phone: this.state.phone,
-                address: this.state.address1 + " | " + this.state.address2,
+                address: this.state.address1 + "|" + this.state.address2,
                 dateOfBirth: this.state.dateOfBirth,
                 idCard: 'test',
                 positionId: this.state.positionId,
                 idRoleList: this.state.idRoleList,
-                idTypeList: [...this.state.idTypeList, 1]
+                idTypeList: this.state.idTypeList
             }
             this.setState({
-                contentOfConfirmModal: { isOpen: true, messageId: "common.confirm-this-task", handleFunc: this.createNew, dataFunc: this.dataInsert }
+                contentOfConfirmModal: {
+                    isOpen: true, messageId: "common.confirm-this-task", handleFunc: this.handleUpdate,
+                    dataFunc: { id: this.props.userIdEditRedux || JSON.parse(localStorage.getItem("persist:userManage")).userIdEdit, data: this.dataUpdate }
+                }
             }, () => {
                 this.props.setContentOfConfirmModal(this.state.contentOfConfirmModal)
             })
         }
     }
 
-    createNew = async (data) => {
-        try {
-            this.setState({
-                showSpinner: true
-            })
-            let res = await createNewUser(data)
-            if (res[0] && !res[0].bindingFailure) {
-                this.setState({
-                    showSpinner: false
-                }, () => {
-                    ToastUtil.show('ERROR', 'common.unknown-error', res[0].defaultMessage, false)
-                })
-            } else if (res && res.message) {
-                this.setState({
-                    showSpinner: false
-                }, () => {
-                    ToastUtil.show('SUCCESS', 'common.confirm', res.message, false)
-                })
-                //history.go(-1)
-                //history.push({ pathname: path.admin.USER, view: 'view' })
-            }
-            console.log('response create user: ', res)
-
-        } catch (e) {
-            console.log(e)
-            throw e
-        }
+    handleUpdate = async (id, data) => {
+        this.setState({
+            isUpdate: true
+        })
+        this.props.updateUserStart(id, data)
     }
 
     componentDidMount() {
@@ -243,8 +216,8 @@ class UserEdit extends Component {
             this.setState({
                 idRoleList: this.props.aUserRedux.arrRoleId,
                 idTypeList: this.props.aUserRedux.arrTypeId,
-                positionId: this.props.aUserRedux.employee && this.props.aUserRedux.employee.position.id,
-                showPos : (this.props.aUserRedux.employee) !== null,
+                positionId: (this.props.aUserRedux.employee && this.props.aUserRedux.employee.position) ? this.props.aUserRedux.employee.position.id : '',
+                showPos: (this.props.aUserRedux.employee) !== null,
                 isAUserLoading: this.props.isAUserLoadingRedux,
 
                 firstName: this.props.aUserRedux.member.firstName,
@@ -259,11 +232,7 @@ class UserEdit extends Component {
                 email: this.props.aUserRedux.email,
                 email1: this.props.aUserRedux.email1,
                 email2: this.props.aUserRedux.email2,
-
-            }, () => {
-                //console.log("this.state edit", this.state)
             })
-            //this.props.getAUserStart(this.props.userIdEditRedux);
         }
 
         if (preProps.roleRedux !== this.props.roleRedux) {
@@ -281,29 +250,29 @@ class UserEdit extends Component {
                 arrPos: this.props.posRedux,
             })
         }
+        if (preProps.isUpdateLoadingRedux !== this.props.isUpdateLoadingRedux) {
+            this.setState({
+                isUpdate: false
+            })
+        }
+    }
+    componentWillUnmount = () => {
     }
 
     changeUserView = (view) => {
-        console.log("changeView ", view)
         this.props.changeUserView(view)
     }
 
-
     render() {
-        console.log('this.state.isEnabled ', this.state)
+        console.log('this.state userEdit ', this.state)
         let arrRole = this.state.arrRole;
         let arrType = this.state.arrType;
         let arrPos = this.state.arrPos;
-
-
-        // for(let i=0 ; i < user.accountTypeList.length; i++){
-        //     //arrUserTypeName[i++] = 
-        //     //console.log(user.accountTypeList.type)
-        // }
+        let showLoading = (this.state.isUpdate === true && this.props.isUpdateLoadingRedux === true) || this.state.isAUserLoading
         return (
             <>
                 <ThreeDots
-                    visible={this.state.isAUserLoading}
+                    visible={showLoading}
                     height="60"
                     width="60"
                     color="#4e73df"
@@ -316,24 +285,24 @@ class UserEdit extends Component {
                 <div className="container-fluid">
                     <div className="card shadow mb-4">
                         <div className="card-header py-3" >
-                            <h1 className="h3 mb-2 text-gray-800">Account {">"} Edit</h1>
-                            <p className="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
-                                For more information about DataTables, please visit the <a target="_blank"
-                                    href="https://datatables.net">official DataTables documentation</a>.</p>
-                            {/* <h6 className="m-0 font-weight-bold text-primary">DataTables Example</h6> */}
-                            {/* <button onClick={() => this.handleAddNewUser()} className="btn btn-sm btn-primary btn-icon-split" style={{ float: "right" }}> */}
-                            <Link to={{ pathname: '/admin/user-manage' }} onClick={() => this.changeUserView('view')}>
-                                <button className="btn btn-sm btn-secondary btn-icon-split" style={{ float: "right" }}>
-                                    <span className="icon text-white-50">
-                                        <FontAwesomeIcon icon={['fas', 'fa-arrow-left']} />
-                                    </span>
-                                    <span className="text">Back</span>
-                                </button>
-                            </Link>
-
+                            <div className='row'>
+                                <div className='col-6'>
+                                    <h4 className="mb-2 text-gray-800">Account {">"} Edit</h4>
+                                </div>
+                                <div className='col-6'>
+                                    <Link to={{ pathname: '/admin/user-manage' }} onClick={() => this.changeUserView('view')}>
+                                        <button className="btn btn-sm btn-secondary btn-icon-split" style={{ float: "right" }}>
+                                            <span className="icon text-white-50">
+                                                <FontAwesomeIcon icon={['fas', 'fa-arrow-left']} />
+                                            </span>
+                                            <span className="text">Back</span>
+                                        </button>
+                                    </Link>
+                                </div>
+                            </div>
                         </div>
                         {/* formbold-main-wrapper */}
-                        <div className={this.state.isAUserLoading ? 'disabled' : ''}>
+                        <div className={showLoading ? 'disabled' : ''}>
                             <div className='row'>
                                 <div className="col-lg-4">
                                     <img src="assets/img/banner.png" className="img-fluid" alt="" />
@@ -398,16 +367,16 @@ class UserEdit extends Component {
                                                     name="occupation"
                                                     id="occupation"
                                                     onChange={this.handleOnChangeGender}
-                                                    defaultValue={this.state.gender}
+                                                    value={this.state.gender}
                                                 >
                                                     <FormattedMessage id='system.user-manage.male' key={'op' + '-' + '0'}>
-                                                        {(message) => <option value='0'>{message}</option>}
+                                                        {(message) => <option value="0">{message}</option>}
                                                     </FormattedMessage>
                                                     <FormattedMessage id='system.user-manage.female' key={'op' + '-' + '1'}>
-                                                        {(message) => <option value='1'>{message}</option>}
+                                                        {(message) => <option value="1">{message}</option>}
                                                     </FormattedMessage>
                                                     <FormattedMessage id='system.user-manage.others' key={'op' + '-' + '2'}>
-                                                        {(message) => <option value='2'>{message}</option>}
+                                                        {(message) => <option value="2">{message}</option>}
                                                     </FormattedMessage>
                                                     {/* <option value="1"><FormattedMessage id="system.user-manage.gender" /></option>
                                             <option value="2"><FormattedMessage id="system.user-manage.gender" /></option> */}
@@ -508,6 +477,8 @@ class UserEdit extends Component {
                                                 <FormattedMessage id='system.user-manage.input-email'>
                                                     {(msg) => (
                                                         <input
+                                                            disabled
+                                                            style={{ opacity: 0.7 }}
                                                             type="text"
                                                             name="email"
                                                             id="email"
@@ -522,6 +493,8 @@ class UserEdit extends Component {
                                                 <FormattedMessage id='system.user-manage.input-email1'>
                                                     {(msg) => (
                                                         <input
+                                                            disabled
+                                                            style={{ opacity: 0.7 }}
                                                             type="text"
                                                             name="email1"
                                                             id="email1"
@@ -536,6 +509,8 @@ class UserEdit extends Component {
                                                 <FormattedMessage id='system.user-manage.input-email2'>
                                                     {(msg) => (
                                                         <input
+                                                            disabled
+                                                            style={{ opacity: 0.7 }}
                                                             type="text"
                                                             name="email2"
                                                             placeholder={msg}
@@ -558,12 +533,14 @@ class UserEdit extends Component {
                                                 <FormattedMessage id='system.user-manage.input-password'>
                                                     {(msg) => (
                                                         <input
+                                                            disabled
+                                                            style={{ opacity: 0.7 }}
                                                             className="formbold-form-input"
                                                             id="password"
                                                             name="password"
                                                             placeholder={msg}
                                                             type="password"
-                                                            onChange={(e) => this.handleOnChangeText(e, 'password')}
+                                                            value="passwordpass"
                                                         />
                                                     )}
                                                 </FormattedMessage>
@@ -576,13 +553,15 @@ class UserEdit extends Component {
                                                 <FormattedMessage id='system.user-manage.input-retype-password'>
                                                     {(msg) => (
                                                         <input
+                                                            disabled
+                                                            style={{ opacity: 0.7 }}
                                                             className="formbold-form-input"
                                                             id="confirmPassword"
                                                             name="confirmPassword"
                                                             placeholder={msg}
                                                             type="password"
                                                             onBlur={this.handleBlur}
-                                                            onChange={(e) => this.handleOnChangeText(e, 'confirmPassword')}
+                                                            value="passwordpass"
                                                         />
                                                     )}
                                                 </FormattedMessage>
@@ -736,7 +715,7 @@ class UserEdit extends Component {
                             </div>
                             <button
                                 className="formbold-btn"
-                                onClick={() => { this.handleAddNew() }}
+                                onClick={() => { this.handleBeforeUpdate() }}
                             >
                                 <FormattedMessage id="system.user-manage.add-user" />
                             </button>
@@ -758,8 +737,9 @@ const mapStateToProps = state => {
 
         roleRedux: state.userManage.listAllRole,
         typeRedux: state.userManage.listAllType,
-        posRedux: state.userManage.listAllPos
+        posRedux: state.userManage.listAllPos,
 
+        isUpdateLoadingRedux: state.userManage.isUpdateLoading
     };
 };
 
@@ -768,9 +748,10 @@ const mapDispatchToProps = dispatch => {
         changeUserView: (view) => dispatch(changeUserView(view)),
         setContentOfConfirmModal: (contentOfConfirmModal) => dispatch(setContentOfConfirmModal(contentOfConfirmModal)),
         getAUserStart: (id) => dispatch(getAUserStart(id)),
+        updateUserStart: (id, data) => dispatch(updateUserStart(id, data)),
         fetchAllRoleStart: () => dispatch(fetchAllRoleStart()),
         fetchAllTypeStart: () => dispatch(fetchAllTypeStart()),
-        fetchAllPosStart: () => dispatch(fetchAllPosStart()),
+        fetchAllPosStart: () => dispatch(fetchAllPosStart())
     };
 };
 

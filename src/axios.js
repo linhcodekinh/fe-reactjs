@@ -10,6 +10,9 @@ instance.interceptors.response.use(
     (response) => {
         const { data } = response;
         return response.data;
+    },
+    (error) => {
+        return Promise.reject(error)
     }
 )
 

@@ -9,7 +9,7 @@ import { emitter } from '../../../../utils/emitter';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
 import { changeUserView } from '../../../../store/actions/userActions';
-import { fetchAllUserStart, fetchAllPosStart, fetchAllRoleStart, fetchAllTypeStart, deleteUserStart, setAUserIdEdit } from '../../../../store/actions/userManageActions';
+import { fetchAllUserStart, fetchAllPosStart, fetchAllRoleStart, fetchAllTypeStart, deleteUserStart, setAUserIdEdit, deleteMultiUserStart } from '../../../../store/actions/userManageActions';
 import { ThreeDots } from 'react-loader-spinner'
 import { setContentOfConfirmModal } from '../../../../store/actions/appActions.js';
 
@@ -31,11 +31,10 @@ class UserManage extends Component {
       isRoleLoading: true,
       isTypeLoading: true,
       isPosLoading: true,
-      isDeleteLoading: true,
-      isDeleteLoading: true,
       isDelete: false,
+      //isDeleteMulti: false,
       messageDelete: '',
-      contentOfConfirmModal : {}
+      contentOfConfirmModal: {}
     }
   }
   /** Life Cycle
@@ -139,6 +138,7 @@ class UserManage extends Component {
     if (preProps.userRedux !== this.props.userRedux) {
       this.setState({
         arrAccount: this.props.userRedux,
+        arrCount: this.props.userRedux.length,
         isUserLoading: this.props.isUserLoadingRedux
       })
     }
@@ -163,7 +163,6 @@ class UserManage extends Component {
 
     if (preProps.isDeleteLoadingRedux !== this.props.isDeleteLoadingRedux) {
       this.setState({
-        isDeleteLoading: this.props.isDeleteLoadingRedux,
         isDelete: false
       })
     }
@@ -205,14 +204,32 @@ class UserManage extends Component {
   //   }
   // }
 
-  handleBeforeDeleteUser = (id) => {
+  handleBeforeDeleteMultiUser = () => {
     this.setState({
-        contentOfConfirmModal: { isOpen: true, messageId: "common.confirm-this-task", handleFunc: this.handleDeleteUser, dataFunc: id }   
+      contentOfConfirmModal: { isOpen: true, messageId: "common.confirm-this-task", handleFunc: this.handleDeleteMultiUser, dataFunc: { ids: this.state.arrAccountChecked } }
     }, () => {
       this.props.setContentOfConfirmModal(this.state.contentOfConfirmModal)
     })
-   
   }
+
+  handleDeleteMultiUser = (ids) => {
+    this.setState({
+      arrAccountChecked: [],
+      isDisabled: "disabled",
+      isDelete: true
+    })
+    this.props.deleteMultiUserStart(ids);
+  }
+
+  handleBeforeDeleteUser = (id) => {
+    console.log("handleBeforeDeleteUser", id)
+    this.setState({
+      contentOfConfirmModal: { isOpen: true, messageId: "common.confirm-this-task", handleFunc: this.handleDeleteUser, dataFunc: id }
+    }, () => {
+      this.props.setContentOfConfirmModal(this.state.contentOfConfirmModal)
+    })
+  }
+
   handleDeleteUser = (id) => {
     this.setState({
       isDelete: true
@@ -228,9 +245,9 @@ class UserManage extends Component {
 
   render() {
     let arrAccount = this.state.arrAccount;
-    let disabled = this.state.isDisabled;
     let showUserLoading = (this.state.isUserLoading === true && this.state.isRoleLoading === true && this.state.isTypeLoading === true && this.state.isPosLoading === true);
-    let showDeleteLoading = (this.state.isDelete === true && this.state.isDeleteLoading === true) 
+    let showDeleteLoading = (this.state.isDelete === true && this.props.isDeleteLoadingRedux === true)
+
     return (
       <>
         <ThreeDots
@@ -243,7 +260,7 @@ class UserManage extends Component {
           wrapperStyle={{}}
           wrapperClass="audio-class"
         />
-        <div className= "container-fluid">
+        <div className="container-fluid">
           {/* Page Heading */}
           {/* DataTales Example */}
           <div className="card shadow mb-4">
@@ -256,37 +273,38 @@ class UserManage extends Component {
               createNew={this.createNew}
             /> */}
             <div className="card-header py-3" >
-              <h1 className="h3 mb-2 text-gray-800">Component {">"} Account</h1>
-              <p className="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
-                For more information about DataTables, please visit the <a target="_blank"
-                  href="https://datatables.net">official DataTables documentation</a>.</p>
-              {/* <h6 className="m-0 font-weight-bold text-primary">DataTables Example</h6> */}
-              {/* <button onClick={() => this.handleAddNewUser()} className="btn btn-sm btn-primary btn-icon-split" style={{ float: "right" }}> */}
-              <Link to={{ pathname: '/admin' }}>
-                <button className="btn btn-sm btn-secondary btn-icon-split" style={{ float: "right" }}>
-                  <span className="icon text-white-50">
-                    <FontAwesomeIcon icon={['fas', 'fa-arrow-left']} />
-                  </span>
-                  <span className="text">Back</span>
-                </button>
-              </Link>
-              <Link to={{ pathname: '/admin/user-manage' }} onClick={() => this.changeUserView('add')}>
-                <button className="btn btn-sm btn-primary btn-icon-split" style={{ float: "right", marginRight: "10px" }}>
-                  <span className="icon text-white-50">
-                    <FontAwesomeIcon icon={['fas', 'fa-plus']} />
-                  </span>
-                  <span className="text">Add new user</span>
-                </button>
-              </Link>
-              <button onClick={() => this.handleAddNewUser()} className="btn btn-sm btn-danger btn-icon-split" style={{ float: "right", marginRight: "10px" }} disabled={disabled}>
-                <span className="icon text-white-50">
-                  <FontAwesomeIcon icon={['fas', 'fa-trash']} />
-                </span>
-                <span className="text">Delete</span>
-              </button>
+              <div className='row'>
+                <div className='col-6'>
+                  <h4 className="mb-2 text-gray-800">Component {">"} Account</h4>
+                </div>
+                <div className='col-6'>
+                  <Link to={{ pathname: '/admin' }}>
+                    <button className="btn btn-sm btn-secondary btn-icon-split" style={{ float: "right" }}>
+                      <span className="icon text-white-50">
+                        <FontAwesomeIcon icon={['fas', 'fa-arrow-left']} />
+                      </span>
+                      <span className="text">Back</span>
+                    </button>
+                  </Link>
+                  <Link to={{ pathname: '/admin/user-manage' }} onClick={() => this.changeUserView('add')}>
+                    <button className="btn btn-sm btn-primary btn-icon-split" style={{ float: "right", marginRight: "10px" }}>
+                      <span className="icon text-white-50">
+                        <FontAwesomeIcon icon={['fas', 'fa-plus']} />
+                      </span>
+                      <span className="text">Add new user</span>
+                    </button>
+                  </Link>
+                  <button onClick={() => this.handleBeforeDeleteMultiUser()} className="btn btn-sm btn-danger btn-icon-split" style={{ float: "right", marginRight: "10px" }} disabled={this.state.isDisabled}>
+                    <span className="icon text-white-50">
+                      <FontAwesomeIcon icon={['fas', 'fa-trash']} />
+                    </span>
+                    <span className="text">Delete</span>
+                  </button>
+                </div>
+              </div>
             </div>
 
-            <div className={(showUserLoading || showDeleteLoading) ? "card-body disabled" : "card-body"}>
+            <div className="card-body">
               <div className="table-responsive custom-table-responsive">
                 <table className="table table-bordered custom-table" id="dataTable" width="100%" cellSpacing="0">
                   <thead>
@@ -323,7 +341,7 @@ class UserManage extends Component {
                     <th scope="col">Action</th>
                   </tr> 
                 </tfoot> */}
-                  <tbody>
+                  <tbody className={(showUserLoading || showDeleteLoading) ? "disabled" : ""}>
                     {arrAccount && arrAccount.map((item, index) => {
                       var iRole = 1;
                       var iType = 1;
@@ -339,7 +357,7 @@ class UserManage extends Component {
                           </th>
                           <td>{item.id}</td>
                           <td>
-                            <Link onClick={() => this.changeUserView('edit', item.id)} to={{ pathname: '/admin/user-manage'}}>
+                            <Link onClick={() => this.changeUserView('edit', item.id)} to={{ pathname: '/admin/user-manage' }}>
                               <span>{item.userName}</span>
                             </Link>
                           </td>
@@ -378,7 +396,7 @@ class UserManage extends Component {
                               }
                             })}
                           </td>
-                          <td className='fa-toggle'><FontAwesomeIcon icon={(item.isEnabled && item.isEnabled === 'true' || item.isEnabled === 1) ? ['fas', 'fa-toggle-on'] : ['fas', 'fa-toggle-off']} /></td>
+                          <td className='fa-toggle'><FontAwesomeIcon icon={(item.isEnabled || item.isEnabled === 1) ? ['fas', 'fa-toggle-on'] : ['fas', 'fa-toggle-off']} /></td>
                           <td className='fa-edit-delete'>
                             <button className="btn btn-info btn-circle btn-sm" onClick={() => this.changeUserView('edit')} to={{ pathname: '/admin/user-manage', id: item.id }}><FontAwesomeIcon icon={['fas', 'fa-edit']} /></button>
                             <button className="btn btn-danger btn-circle btn-sm" onClick={() => { this.handleBeforeDeleteUser(item.id) }}> <FontAwesomeIcon icon={['fas', 'fa-trash']} /></button>
@@ -423,6 +441,7 @@ const mapDispatchToProps = dispatch => {
     fetchAllTypeStart: () => dispatch(fetchAllTypeStart()),
     fetchAllPosStart: () => dispatch(fetchAllPosStart()),
     deleteUserStart: (id) => dispatch(deleteUserStart(id)),
+    deleteMultiUserStart: (ids) => dispatch(deleteMultiUserStart(ids)),
     setAUserIdEdit: (id) => dispatch(setAUserIdEdit(id)),
     setContentOfConfirmModal: (contentOfConfirmModal) => dispatch(setContentOfConfirmModal(contentOfConfirmModal))
   };

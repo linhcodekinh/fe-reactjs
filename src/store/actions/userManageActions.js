@@ -2,12 +2,13 @@ import actionTypes from './actionTypes.js';
 import { getAllUsers, getAllPositions, getAllRole, getAllType, deleteUser, createNewUser, getUser, updatedUser } from '../../services/userService.js';
 import { ToastUtil } from '../../utils/index.js'
 
-export const fetchAllUserStart = () => {
+export const fetchAllUserStart = (offset, pageSize, field, direction, textSearch) => {
     return async (dispatch, getState) => {
         try {
-            let resAllUser = await getAllUsers();
-            if (resAllUser) {
-                dispatch(fetchAllUserSucceed(resAllUser))
+            let res = await getAllUsers(offset, pageSize, field, direction, textSearch);
+            if (res.listAccountDTO && res.totalItem) {
+                dispatch(fetchAllUserSucceed(res.listAccountDTO, res.totalItem))
+                console.log('res.totalItem ',res.totalItem)
             } else {
                 dispatch(fetchAllUserFailed());
             }
@@ -19,9 +20,10 @@ export const fetchAllUserStart = () => {
 
 }
 
-export const fetchAllUserSucceed = (resAllUser) => ({
+export const fetchAllUserSucceed = (listAccount, totalItem) => ({
     type: actionTypes.FETCH_ALL_USER_SUCCEED,
-    listAllUser: resAllUser
+    listAllUser: listAccount,
+    totalUser: totalItem
 })
 
 export const fetchAllUserFailed = () => ({

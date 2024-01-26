@@ -64,6 +64,7 @@
             "account-role": "Vài Trò Của Tài Khoản",
             "position": "Vị Trí",
             "add-user": "Thêm Người Dùng",
+            "id-card": "Mã Nhân Viên",
             "input-first-name": "Nhập tên",
             "input-last-name": "Nhập họ",
             "input-phone-number": "Nhập số điện thoại",
@@ -75,6 +76,7 @@
             "input-email2": "com",
             "input-password": "Nhập mật khẩu",
             "input-retype-password": "Nhập lại mật khẩu",
+            "input-id-card": "Nhập mã nhân viên",
 
 
 

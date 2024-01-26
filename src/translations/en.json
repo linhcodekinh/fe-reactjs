@@ -64,6 +64,7 @@
             "account-role": "Account Role",
             "position": "Position",
             "add-user": "Add User",
+            "id-card": "ID Card",
             "input-first-name": "Input first name",
             "input-last-name": "Input last name",
             "input-phone-number": "Input phone number",
@@ -75,6 +76,7 @@
             "input-email2": "com",
             "input-password": "Input password",
             "input-retype-password": "Input retype password",
+            "input-id-card": "Input id card",
           
 
             "fail-to-load-fouser": "Fail to load system users list",

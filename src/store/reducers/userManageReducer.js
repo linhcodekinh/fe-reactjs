@@ -3,6 +3,7 @@ import actionTypes from '../actions/actionTypes';
 
 const initialState = {
     listAllUser: [],
+    totalUser: 0,
     listAllRole: [],
     listAllType: [],
     listAllPosition: [],
@@ -26,13 +27,15 @@ const userManageReducer = (state = initialState, action) => {
             return {
                 ...state,
                 isUserLoading: false,
-                listAllUser: action.listAllUser
+                listAllUser: action.listAllUser,
+                totalUser: action.totalUser
             }
         case actionTypes.FETCH_ALL_USER_FAILED:
             return {
                 ...state,
                 isUserLoading: true,
-                listAllUser: []
+                listAllUser: [],
+                totalUser: 0
             }
         case actionTypes.FETCH_ALL_ROLE_SUCCEED:
             return {

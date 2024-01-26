@@ -28,17 +28,19 @@ class UserAdd extends Component {
             address1: '',
             address2: '',
             userName: '',
+            password: '',
+            confirmPassword: '',
             email: '',
             email1: '',
             email2: '',
             isEnabled: true,
             name: '',
-            valueDate: null,
+            //valueDate: null,
             idCard: '',
             positionId: '',
             idRoleList: [],
             idTypeList: [],
-            validPass: false,
+            // validPass: false,
             arrPos: [],
             arrRole: [],
             arrType: [],
@@ -49,8 +51,16 @@ class UserAdd extends Component {
             isAdd: false,
             isRoleLoading: true,
             isTypeLoading: true,
-            isPosLoading: true
+            isPosLoading: true,
+            imageFile: ''
         }
+    }
+
+    handleOnChangeFile = (e) => {
+        this.setState({
+            imageFile: e.target.files[0]
+        })
+        console.log('file event', e)
     }
 
     handleOnCheckBox = (e, id) => {
@@ -117,26 +127,29 @@ class UserAdd extends Component {
 
     handleBlur = () => {
         if (this.state.password !== this.state.confirmPassword) {
+            ToastUtil.show('WARN', 'common.warn', 'Nhap lai mat khau khong dung ', false)
             this.setState({
-                validPass: true
-            }, console.log(this.state.validPass))
-        } else {
-            this.setState({
-                validPass: false
-            }, console.log(this.state.validPass))
+                password: '',
+                confirmPassword: ''
+            })
+            document.getElementById("password").focus()
         }
-
+        // } else {
+        //     this.setState({
+        //         validPass: false
+        //     }, console.log(this.state.validPass))
+        // }
     }
 
-    renderPasswordConfirmError = () => {
-        if (this.state.validPass === true && this.state.password !== this.state.confirmPassword) {
-            console.log("this.state.validPass: ", this.state.validPass)
-            return (
-                <label className="error-pass formbold-form-label">Please enter the same password again.</label>
-            );
-        }
-        return null;
-    }
+    // renderPasswordConfirmError = () => {
+    //     if (this.state.validPass === true && this.state.password !== this.state.confirmPassword) {
+    //         console.log("this.state.validPass: ", this.state.validPass)
+    //         return (
+    //             <label className="error-pass formbold-form-label">Please enter the same password again.</label>
+    //         );
+    //     }
+    //     return null;
+    // }
 
     // handleChange(e) {
     //     console.log("Fruit Selected!!");
@@ -155,10 +168,9 @@ class UserAdd extends Component {
 
     checkValidInput = () => {
         let isValid = true;
-        let arrInput = ['userName', 'email', 'email1', 'email2', 'password', 'firstName', 'gender', 'lastName', 'address1', 'address2']
+        let arrInput = ['userName', 'email', 'email1', 'email2', 'password', 'firstName', 'gender', 'lastName', 'address1', 'address2', 'idCard']
         for (let i = 0; i < arrInput.length; i++) {
             if (this.state[arrInput[i]] === '') {
-                console.log('this.state[arrInput[i]] ', this.state[arrInput[i]])
                 isValid = false
                 ToastUtil.show('WARN', 'common.warn', 'Missing parameter: ' + arrInput[i], false)
                 document.getElementById(arrInput[i]).focus()
@@ -183,7 +195,8 @@ class UserAdd extends Component {
                 phone: this.state.phone,
                 address: this.state.address1 + "|" + this.state.address2,
                 dateOfBirth: this.state.dateOfBirth,
-                idCard: 'test',
+                imageFile: this.state.imageFile,
+                idCard: this.state.idCard,
                 positionId: this.state.positionId,
                 idRoleList: this.state.idRoleList,
                 idTypeList: [...this.state.idTypeList, 1]
@@ -266,7 +279,6 @@ class UserAdd extends Component {
     }
 
     changeUserView = (view) => {
-        console.log("changeView ", view)
         this.props.changeUserView(view)
     }
 
@@ -276,9 +288,6 @@ class UserAdd extends Component {
         let arrPos = this.state.arrPos;
         let arrRole = this.state.arrRole;
         let arrType = this.state.arrType;
-
-        console.log('arrPos ', arrPos)
-
         let showLoading = (this.state.isAdd === true && this.props.isAddLoadingRedux === true) || (this.state.isRoleLoading === true && this.state.isTypeLoading === true && this.state.isPosLoading === true)
         return (
             <>
@@ -562,6 +571,7 @@ class UserAdd extends Component {
                                                         name="password"
                                                         placeholder={msg}
                                                         type="password"
+                                                        value={this.state.password}
                                                         onChange={(e) => this.handleOnChangeText(e, 'password')}
                                                     />
                                                 )}
@@ -580,6 +590,7 @@ class UserAdd extends Component {
                                                         name="confirmPassword"
                                                         placeholder={msg}
                                                         type="password"
+                                                        value={this.state.confirmPassword}
                                                         onBlur={this.handleBlur}
                                                         onChange={(e) => this.handleOnChangeText(e, 'confirmPassword')}
                                                     />
@@ -587,9 +598,9 @@ class UserAdd extends Component {
                                             </FormattedMessage>
                                         </div>
                                     </div>
-                                    <div className="formbold-mb-3 formbold-input-wrapp">
+                                    {/* <div className="formbold-mb-3 formbold-input-wrapp">
                                         {this.renderPasswordConfirmError()}
-                                    </div>
+                                    </div> */}
                                 </div>
                             </div>
                             <div className="col-lg-4">
@@ -622,6 +633,30 @@ class UserAdd extends Component {
                                             </label>
 
                                         </div>
+                                        <div>
+                                            <label htmlFor="accRole" className="formbold-form-label">
+                                                {" "}
+                                                <FormattedMessage id="system.user-manage.account-role" />{" "}
+                                            </label>
+                                            {arrRole && arrRole.map((item, index) => {
+                                                return (
+                                                    <>
+                                                        <label className="label-radio" key={index}>
+                                                            <input
+                                                                name="idRoleList"
+                                                                type="checkbox"
+                                                                value={item.id}
+                                                                onChange={(e) => this.handleOnCheckBox(e, 'idRoleList')}
+                                                            />{" "}{item.name}
+                                                        </label>
+                                                        <br />
+                                                    </>
+                                                )
+                                            })}
+                                        </div>
+
+                                    </div>
+                                    <div htmlFor="role" className="formbold-input-flex">
                                         <div>
                                             <label htmlFor="accType" className="formbold-form-label">
                                                 {" "}
@@ -658,29 +693,6 @@ class UserAdd extends Component {
                                                 }
                                             })}
                                         </div>
-                                    </div>
-                                    <div htmlFor="role" className="formbold-input-flex">
-                                        <div>
-                                            <label htmlFor="accRole" className="formbold-form-label">
-                                                {" "}
-                                                <FormattedMessage id="system.user-manage.account-role" />{" "}
-                                            </label>
-                                            {arrRole && arrRole.map((item, index) => {
-                                                return (
-                                                    <>
-                                                        <label className="label-radio" key={index}>
-                                                            <input
-                                                                name="idRoleList"
-                                                                type="checkbox"
-                                                                value={item.id}
-                                                                onChange={(e) => this.handleOnCheckBox(e, 'idRoleList')}
-                                                            />{" "}{item.name}
-                                                        </label>
-                                                        <br />
-                                                    </>
-                                                )
-                                            })}
-                                        </div>
                                         <div className={this.state.showPos ? "" : "hide-pos"}>
                                             <label htmlFor="position" className="formbold-form-label">
                                                 {" "}
@@ -703,7 +715,24 @@ class UserAdd extends Component {
                                             })}
                                         </div>
                                     </div>
-                                    <div className="formbold-mb-3">
+                                    <div className={this.state.showPos ? "formbold-input-flex" : "formbold-input-flex hide-pos"}>
+                                        <div>
+                                            <label htmlFor="idCard" className="formbold-form-label">
+                                                <FormattedMessage id="system.user-manage.id-card" />
+                                            </label>
+                                            <FormattedMessage id='system.user-manage.input-id-card'>
+                                                {(msg) => (<input
+                                                    type="text"
+                                                    name="idCard"
+                                                    id="idCard"
+                                                    placeholder={msg}
+                                                    className="formbold-form-input"
+                                                    onChange={(e) => this.handleOnChangeText(e, 'idCard')}
+                                                />)}
+                                            </FormattedMessage>
+                                        </div>
+                                    </div>
+                                    {/* <div className="formbold-mb-3">
                                         <label htmlFor="message" className="formbold-form-label">
                                             Cover Letter
                                         </label>
@@ -714,18 +743,30 @@ class UserAdd extends Component {
                                             className="formbold-form-input"
                                             defaultValue={""}
                                         />
-                                    </div>
+                                    </div>*/}
                                     <div className="formbold-form-file-flex">
                                         <label htmlFor="upload" className="formbold-form-label">
-                                            Upload Resume
+                                            Upload Image
                                         </label>
-                                        <input
+                                        {/* <input
                                             type="file"
+                                            multiple
                                             name="upload"
                                             id="upload"
                                             className="formbold-form-file"
-                                        />
+                                            
+                                        /> */}
+
+                                        <form enctype="multipart/form-data" id="fileUploadForm" action="link">
+                                            <input 
+                                                type="file" 
+                                                name="image" 
+                                                onChange={(e) => this.handleOnChangeFile(e)}
+                                            />
+                                        </form>
                                     </div>
+
+
                                 </div>
                             </div>
                         </div>

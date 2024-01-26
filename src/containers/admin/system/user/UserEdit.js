@@ -177,7 +177,7 @@ class UserEdit extends Component {
                 phone: this.state.phone,
                 address: this.state.address1 + "|" + this.state.address2,
                 dateOfBirth: this.state.dateOfBirth,
-                idCard: 'test',
+                idCard: this.state.idCard,
                 positionId: this.state.positionId,
                 idRoleList: this.state.idRoleList,
                 idTypeList: this.state.idTypeList
@@ -217,6 +217,7 @@ class UserEdit extends Component {
                 idRoleList: this.props.aUserRedux.arrRoleId,
                 idTypeList: this.props.aUserRedux.arrTypeId,
                 positionId: (this.props.aUserRedux.employee && this.props.aUserRedux.employee.position) ? this.props.aUserRedux.employee.position.id : '',
+                idCard: (this.props.aUserRedux.employee && this.props.aUserRedux.employee.idCard) ? this.props.aUserRedux.employee.idCard : '',
                 showPos: (this.props.aUserRedux.employee) !== null,
                 isAUserLoading: this.props.isAUserLoadingRedux,
 
@@ -398,6 +399,8 @@ class UserEdit extends Component {
                                                     name="areacode"
                                                     id="areacode"
                                                     placeholder="+84"
+                                                    value="+84"
+                                                    disabled
                                                     className="formbold-form-input formbold-w-25"
                                                 />
                                                 <FormattedMessage id='system.user-manage.input-phone-number'>
@@ -603,6 +606,30 @@ class UserEdit extends Component {
 
                                             </div>
                                             <div>
+                                                <label htmlFor="accRole" className="formbold-form-label">
+                                                    {" "}
+                                                    <FormattedMessage id="system.user-manage.account-role" />{" "}
+                                                </label>
+                                                {arrRole && arrRole.map((itemRole, indexRole) => {
+                                                    return (
+                                                        <>
+                                                            <label className="label-radio" key={indexRole}>
+                                                                <input
+                                                                    checked={this.state.idRoleList.includes(itemRole.id) ? "true" : ""}
+                                                                    name="idRoleList"
+                                                                    type="checkbox"
+                                                                    value={itemRole.id}
+                                                                    onChange={(e) => this.handleOnCheckBox(e, 'idRoleList')}
+                                                                />{" "}{itemRole.name}
+                                                            </label>
+                                                            <br />
+                                                        </>
+                                                    )
+                                                })}
+                                            </div>
+                                        </div>
+                                        <div htmlFor="role" className="formbold-input-flex">
+                                            <div>
                                                 <label htmlFor="accType" className="formbold-form-label">
                                                     {" "}
                                                     <FormattedMessage id="system.user-manage.account-type" />{" "}
@@ -640,30 +667,6 @@ class UserEdit extends Component {
                                                     }
                                                 })}
                                             </div>
-                                        </div>
-                                        <div htmlFor="role" className="formbold-input-flex">
-                                            <div>
-                                                <label htmlFor="accRole" className="formbold-form-label">
-                                                    {" "}
-                                                    <FormattedMessage id="system.user-manage.account-role" />{" "}
-                                                </label>
-                                                {arrRole && arrRole.map((itemRole, indexRole) => {
-                                                    return (
-                                                        <>
-                                                            <label className="label-radio" key={indexRole}>
-                                                                <input
-                                                                    checked={this.state.idRoleList.includes(itemRole.id) ? "true" : ""}
-                                                                    name="idRoleList"
-                                                                    type="checkbox"
-                                                                    value={itemRole.id}
-                                                                    onChange={(e) => this.handleOnCheckBox(e, 'idRoleList')}
-                                                                />{" "}{itemRole.name}
-                                                            </label>
-                                                            <br />
-                                                        </>
-                                                    )
-                                                })}
-                                            </div>
                                             <div className={this.state.showPos ? "" : "hide-pos"}>
                                                 <label htmlFor="position" className="formbold-form-label">
                                                     {" "}
@@ -687,7 +690,25 @@ class UserEdit extends Component {
                                                 })}
                                             </div>
                                         </div>
-                                        <div className="formbold-mb-3">
+                                        <div className={this.state.showPos ? "formbold-input-wrapp" : "formbold-input-wrapp hide-pos"}>
+                                            <label htmlFor="idCard" className="formbold-form-label">
+                                                <FormattedMessage id="system.user-manage.id-card" />
+                                            </label>
+                                            <div>
+                                                <FormattedMessage id='system.user-manage.input-id-card'>
+                                                    {(msg) => (<input
+                                                        type="text"
+                                                        name="idCard"
+                                                        id="idCard"
+                                                        placeholder={msg}
+                                                        className="formbold-form-input formbold-w-35"
+                                                        value={this.state.idCard}
+                                                        onChange={(e) => this.handleOnChangeText(e, 'idCard')}
+                                                    />)}
+                                                </FormattedMessage>
+                                            </div>
+                                        </div>
+                                        {/* <div className="formbold-mb-3">
                                             <label htmlFor="message" className="formbold-form-label">
                                                 Cover Letter
                                             </label>
@@ -709,7 +730,7 @@ class UserEdit extends Component {
                                                 id="upload"
                                                 className="formbold-form-file"
                                             />
-                                        </div>
+                                        </div> */}
                                     </div>
                                 </div>
                             </div>

@@ -12,6 +12,7 @@ import { changeUserView } from '../../../../store/actions/userActions';
 import { fetchAllUserStart, fetchAllPosStart, fetchAllRoleStart, fetchAllTypeStart, deleteUserStart, setAUserIdEdit, deleteMultiUserStart } from '../../../../store/actions/userManageActions';
 import { ThreeDots } from 'react-loader-spinner'
 import { setContentOfConfirmModal } from '../../../../store/actions/appActions.js';
+import ReactPaginate from 'react-paginate';
 
 class UserManage extends Component {
 
@@ -23,7 +24,8 @@ class UserManage extends Component {
       arrPosition: [],
       arrRole: [],
       arrType: [],
-      arrCount: '',
+      arrCount: 0,
+      totalUser: 0,
       isDisabled: "disabled",
       checkedAll: false,
       isOpenModalUser: false,
@@ -34,7 +36,12 @@ class UserManage extends Component {
       isDelete: false,
       //isDeleteMulti: false,
       messageDelete: '',
-      contentOfConfirmModal: {}
+      contentOfConfirmModal: {},
+      itemPerPage: 10,
+      pageSelected: 0,
+      fieldSort: '',
+      directionSort: 'ASC',
+      searchText: ''
     }
   }
   /** Life Cycle
@@ -118,20 +125,57 @@ class UserManage extends Component {
     })
   }
 
-
   toggleModalUser = () => {
     this.setState({
       isOpenModalUser: !this.state.isOpenModalUser
     })
   }
 
-  async componentDidMount() {
-    this.props.fetchAllUserStart();
+  handleSortClick = (field) => {
+    this.setState({
+      fieldSort: field,
+      directionSort: this.state.directionSort === 'ASC' ? 'DESC' : 'ASC'
+    }, () => {
+      console.log(this.state.pageSelected, this.state.itemPerPage, this.state.fieldSort, this.state.directionSort, this.state.searchText)
+      this.props.fetchAllUserStart(this.state.pageSelected, this.state.itemPerPage, this.state.fieldSort, this.state.directionSort, this.state.searchText)
+    })
+  }
+
+  handlePageClick = (event) => {
+    this.setState({
+      pageSelected: event.selected
+    }, () => {
+      console.log(this.state.pageSelected, this.state.itemPerPage, this.state.fieldSort, this.state.directionSort, this.state.searchText)
+      this.props.fetchAllUserStart(this.state.pageSelected, this.state.itemPerPage, this.state.fieldSort, this.state.directionSort, this.state.searchText);
+    })
+  };
+
+  handleOnChangeItemPerPage = (e) => {
+    this.setState({
+      itemPerPage: Number(e.target.value),
+      pageSelected: 0
+    }, () => {
+      console.log(this.state.pageSelected, this.state.itemPerPage, this.state.fieldSort, this.state.directionSort, this.state.searchText)
+      this.props.fetchAllUserStart(this.state.pageSelected, this.state.itemPerPage, this.state.fieldSort, this.state.directionSort, this.state.searchText);
+    })
+  }
+
+  handleOnChangeSearchText = (e) => {
+    this.setState({
+      searchText: e.target.value,
+      pageSelected: 0
+    }, () => {
+      console.log(this.state.pageSelected, this.state.itemPerPage, this.state.fieldSort, this.state.directionSort, this.state.searchText)
+      this.props.fetchAllUserStart(this.state.pageSelected, this.state.itemPerPage, this.state.fieldSort, this.state.directionSort, this.state.searchText);
+    })
+  }
+
+  componentDidMount() {
+    this.props.fetchAllUserStart(this.state.pageSelected, this.state.itemPerPage, this.state.fieldSort, this.state.directionSort, this.state.searchText);
     this.props.fetchAllRoleStart();
     this.props.fetchAllTypeStart();
     this.props.fetchAllPosStart();
-
-    await this.props.setProgress(100);
+    this.props.setProgress(100);
   }
 
   componentDidUpdate = (preProps, prevState, snapshot) => {
@@ -139,6 +183,7 @@ class UserManage extends Component {
       this.setState({
         arrAccount: this.props.userRedux,
         arrCount: this.props.userRedux.length,
+        totalUser: this.props.totalUserRedux,
         isUserLoading: this.props.isUserLoadingRedux
       })
     }
@@ -247,7 +292,8 @@ class UserManage extends Component {
     let arrAccount = this.state.arrAccount;
     let showUserLoading = (this.state.isUserLoading === true && this.state.isRoleLoading === true && this.state.isTypeLoading === true && this.state.isPosLoading === true);
     let showDeleteLoading = (this.state.isDelete === true && this.props.isDeleteLoadingRedux === true)
-
+    let totalUser = this.state.totalUser
+    console.log('totalUser ', this.state.totalUser)
     return (
       <>
         <ThreeDots
@@ -260,6 +306,7 @@ class UserManage extends Component {
           wrapperStyle={{}}
           wrapperClass="audio-class"
         />
+        <div className='user-manage'>
         <div className="container-fluid">
           {/* Page Heading */}
           {/* DataTales Example */}
@@ -304,8 +351,69 @@ class UserManage extends Component {
               </div>
             </div>
 
+
             <div className="card-body">
               <div className="table-responsive custom-table-responsive">
+                {/* <label className="formbold-form-label"><FormattedMessage id="system.user-manage.gender" /></label> */}
+                <div className='row' style={{ marginBottom: "15px" }}>
+                  <div className='col-3'>
+                    <select
+                      className="formbold-form-input itemPerPage"
+                      name="itemPerPage"
+                      id="itemPerPage"
+                      onChange={this.handleOnChangeItemPerPage}
+                      value={this.state.itemPerPage}
+                    >
+                      <option value="5">5</option>
+                      <option value="10">15</option>
+                      <option value="15">35</option>
+                      <option value="100">50</option>
+                      {/* {options.map((option) => (
+                                        <option value={option.value}>{option.label}</option>
+                                    ))} */}
+                    </select>
+                  </div>
+                  <div className='col-3'>
+                    <form className="d-flex">
+                      {/* <input type="text" 
+                  class="form-control bg-light border-0 small" 
+                  placeholder="Search for..." 
+                  aria-label="Search" 
+                  aria-describedby="basic-addon2"/> */}
+                      <input
+                        style={{ color: "gray" }}
+                        className="form-control me-2 small"
+                        type="search"
+                        placeholder="Search for..."
+                        aria-label="Search"
+                        onChange={(e) => this.handleOnChangeSearchText(e)}
+                      />
+                    </form>
+                  </div>
+                  <div className='col-6'>
+                    <ReactPaginate
+                      nextLabel="next >"
+                      onPageChange={(event) => this.handlePageClick(event)}
+                      pageRangeDisplayed={2}
+                      marginPagesDisplayed={2}
+                      pageCount={Math.ceil(this.state.totalUser / this.state.itemPerPage)}
+                      previousLabel="< previous"
+                      pageClassName="page-item"
+                      pageLinkClassName="page-link"
+                      previousClassName="page-item"
+                      previousLinkClassName="page-link"
+                      nextClassName="page-item"
+                      nextLinkClassName="page-link"
+                      breakLabel="..."
+                      breakClassName="page-item"
+                      breakLinkClassName="page-link"
+                      containerClassName="pagination"
+                      activeClassName="active"
+                      renderOnZeroPageCount={null}
+                      forcePage={this.state.pageSelected}
+                    />
+                  </div>
+                </div>
                 <table className="table table-bordered custom-table" id="dataTable" width="100%" cellSpacing="0">
                   <thead>
                     <tr>
@@ -315,8 +423,8 @@ class UserManage extends Component {
                           <div className="control__indicator" />
                         </label>
                       </th>
-                      <th scope="col">ID</th>
-                      <th scope="col">User Name</th>
+                      <th scope="col"><span onClick={() => this.handleSortClick("id")} >ID <FontAwesomeIcon icon={['fas', 'fa-sort']} /></span></th>
+                      <th scope="col"><span onClick={() => this.handleSortClick("user_name")} >User Name <FontAwesomeIcon icon={['fas', 'fa-sort']} /></span></th>
                       <th scope="col">Email</th>
                       <th scope="col">Role</th>
                       <th scope="col">Type</th>
@@ -342,6 +450,11 @@ class UserManage extends Component {
                   </tr> 
                 </tfoot> */}
                   <tbody className={(showUserLoading || showDeleteLoading) ? "disabled" : ""}>
+                    <tr className={(totalUser <= 0) ? "show-text" : "hide-text"}>
+                      <td colSpan={8}>
+                        Khong co ket qua phu hop
+                      </td>
+                    </tr>
                     {arrAccount && arrAccount.map((item, index) => {
                       var iRole = 1;
                       var iType = 1;
@@ -349,12 +462,12 @@ class UserManage extends Component {
                       let arrType = item.accountTypeList;
                       return (
                         <tr className={this.isActive(item.id)} key={index}>
-                          <th scope="row">
+                          <td scope="row">
                             <label className="control control--checkbox">
                               <input type="checkbox" onChange={(e) => { this.handleChecked(e) }} value={item.id} checked={this.isChecked(item.id)} />
                               <div className="control__indicator" />
                             </label>
-                          </th>
+                          </td>
                           <td>{item.id}</td>
                           <td>
                             <Link onClick={() => this.changeUserView('edit', item.id)} to={{ pathname: '/admin/user-manage' }}>
@@ -412,6 +525,8 @@ class UserManage extends Component {
             </div>
           </div>
         </div>
+        </div>
+
       </>
     );
   }
@@ -421,6 +536,7 @@ class UserManage extends Component {
 const mapStateToProps = state => {
   return {
     userRedux: state.userManage.listAllUser,
+    totalUserRedux: state.userManage.totalUser,
     roleRedux: state.userManage.listAllRole,
     typeRedux: state.userManage.listAllType,
     posRedux: state.userManage.listAllPos,
@@ -436,7 +552,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     changeUserView: (view) => dispatch(changeUserView(view)),
-    fetchAllUserStart: () => dispatch(fetchAllUserStart()),
+    fetchAllUserStart: (offset, pageSize, field, direction, textSearch) => dispatch(fetchAllUserStart(offset, pageSize, field, direction, textSearch)),
     fetchAllRoleStart: () => dispatch(fetchAllRoleStart()),
     fetchAllTypeStart: () => dispatch(fetchAllTypeStart()),
     fetchAllPosStart: () => dispatch(fetchAllPosStart()),

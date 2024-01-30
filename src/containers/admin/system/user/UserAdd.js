@@ -195,25 +195,24 @@ class UserAdd extends Component {
                 phone: this.state.phone,
                 address: this.state.address1 + "|" + this.state.address2,
                 dateOfBirth: this.state.dateOfBirth,
-                imageFile: this.state.imageFile,
                 idCard: this.state.idCard,
                 positionId: this.state.positionId,
                 idRoleList: this.state.idRoleList,
                 idTypeList: [...this.state.idTypeList, 1]
             }
             this.setState({
-                contentOfConfirmModal: { isOpen: true, messageId: "common.confirm-this-task", handleFunc: this.handleAddNew, dataFunc: this.dataInsert }
+                contentOfConfirmModal: { isOpen: true, messageId: "common.confirm-this-task", handleFunc: this.handleAddNew, dataFunc: { data: this.dataInsert, imageFile: this.state.imageFile } }
             }, () => {
                 this.props.setContentOfConfirmModal(this.state.contentOfConfirmModal)
             })
         }
     }
 
-    handleAddNew = (data) => {
+    handleAddNew = (data, imageFile) => {
         this.setState({
             isAdd: true
         })
-        this.props.addUserStart(data)
+        this.props.addUserStart(data, imageFile)
     }
 
     // createNew = async (data) => {
@@ -748,22 +747,21 @@ class UserAdd extends Component {
                                         <label htmlFor="upload" className="formbold-form-label">
                                             Upload Image
                                         </label>
-                                        {/* <input
+                                        <input
                                             type="file"
                                             multiple
                                             name="upload"
                                             id="upload"
                                             className="formbold-form-file"
-                                            
-                                        /> */}
+                                            onChange={(e) => this.handleOnChangeFile(e)}
+                                        />
 
-                                        <form enctype="multipart/form-data" id="fileUploadForm" action="link">
-                                            <input 
-                                                type="file" 
-                                                name="image" 
-                                                onChange={(e) => this.handleOnChangeFile(e)}
+                                        {/* <form enctype="multipart/form-data" id="fileUploadForm" action="link">
+                                            <input
+                                                type="file"
+                                                name="image"
                                             />
-                                        </form>
+                                        </form> */}
                                     </div>
 
 
@@ -800,7 +798,7 @@ const mapDispatchToProps = dispatch => {
     return {
         changeUserView: (view) => dispatch(changeUserView(view)),
         setContentOfConfirmModal: (contentOfConfirmModal) => dispatch(setContentOfConfirmModal(contentOfConfirmModal)),
-        addUserStart: (data) => dispatch(addUserStart(data)),
+        addUserStart: (data, imageFile) => dispatch(addUserStart(data, imageFile)),
         fetchAllRoleStart: () => dispatch(fetchAllRoleStart()),
         fetchAllTypeStart: () => dispatch(fetchAllTypeStart()),
         fetchAllPosStart: () => dispatch(fetchAllPosStart()),

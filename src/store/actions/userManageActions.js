@@ -157,10 +157,10 @@ export const deleteUserFailed = () => ({
     type: actionTypes.DELETE_USER_FAILED
 })
 
-export const addUserStart = (data) => {
+export const addUserStart = (data, imageFile) => {
     return async (dispatch, getState) => {
         try {
-            let resAddUser = await createNewUser(data);
+            let resAddUser = await createNewUser(data, imageFile);
             if (resAddUser[0] && !resAddUser[0].bindingFailure) {
                 ToastUtil.show('ERROR', 'common.unknown-error', resAddUser[0].defaultMessage, false)
                 dispatch(addUserFailed());

@@ -48,7 +48,9 @@ class ConfirmModal extends Component {
             } else if (contentOfConfirmModal.dataFunc.ids) {
                 console.log('data ', contentOfConfirmModal.dataFunc.ids)
                 contentOfConfirmModal.handleFunc(contentOfConfirmModal.dataFunc.ids);
-            } else {
+            } else if(contentOfConfirmModal.dataFunc.imageFile) {
+                contentOfConfirmModal.handleFunc(contentOfConfirmModal.dataFunc.data, contentOfConfirmModal.dataFunc.imageFile);
+            }else {
                 contentOfConfirmModal.handleFunc(contentOfConfirmModal.dataFunc)
             }
         }

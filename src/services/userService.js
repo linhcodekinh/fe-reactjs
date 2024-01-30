@@ -21,9 +21,9 @@ const getAllRole = () => {
     return axios.get('api/public/role')
 }
 
-const createNewUser = (data) => {
-    console.log('check data from service: ', data)
-    return axios.post('api/public/account/', data)
+const createNewUser = (data, imageFile) => {
+    console.log('check data from service: ', data, imageFile)
+    return axios.post('api/public/account/', data, { params: { imageFile: imageFile } })
 }
 
 const updatedUser = (id, data) => {

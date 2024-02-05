@@ -1,21 +1,23 @@
-.modal-dialog-side-bar {
+.side-bar-modal {
+  .modal-dialog-side-bar {
+    border: 0.5px solid blue;
     border-radius: 5px;
-    background-color: lime;
+    background-color: rgb(255, 255, 255);
     position: fixed;
     //display: block;
-    // overflow-y: auto;
+    overflow-y: auto;
     // overflow-x: auto;
-    top: 5%;
-    bottom: -3%;
-    right: -21%;
-    width: 21%;
+    top: 8%;
+    bottom: 0;
+    right: -18%;
+    width: 18%;
     -webkit-transition: opacity 0.5s linear, right 0.5s ease-out;
     -moz-transition: opacity 0.5s linear, right 0.5s ease-out;
     -o-transition: opacity 0.5s linear, right 0.5s ease-out;
     transition: opacity 0.5s linear, right 0.5s ease-out;
 
-}
-  
+  }
+
   .modal-dialog-side-bar.show {
     right: 0px;
     -webkit-transition: opacity 0.5s linear, right 0.5s ease-out;
@@ -23,3 +25,79 @@
     -o-transition: opacity 0.5s linear, right 0.5s ease-out;
     transition: opacity 0.5s linear, right 0.5s ease-out;
   }
+
+  .header{
+    position: fixed;
+    width: 18%;
+    background-color: blue;
+    z-index: 2;
+  }
+
+  .body {
+    margin-top: 20%;
+    margin-bottom: 18%;
+  }
+
+  .tabs-panel {
+    overflow-y: auto;
+  }
+
+  .title {
+    text-align: center;
+  }
+
+  .tabs {
+    list-style: none;
+    display: flex;
+    border-bottom: 1px solid #ccc;
+  }
+  ul {
+    padding-left: 0 !important;
+    margin-bottom: -2px !important;
+  }
+  .tabs .tab {
+    flex-basis: 100%;
+    margin: 0px 0.1em;
+    padding: 0.5em;
+    cursor: pointer;
+    transform: translateY(1px);
+    border-radius: 5px 5px 0px 0px;
+    transition: background-color 0.2s ease-in-out;
+    border: 1px solid transparent;
+    text-align: center;
+    //font-family: "Oswald", sans-serif;
+    font-weight: 300;
+  }
+
+  .tabs .tab:hover {
+    background-color: #ececec;
+  }
+
+  .tabs .tab.selected {
+    border-radius: 5px 5px 0px 0px;
+    border-width: 1px;
+    border-color: #ccc #ccc #fff #ccc;
+    border-style: solid;
+    color: #bb3357;
+    background-color: #f8f9fc;
+  }
+
+  .tabs .tab.selected:hover {
+    background: none;
+  }
+
+  .tab__content {
+    color: #525151;
+    // font-family: "Economica", sans-serif;
+    // font-size: 20px;
+  }
+
+  .tab__icon {
+    padding-left: 0.5em;
+  }
+
+  .subtitle {
+    color: #1f1f1f;
+    // font-family: "Kaushan Script", cursive;
+  }
+}

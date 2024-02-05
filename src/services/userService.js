@@ -21,9 +21,15 @@ const getAllRole = () => {
     return axios.get('api/public/role')
 }
 
-const createNewUser = (data, imageFile) => {
-    console.log('check data from service: ', data, imageFile)
-    return axios.post('api/public/account/', data, { params: { imageFile: imageFile } })
+const createNewUser = (data) => {
+    console.log('check data from service: ', data)
+    return axios.post('api/public/account/', data, {
+        headers: {
+            // "X-AUTH-TOKEN": token,
+            "Content-Type": "multipart/form-data",
+        },
+    }
+    )
 }
 
 const updatedUser = (id, data) => {
@@ -39,4 +45,11 @@ const getUser = (id) => {
     return axios.get(`api/public/account/${id}`)
 }
 
-export { handleLoginApi, getAllUsers, getAllPositions, getAllRole, getAllType, createNewUser, deleteUser, getUser, updatedUser }
+
+const getImageLinkByName = (bucketKey, fileName) => {
+    console.log('bucketKey, fileName', bucketKey, fileName)
+    return axios.get('api/public/v1/files', { params: { bucketKey: bucketKey, fileName: fileName } }
+    )
+}
+
+export { handleLoginApi, getAllUsers, getAllPositions, getAllRole, getAllType, createNewUser, deleteUser, getUser, updatedUser, getImageLinkByName }

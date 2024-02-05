@@ -12,7 +12,7 @@ import { ThreeDots, Audio, RevolvingDot, RotatingLines } from 'react-loader-spin
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { changeUserView } from '../../../../store/actions/userActions';
-import { fetchAllPosStart, fetchAllRoleStart, fetchAllTypeStart, getAUserStart, updateUserStart } from '../../../../store/actions/userManageActions.js';
+import { fetchAllPosStart, fetchAllRoleStart, fetchAllTypeStart, getAUserStart, updateUserStart, getImageLinkStart } from '../../../../store/actions/userManageActions.js';
 
 class UserEdit extends Component {
 
@@ -43,7 +43,8 @@ class UserEdit extends Component {
             showSpinner: false,
             showPos: false,
             isAUserLoading: true,
-            isUpdate: false
+            isUpdate: false,
+            imageLinkUser: 'fault.jpg'
             // datetime: new Date().toISOString(),
         }
 
@@ -233,8 +234,17 @@ class UserEdit extends Component {
                 email: this.props.aUserRedux.email,
                 email1: this.props.aUserRedux.email1,
                 email2: this.props.aUserRedux.email2,
+
+            }, () => {
+                this.props.getImageLinkStart('USER', this.props.aUserRedux.member.image)
             })
         }
+        if (preProps.imageLinkUserRedux !== this.props.imageLinkUserRedux) {
+            this.setState({
+                imageLinkUser: this.props.imageLinkUserRedux,
+            })
+        }
+
 
         if (preProps.roleRedux !== this.props.roleRedux) {
             this.setState({
@@ -708,17 +718,11 @@ class UserEdit extends Component {
                                                 </FormattedMessage>
                                             </div>
                                         </div>
-                                        {/* <div className="formbold-mb-3">
+                                        <div className="formbold-mb-3">
                                             <label htmlFor="message" className="formbold-form-label">
                                                 Cover Letter
                                             </label>
-                                            <textarea
-                                                rows={6}
-                                                name="message"
-                                                id="message"
-                                                className="formbold-form-input"
-                                                defaultValue={""}
-                                            />
+                                            <img src={this.state.imageLinkUser} className="img-fluid" alt="" />
                                         </div>
                                         <div className="formbold-form-file-flex">
                                             <label htmlFor="upload" className="formbold-form-label">
@@ -730,7 +734,7 @@ class UserEdit extends Component {
                                                 id="upload"
                                                 className="formbold-form-file"
                                             />
-                                        </div> */}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -753,6 +757,7 @@ const mapStateToProps = state => {
     return {
         contentOfConfirmModal: state.app.contentOfConfirmModal,
         aUserRedux: state.userManage.aUser,
+        imageLinkUserRedux: state.userManage.imageLinkUser,
         isAUserLoadingRedux: state.userManage.isAUserLoading,
         userIdEditRedux: state.userManage.userIdEdit,
 
@@ -769,6 +774,7 @@ const mapDispatchToProps = dispatch => {
         changeUserView: (view) => dispatch(changeUserView(view)),
         setContentOfConfirmModal: (contentOfConfirmModal) => dispatch(setContentOfConfirmModal(contentOfConfirmModal)),
         getAUserStart: (id) => dispatch(getAUserStart(id)),
+        getImageLinkStart: (bucketKey, fileName) => dispatch(getImageLinkStart(bucketKey, fileName)),
         updateUserStart: (id, data) => dispatch(updateUserStart(id, data)),
         fetchAllRoleStart: () => dispatch(fetchAllRoleStart()),
         fetchAllTypeStart: () => dispatch(fetchAllTypeStart()),

@@ -8,6 +8,7 @@ const initialState = {
     listAllType: [],
     listAllPosition: [],
     aUser: {},
+    imageLinkUser: '',
     isUserLoading: true,
     isRoleLoading: true,
     isTypeLoading: true,
@@ -119,6 +120,16 @@ const userManageReducer = (state = initialState, action) => {
                 ...state,
                 aUser: {},
                 isAUserLoading: true
+            }
+        case actionTypes.GET_IMAGE_LINK_SUCCEED:
+            return {
+                ...state,
+                imageLinkUser: action.resImageLink
+            }
+        case actionTypes.GET_IMAGE_LINK_FAILED:
+            return {
+                ...state,
+                imageLinkUser: ''
             }
         case actionTypes.UPDATE_USER_SUCCEED:
             return {

@@ -200,19 +200,23 @@ class UserAdd extends Component {
                 idRoleList: this.state.idRoleList,
                 idTypeList: [...this.state.idTypeList, 1]
             }
+            let formData = new FormData();
+            formData.append("accountDetail", new Blob([JSON.stringify(this.dataInsert)], { type: "application/json" }));
+            formData.append("imageFile", this.state.imageFile);
+            console.log('formData ', formData)
             this.setState({
-                contentOfConfirmModal: { isOpen: true, messageId: "common.confirm-this-task", handleFunc: this.handleAddNew, dataFunc: { data: this.dataInsert, imageFile: this.state.imageFile } }
+                contentOfConfirmModal: { isOpen: true, messageId: "common.confirm-this-task", handleFunc: this.handleAddNew, dataFunc: formData }
             }, () => {
                 this.props.setContentOfConfirmModal(this.state.contentOfConfirmModal)
             })
         }
     }
 
-    handleAddNew = (data, imageFile) => {
+    handleAddNew = (data) => {
         this.setState({
             isAdd: true
         })
-        this.props.addUserStart(data, imageFile)
+        this.props.addUserStart(data)
     }
 
     // createNew = async (data) => {

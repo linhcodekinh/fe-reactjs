@@ -1,5 +1,5 @@
 import actionTypes from './actionTypes.js';
-import { getAllUsers, getAllPositions, getAllRole, getAllType, deleteUser, createNewUser, getUser, updatedUser } from '../../services/userService.js';
+import { getAllUsers, getAllPositions, getAllRole, getAllType, deleteUser, createNewUser, getUser, updatedUser, getImageLinkByName } from '../../services/userService.js';
 import { ToastUtil } from '../../utils/index.js'
 
 export const fetchAllUserStart = (offset, pageSize, field, direction, textSearch) => {
@@ -157,10 +157,10 @@ export const deleteUserFailed = () => ({
     type: actionTypes.DELETE_USER_FAILED
 })
 
-export const addUserStart = (data, imageFile) => {
+export const addUserStart = (data) => {
     return async (dispatch, getState) => {
         try {
-            let resAddUser = await createNewUser(data, imageFile);
+            let resAddUser = await createNewUser(data);
             if (resAddUser[0] && !resAddUser[0].bindingFailure) {
                 ToastUtil.show('ERROR', 'common.unknown-error', resAddUser[0].defaultMessage, false)
                 dispatch(addUserFailed());
@@ -217,6 +217,31 @@ export const getAUserFailed = () => ({
 export const setAUserIdEdit = (userIdEdit) => ({
     type: actionTypes.EDIT_USER_ID,
     userIdEdit: userIdEdit
+})
+
+export const getImageLinkStart = (bucketKey, fileName) => {
+    return async (dispatch, getState) => {
+        try {
+            let resImageLink = await getImageLinkByName(bucketKey, fileName);
+            if (resImageLink) {
+                dispatch(getImageLinkSucceed(resImageLink))
+            } else {
+                dispatch(getImageLinkFailed());
+            }
+        } catch (e) {
+            dispatch(getImageLinkFailed());
+            console.log('getImageLinkFailed error', e)
+        }
+    }
+}
+
+export const getImageLinkSucceed = (resImageLink) => ({
+    type: actionTypes.GET_IMAGE_LINK_SUCCEED,
+    resImageLink: resImageLink
+})
+
+export const getImageLinkFailed = () => ({
+    type: actionTypes.GET_IMAGE_LINK_FAILED
 })
 
 

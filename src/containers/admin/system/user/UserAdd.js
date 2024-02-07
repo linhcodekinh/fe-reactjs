@@ -52,15 +52,16 @@ class UserAdd extends Component {
             isRoleLoading: true,
             isTypeLoading: true,
             isPosLoading: true,
-            imageFile: ''
+            imageFile: '',
+            srcPreview: ''
         }
     }
 
     handleOnChangeFile = (e) => {
         this.setState({
-            imageFile: e.target.files[0]
+            imageFile: e.target.files[0],
+            srcPreview: URL.createObjectURL(e.target.files[0])
         })
-        console.log('file event', e)
     }
 
     handleOnCheckBox = (e, id) => {
@@ -168,7 +169,7 @@ class UserAdd extends Component {
 
     checkValidInput = () => {
         let isValid = true;
-        let arrInput = ['userName', 'email', 'email1', 'email2', 'password', 'firstName', 'gender', 'lastName', 'address1', 'address2', 'idCard']
+        let arrInput = ['userName', 'email', 'email1', 'email2', 'password', 'firstName', 'gender', 'lastName', 'address1', 'address2']
         for (let i = 0; i < arrInput.length; i++) {
             if (this.state[arrInput[i]] === '') {
                 isValid = false
@@ -497,21 +498,54 @@ class UserAdd extends Component {
                             <div className="col-lg-4">
                                 <img src="assets/img/banner.png" className="img-fluid" alt="" />
                                 <div className="formbold-form-wrapper">
-                                    <div className="formbold-input-wrapp">
-                                        <label htmlFor="userName" className="formbold-form-label">
-                                            {" "}
-                                            <FormattedMessage id="system.user-manage.user-name" />{" "}
-                                        </label>
-                                        <FormattedMessage id='system.user-manage.input-user-name'>
-                                            {(msg) => (<input
-                                                id="userName"
-                                                name="userName"
-                                                placeholder={msg}
-                                                type="text"
-                                                onChange={(e) => this.handleOnChangeText(e, 'userName')}
+                                    <div className="formbold-input-flex">
+                                        
+                                        <div>
+                                            <label htmlFor="userName" className="formbold-form-label">
+                                                {" "}
+                                                <FormattedMessage id="system.user-manage.user-name" />{" "}
+                                            </label>
+                                            <FormattedMessage id='system.user-manage.input-user-name'>
+                                                {(msg) => (<input
+                                                    id="userName"
+                                                    name="userName"
+                                                    placeholder={msg}
+                                                    type="text"
+                                                    onChange={(e) => this.handleOnChangeText(e, 'userName')}
+                                                    className="formbold-form-input"
+                                                />)}
+                                            </FormattedMessage>
+                                        </div>
+
+                                        <div>
+                                            <label htmlFor="userName" className="formbold-form-label">
+                                                {" "}
+                                                <FormattedMessage id="system.user-manage.user-name" />{" "}
+                                            </label>
+                                            {/* <input
+                                                type="file"
+                                                name="upload"
+                                                id="upload"
                                                 className="formbold-form-input"
-                                            />)}
-                                        </FormattedMessage>
+                                                onChange={(e) => this.handleOnChangeFile(e)}
+                                            /> */}
+
+                                            <div class="personal-image">
+                                                <label class="label">
+                                                    <input
+                                                        type="file"
+                                                        onChange={(e) => this.handleOnChangeFile(e)}
+                                                    />
+                                                    <div class="personal-figure">
+                                                        <img src={this.state.srcPreview ? this.state.srcPreview : "assets/img/banner.png"} class="personal-avatar" alt="avatar" />
+                                                        <div class="personal-figcaption">
+                                                            <img src="https://raw.githubusercontent.com/ThiagoLuizNunes/angular-boilerplate/master/src/assets/imgs/camera-white.png" />
+                                                        </div>
+                                                    </div>
+                                                </label>
+                                            </div>
+
+                                        </div>
                                     </div>
                                     <div className="formbold-input-wrapp">
                                         <label htmlFor="email" className="formbold-form-label">
@@ -747,7 +781,7 @@ class UserAdd extends Component {
                                             defaultValue={""}
                                         />
                                     </div>*/}
-                                    <div className="formbold-form-file-flex">
+                                    {/* <div className="formbold-form-file-flex">
                                         <label htmlFor="upload" className="formbold-form-label">
                                             Upload Image
                                         </label>
@@ -759,14 +793,14 @@ class UserAdd extends Component {
                                             className="formbold-form-file"
                                             onChange={(e) => this.handleOnChangeFile(e)}
                                         />
+                                    </div> */}
 
-                                        {/* <form enctype="multipart/form-data" id="fileUploadForm" action="link">
+                                    {/* <form enctype="multipart/form-data" id="fileUploadForm" action="link">
                                             <input
                                                 type="file"
                                                 name="image"
                                             />
                                         </form> */}
-                                    </div>
 
 
                                 </div>

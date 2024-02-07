@@ -44,11 +44,20 @@ class UserEdit extends Component {
             showPos: false,
             isAUserLoading: true,
             isUpdate: false,
-            imageLinkUser: 'fault.jpg'
+            imageLinkUser: 'fault.jpg',
+            imageFile: '',
+            srcPreview: ''
             // datetime: new Date().toISOString(),
         }
 
         console.log(this.props)
+    }
+
+    handleOnChangeFile = (e) => {
+        this.setState({
+            imageFile: e.target.files[0],
+            srcPreview: URL.createObjectURL(e.target.files[0])
+        })
     }
 
     handleOnCheckBox = (e, id) => {
@@ -183,6 +192,10 @@ class UserEdit extends Component {
                 idRoleList: this.state.idRoleList,
                 idTypeList: this.state.idTypeList
             }
+            let formData = new FormData();
+            formData.append("accountDetail", new Blob([JSON.stringify(this.dataInsert)], { type: "application/json" }));
+            formData.append("imageFile", this.state.imageFile);
+            console.log('formData ', formData)
             this.setState({
                 contentOfConfirmModal: {
                     isOpen: true, messageId: "common.confirm-this-task", handleFunc: this.handleUpdate,
@@ -234,9 +247,10 @@ class UserEdit extends Component {
                 email: this.props.aUserRedux.email,
                 email1: this.props.aUserRedux.email1,
                 email2: this.props.aUserRedux.email2,
-
+                // imageLinkUser: ''
             }, () => {
-                this.props.getImageLinkStart('USER', this.props.aUserRedux.member.image)
+                if (this.props.aUserRedux.member.image !== '')
+                    this.props.getImageLinkStart('USER', this.props.aUserRedux.member.image)
             })
         }
         if (preProps.imageLinkUserRedux !== this.props.imageLinkUserRedux) {
@@ -275,11 +289,11 @@ class UserEdit extends Component {
     }
 
     render() {
-        console.log('this.state userEdit ', this.state)
+        console.log('this.state.imageLinkUser ', this.state.imageLinkUser)
         let arrRole = this.state.arrRole;
         let arrType = this.state.arrType;
         let arrPos = this.state.arrPos;
-        let showLoading = (this.state.isUpdate === true && this.props.isUpdateLoadingRedux === true) || this.state.isAUserLoading
+        let showLoading = (this.state.isUpdate === true && this.props.isUpdateLoadingRedux === true) || this.state.imageLinkUser === 'fault.jpg' || this.state.isAUserLoading
         return (
             <>
                 <ThreeDots
@@ -464,22 +478,54 @@ class UserEdit extends Component {
                                 <div className="col-lg-4">
                                     <img src="assets/img/banner.png" className="img-fluid" alt="" />
                                     <div className="formbold-form-wrapper">
-                                        <div className="formbold-input-wrapp">
-                                            <label htmlFor="userName" className="formbold-form-label">
-                                                {" "}
-                                                <FormattedMessage id="system.user-manage.user-name" />{" "}
-                                            </label>
-                                            <FormattedMessage id='system.user-manage.input-user-name'>
-                                                {(msg) => (<input
-                                                    id="userName"
-                                                    name="userName"
-                                                    placeholder={msg}
-                                                    type="text"
-                                                    onChange={(e) => this.handleOnChangeText(e, 'userName')}
-                                                    value={this.state.userName}
-                                                    className="formbold-form-input"
-                                                />)}
-                                            </FormattedMessage>
+                                        <div className="formbold-input-flex">
+
+                                            <div>
+                                                <label htmlFor="userName" className="formbold-form-label">
+                                                    {" "}
+                                                    <FormattedMessage id="system.user-manage.user-name" />{" "}
+                                                </label>
+                                                <FormattedMessage id='system.user-manage.input-user-name'>
+                                                    {(msg) => (<input
+                                                        id="userName"
+                                                        name="userName"
+                                                        placeholder={msg}
+                                                        type="text"
+                                                        onChange={(e) => this.handleOnChangeText(e, 'userName')}
+                                                        className="formbold-form-input"
+                                                    />)}
+                                                </FormattedMessage>
+                                            </div>
+
+                                            <div>
+                                                <label htmlFor="userName" className="formbold-form-label">
+                                                    {" "}
+                                                    <FormattedMessage id="system.user-manage.user-name" />{" "}
+                                                </label>
+                                                {/* <input
+                                                type="file"
+                                                name="upload"
+                                                id="upload"
+                                                className="formbold-form-input"
+                                                onChange={(e) => this.handleOnChangeFile(e)}
+                                            /> */}
+
+                                                <div class="personal-image">
+                                                    <label class="label">
+                                                        <input
+                                                            type="file"
+                                                            onChange={(e) => this.handleOnChangeFile(e)}
+                                                        />
+                                                        <div class="personal-figure">
+                                                            <img src={this.state.imageLinkUser ? this.state.imageLinkUser : (this.state.srcPreview ? this.state.srcPreview : "assets/img/banner.png")} class="personal-avatar" alt="avatar" />
+                                                            <div class="personal-figcaption">
+                                                                <img src="https://raw.githubusercontent.com/ThiagoLuizNunes/angular-boilerplate/master/src/assets/imgs/camera-white.png" />
+                                                            </div>
+                                                        </div>
+                                                    </label>
+                                                </div>
+
+                                            </div>
                                         </div>
                                         <div className="formbold-input-wrapp">
                                             <label htmlFor="email" className="formbold-form-label">
@@ -718,7 +764,7 @@ class UserEdit extends Component {
                                                 </FormattedMessage>
                                             </div>
                                         </div>
-                                        <div className="formbold-mb-3">
+                                        {/* <div className="formbold-mb-3">
                                             <label htmlFor="message" className="formbold-form-label">
                                                 Cover Letter
                                             </label>
@@ -734,7 +780,7 @@ class UserEdit extends Component {
                                                 id="upload"
                                                 className="formbold-form-file"
                                             />
-                                        </div>
+                                        </div> */}
                                     </div>
                                 </div>
                             </div>

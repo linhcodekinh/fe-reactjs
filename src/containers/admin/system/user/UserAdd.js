@@ -204,7 +204,6 @@ class UserAdd extends Component {
             let formData = new FormData();
             formData.append("accountDetail", new Blob([JSON.stringify(this.dataInsert)], { type: "application/json" }));
             formData.append("imageFile", this.state.imageFile);
-            console.log('formData ', formData)
             this.setState({
                 contentOfConfirmModal: { isOpen: true, messageId: "common.confirm-this-task", handleFunc: this.handleAddNew, dataFunc: formData }
             }, () => {
@@ -216,8 +215,10 @@ class UserAdd extends Component {
     handleAddNew = (data) => {
         this.setState({
             isAdd: true
+        }, () => {
+            this.props.addUserStart(data)
         })
-        this.props.addUserStart(data)
+
     }
 
     // createNew = async (data) => {
@@ -499,7 +500,7 @@ class UserAdd extends Component {
                                 <img src="assets/img/banner.png" className="img-fluid" alt="" />
                                 <div className="formbold-form-wrapper">
                                     <div className="formbold-input-flex">
-                                        
+
                                         <div>
                                             <label htmlFor="userName" className="formbold-form-label">
                                                 {" "}

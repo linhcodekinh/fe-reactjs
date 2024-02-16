@@ -199,7 +199,7 @@ class UserEdit extends Component {
             this.setState({
                 contentOfConfirmModal: {
                     isOpen: true, messageId: "common.confirm-this-task", handleFunc: this.handleUpdate,
-                    dataFunc: { id: this.props.userIdEditRedux || JSON.parse(localStorage.getItem("persist:userManage")).userIdEdit, data: this.dataUpdate }
+                    dataFunc: { id: this.props.userIdEditRedux || JSON.parse(localStorage.getItem("persist:userManage")).userIdEdit, data: this.formData }
                 }
             }, () => {
                 this.props.setContentOfConfirmModal(this.state.contentOfConfirmModal)
@@ -258,7 +258,6 @@ class UserEdit extends Component {
                 imageLinkUser: this.props.imageLinkUserRedux,
             })
         }
-
 
         if (preProps.roleRedux !== this.props.roleRedux) {
             this.setState({

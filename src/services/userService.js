@@ -34,7 +34,13 @@ const createNewUser = (data) => {
 
 const updatedUser = (id, data) => {
     console.log('check data from service: ', id, data)
-    return axios.put(`api/public/account/${id}`, data)
+    return axios.put(`api/public/account/${id}`, data, {
+        headers: {
+            // "X-AUTH-TOKEN": token,
+            "Content-Type": "multipart/form-data",
+        },
+    }
+    )
 }
 
 const deleteUser = (id) => {

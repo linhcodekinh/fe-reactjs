@@ -92,12 +92,12 @@ const userManageReducer = (state = initialState, action) => {
         case actionTypes.ADD_USER_SUCCEED:
             return {
                 ...state,
-                isAddLoading: false,
+                isAddLoading: false
             }
         case actionTypes.ADD_USER_FAILED:
             return {
                 ...state,
-                isAddLoading: true
+                isAddLoading: false
             }
         case actionTypes.UPDATE_ADD_USER_LOADING:
             return {
@@ -134,12 +134,12 @@ const userManageReducer = (state = initialState, action) => {
         case actionTypes.UPDATE_USER_SUCCEED:
             return {
                 ...state,
-                isUpdateLoading: false,
+                isUpdateLoading: false
             }
         case actionTypes.UPDATE_USER_FAILED:
             return {
                 ...state,
-                isUpdateLoading: true
+                isUpdateLoading: false
             }
         case actionTypes.UPDATE_EDIT_USER_LOADING:
             return {

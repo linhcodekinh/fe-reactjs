@@ -8,7 +8,7 @@ export const fetchAllUserStart = (offset, pageSize, field, direction, textSearch
             let res = await getAllUsers(offset, pageSize, field, direction, textSearch);
             if (res.listAccountDTO && res.totalItem) {
                 dispatch(fetchAllUserSucceed(res.listAccountDTO, res.totalItem))
-                console.log('res.totalItem ',res.totalItem)
+                console.log('res.totalItem ', res.totalItem)
             } else {
                 dispatch(fetchAllUserFailed());
             }
@@ -162,15 +162,18 @@ export const addUserStart = (data) => {
         try {
             let resAddUser = await createNewUser(data);
             if (resAddUser[0] && !resAddUser[0].bindingFailure) {
-                ToastUtil.show('ERROR', 'common.unknown-error', resAddUser[0].defaultMessage, false)
-                dispatch(addUserFailed());
+                setTimeout(() => {
+                    ToastUtil.show('ERROR', 'common.unknown-error', resAddUser[0].defaultMessage, false)
+                    dispatch(addUserFailed());
+                }, 1000)
             } else if (resAddUser && resAddUser.message) {
                 ToastUtil.show('SUCCESS', 'common.confirm', resAddUser.message, false)
                 dispatch(addUserSucceed())
-                dispatch(updateAddUserLoading())
             }
+            dispatch(updateAddUserLoading())
         } catch (e) {
             dispatch(addUserFailed());
+            dispatch(updateAddUserLoading())
             console.log('addUserFailed error', e)
         }
     }
@@ -256,11 +259,12 @@ export const updateUserStart = (id, data) => {
                 setTimeout(() => {
                     ToastUtil.show('SUCCESS', 'common.confirm', resUpdateUser.message, false)
                     dispatch(updateUserSucceed())
-                    dispatch(updateEditUserLoading())
                 }, 500)
             }
+            dispatch(updateEditUserLoading())
         } catch (e) {
             dispatch(updateUserFailed());
+            dispatch(updateEditUserLoading())
             console.log('updateUserFailed error', e)
         }
     }

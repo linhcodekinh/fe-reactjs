@@ -193,13 +193,13 @@ class UserEdit extends Component {
                 idTypeList: this.state.idTypeList
             }
             let formData = new FormData();
-            formData.append("accountDetail", new Blob([JSON.stringify(this.dataInsert)], { type: "application/json" }));
+            formData.append("accountDetail", new Blob([JSON.stringify(this.dataUpdate)], { type: "application/json" }));
             formData.append("imageFile", this.state.imageFile);
             console.log('formData ', formData)
             this.setState({
                 contentOfConfirmModal: {
                     isOpen: true, messageId: "common.confirm-this-task", handleFunc: this.handleUpdate,
-                    dataFunc: { id: this.props.userIdEditRedux || JSON.parse(localStorage.getItem("persist:userManage")).userIdEdit, data: this.formData }
+                    dataFunc: { id: this.props.userIdEditRedux || JSON.parse(localStorage.getItem("persist:userManage")).userIdEdit, data: formData }
                 }
             }, () => {
                 this.props.setContentOfConfirmModal(this.state.contentOfConfirmModal)
@@ -228,6 +228,7 @@ class UserEdit extends Component {
         if (preProps.aUserRedux !== this.props.aUserRedux) {
             console.log('this.props.aUserRedux.isEnabled ', this.props.aUserRedux.isEnabled)
             this.setState({
+                idRoleList: this.props.aUserRedux.arrRoleId,
                 idRoleList: this.props.aUserRedux.arrRoleId,
                 idTypeList: this.props.aUserRedux.arrTypeId,
                 positionId: (this.props.aUserRedux.employee && this.props.aUserRedux.employee.position) ? this.props.aUserRedux.employee.position.id : '',
@@ -288,7 +289,7 @@ class UserEdit extends Component {
     }
 
     render() {
-        console.log('this.state.imageLinkUser ', this.state.imageLinkUser)
+        console.log('this.state ', this.state)
         let arrRole = this.state.arrRole;
         let arrType = this.state.arrType;
         let arrPos = this.state.arrPos;
@@ -492,6 +493,7 @@ class UserEdit extends Component {
                                                         type="text"
                                                         onChange={(e) => this.handleOnChangeText(e, 'userName')}
                                                         className="formbold-form-input"
+                                                        value={this.state.userName}
                                                     />)}
                                                 </FormattedMessage>
                                             </div>
@@ -516,7 +518,7 @@ class UserEdit extends Component {
                                                             onChange={(e) => this.handleOnChangeFile(e)}
                                                         />
                                                         <div class="personal-figure">
-                                                            <img src={this.state.imageLinkUser ? this.state.imageLinkUser : (this.state.srcPreview ? this.state.srcPreview : "assets/img/banner.png")} class="personal-avatar" alt="avatar" />
+                                                            <img src={this.state.srcPreview ? this.state.srcPreview : (this.state.imageLinkUser ? this.state.imageLinkUser : "assets/img/banner.png")} class="personal-avatar" alt="avatar" />
                                                             <div class="personal-figcaption">
                                                                 <img src="https://raw.githubusercontent.com/ThiagoLuizNunes/angular-boilerplate/master/src/assets/imgs/camera-white.png" />
                                                             </div>

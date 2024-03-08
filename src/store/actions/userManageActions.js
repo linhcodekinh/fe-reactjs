@@ -251,6 +251,7 @@ export const getImageLinkFailed = () => ({
 export const updateUserStart = (id, data) => {
     return async (dispatch, getState) => {
         try {
+            console.log('updateUserStart data ', data)
             let resUpdateUser = await updatedUser(id, data);
             if (resUpdateUser[0] && !resUpdateUser[0].bindingFailure) {
                 ToastUtil.show('ERROR', 'common.unknown-error', resUpdateUser[0].defaultMessage, false)

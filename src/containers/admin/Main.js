@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component, Fragment, Suspense, lazy } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import Home from './section/Home.js';
@@ -6,10 +6,14 @@ import Header from './Header.js';
 import Footer from './Footer.js';
 import SideBar from './SideBar.js';
 import { extend } from 'lodash';
-import UserManage from './system/user/UserManage.js';
-import UserAdd from './system/user/UserAdd.js';
-import UserEdit from './system/user/UserEdit.js';
-import LoadingBar from 'react-top-loading-bar'
+import LoadingBar from 'react-top-loading-bar';
+const UserManage = lazy(() => import('./system/user/UserManage.js'));
+const UserAdd = lazy(() => import('./system/user/UserAdd.js'));
+const UserEdit = lazy(() => import('./system/user/UserEdit.js'));
+// import UserManage from './system/user/UserManage.js';
+// import UserAdd from './system/user/UserAdd.js';
+// import UserEdit from './system/user/UserEdit.js';
+
 
 class ViewMain extends Component {
   constructor(props) {
@@ -32,26 +36,52 @@ class ViewMain extends Component {
   }
 
   render() {
+   
     console.log("view main: ", this.props)
     if (this.props.view === 'view') {
       return (
-        <UserManage setProgress={this.props.setProgress} />
+        <Suspense fallback={
+          setTimeout(() => {
+          <div>LoadingLoadingLoadingLoadingLoadingLoadingLoadiLoadingLoadingLoadingLoadingLoadingLoadingLoadingLoadingLoadingLoadingLoadingLoadingLoadingLoadingLoadingLoadingLoadingLoadingLoadingLoadingngLoadingLoadingLoading...</div>
+          }, 3000)
+        }>
+            <UserManage setProgress={this.props.setProgress} />
+        </Suspense>
       );
     } else if (this.props.view === 'add') {
       return (
-        <UserAdd setProgress={this.props.setProgress} />
+        <Suspense fallback={
+          setTimeout(() => {
+          <div>LoadingLoadingLoadingLoadingLoadingLoadingLoadingLoadingLoadingLoadingLoadingLoadingLoadingLoadingLoadingLoadingLoadingLoadingLoadingLoading...</div>
+          }, 3000)
+        }>
+          <UserAdd setProgress={this.props.setProgress} />
+        </Suspense>
       );
     }
     else if (this.props.view === 'edit') {
       return (
-        <UserEdit setProgress={this.props.setProgress}/>
+        <Suspense fallback={
+          setTimeout(() => {
+          <div>LoadingLoadingLoadingLoadingLoadingLoadingLoadingLoadingLoadingLoadingLoadingLoadingLoadingLoadingLoadingLoadingLoadingLoadingLoadingLoading...</div>
+          }, 3000)
+        }>
+          <UserEdit setProgress={this.props.setProgress}/>
+        </Suspense>
       );
     }
     else {
       return (
-        <Home setProgress={this.props.setProgress}/>
+        <Suspense fallback={
+          setTimeout(() => {
+          <div>LoadingLoadingLoadingLoadingLoadingLoadingLoadingLoadingLoadingLoadingLoadingLoadingLoadingLoadingLoadingLoadingLoadingLoadingLoadingLoading...</div>
+          }, 3000)
+        }>
+          <Home setProgress={this.props.setProgress}/>
+        </Suspense>
       );
     }
+   
   }
 }
 

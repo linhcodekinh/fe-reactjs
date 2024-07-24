@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component, Suspense, lazy } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import UserManage from '../../containers/admin/system/user/UserManage';
 import ProductManage from '../../containers/admin/system/ProductManage';
 import RegisterPackageGroupOrAcc from '../../containers/admin/system/RegisterPackageGroupOrAcc';
 import { path } from '../../utils'
-import Main from '../../containers/admin/Main';
+const Main = lazy(() => import('../../containers/admin/Main'));
 
 class Admin extends Component {
 
@@ -17,13 +17,15 @@ class Admin extends Component {
         //     );
         // } else {
             return (
-                <Switch>
-                    <Route path="/admin" component={Main} />
-                    {/* <Route path="/admin/product-manage" component={ProductManage} />
-                    <Route path="/admin/user-manage" component={UserManage} />
-                    <Route path="/admin/register-package-group-or-account" component={RegisterPackageGroupOrAcc} /> */}
-                    <Route component={() => { return (<Redirect to={adminHomePath} />) }} />
-                </Switch>
+                <Suspense fallback={<div>Loading...</div>}>
+                    <Switch>
+                        <Route path="/admin" component={Main} />
+                        {/* <Route path="/admin/product-manage" component={ProductManage} />
+                        <Route path="/admin/user-manage" component={UserManage} />
+                        <Route path="/admin/register-package-group-or-account" component={RegisterPackageGroupOrAcc} /> */}
+                        <Route component={() => { return (<Redirect to={adminHomePath} />) }} />
+                    </Switch>
+                </Suspense>
             );
         // }
     }

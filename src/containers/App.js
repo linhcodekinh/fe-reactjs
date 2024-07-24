@@ -17,23 +17,23 @@ import { far } from '@fortawesome/free-regular-svg-icons'
 import { CustomToastCloseButton } from '../components/CustomToast';
 import ConfirmModal from '../components/ConfirmModal';
 
-const Admin = lazy(() => import('../routes/admin/Admin'));
-const Login = lazy(() => import('./auth/Login'));
-const System = lazy(() => import('../routes/admin/System'));
-const User = lazy(() => import('./admin/dispatch/User'));
-//import Admin from '../routes/admin/Admin';
-// import Login from './auth/Login';
-// import Header from './admin/header/Header';
-// import System from '../routes/admin/System';
-// import User from './admin/dispatch/User';
+// const Admin = lazy(() => import('../routes/admin/Admin'));
+// const Login = lazy(() => import('./auth/Login'));
+// const System = lazy(() => import('../routes/admin/System'));
+// const User = lazy(() => import('./admin/dispatch/User'));
+import Admin from '../routes/admin/Admin';
+import Login from './auth/Login';
+import Header from './admin/header/Header';
+import System from '../routes/admin/System';
+import User from './admin/dispatch/User';
 
-const Home = lazy(() => import('./client/Home'));
-const Part = lazy(() => import('./client/Part'));
-const Test = lazy(() => import('./client/dispatch/Test'));
+// const Home = lazy(() => import('./client/Home'));
+// const Part = lazy(() => import('./client/Part'));
+// const Test = lazy(() => import('./client/dispatch/Test'));
 
-// import Home from './client/Home';
-// import Part from './client/Part';
-// import Test from './client/dispatch/Test.js';
+import Home from './client/Home';
+import Part from './client/Part';
+import Test from './client/dispatch/Test.js';
 
 
 class App extends Component {

@@ -14,25 +14,25 @@ class PartTemplate extends Component {
 
     render() {
 
-        if (this.props.partName === "PART 1") {
-            return (
-                <div className="card-header py-3" >
-                    {this.props.partName}
-                    <div className='enter-row'></div>
-                    <table>
-                        <tr>
-                            {this.props.partData && this.props.partData.map((item) => {
-                                return (
-                                    <td key={item}>
-                                        <span className={(Number(item) < 10) ? 'parts itemLessThan10' : 'parts'}>{item}</span>
-                                    </td>
-                                )
-                            })}
-                        </tr>
-                    </table>
-                </div>
-            );
-        } else {
+        // if (this.props.partName === "PART 1") {
+        //     return (
+        //         <div className="card-header py-3" >
+        //             {this.props.partName}
+        //             <div className='enter-row'></div>
+        //             <table>
+        //                 <tr>
+        //                     {this.props.partData && this.props.partData.map((item) => {
+        //                         return (
+        //                             <td key={item}>
+        //                                 <span className={(Number(item) < 10) ? 'parts totalItemsLessThan10' : 'parts'}>{item}</span>
+        //                             </td>
+        //                         )
+        //                     })}
+        //                 </tr>
+        //             </table>
+        //         </div>
+        //     );
+        // } else {
             let i = 0;
             return (
                 <div className="card-header py-3" >
@@ -47,7 +47,7 @@ class PartTemplate extends Component {
                                         {itemPart[i] && itemPart[i].map((item) => {
                                             return (
                                                 <td key={item}>
-                                                    <span className={(Number(item) < 10) ? 'parts itemLessThan10' : 'parts'}>{item}</span>
+                                                    <span className={(Number(item) < 10) ? 'item totalItemsLessThan10' : 'item'}>{item}</span>
                                                 </td>
                                             )
                                         })}
@@ -60,7 +60,7 @@ class PartTemplate extends Component {
                 </div>
 
             );
-        }
+        // }
 
         // }
     }

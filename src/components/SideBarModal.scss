@@ -1,16 +1,16 @@
 .side-bar-modal {
   .modal-dialog-side-bar {
     border: 0.5px solid blue;
-    border-radius: 5px;
+    border-radius: 3px;
     background-color: rgb(255, 255, 255);
     position: fixed;
     //display: block;
     overflow-y: auto;
-    // overflow-x: auto;
-    top: 8%;
+    //overflow-x: auto;
+    top: 0;
     bottom: 0;
-    right: -18%;
-    width: 18%;
+    right: -21%;
+    width: 21%;
     -webkit-transition: opacity 0.5s linear, right 0.5s ease-out;
     -moz-transition: opacity 0.5s linear, right 0.5s ease-out;
     -o-transition: opacity 0.5s linear, right 0.5s ease-out;
@@ -26,42 +26,41 @@
     transition: opacity 0.5s linear, right 0.5s ease-out;
   }
 
-  .header{
+  .header-sidebar{
     position: fixed;
-    width: 18%;
+    border-radius: 2px;
+    width: 21%;
     background-color: blue;
     z-index: 2;
   }
 
-  .body {
-    margin-top: 20%;
-    margin-bottom: 18%;
-  }
-
-  .tabs-panel {
-    overflow-y: auto;
+  .tab-body {
+    margin-top: 16.5%;
+    margin-bottom: 11%;
   }
 
   .title {
     text-align: center;
   }
 
+  ul {
+    padding-left: 0 !important;
+    margin-bottom: -2px !important;
+  }
+  
   .tabs {
     list-style: none;
     display: flex;
     border-bottom: 1px solid #ccc;
   }
-  ul {
-    padding-left: 0 !important;
-    margin-bottom: -2px !important;
-  }
+  
   .tabs .tab {
     flex-basis: 100%;
     margin: 0px 0.1em;
     padding: 0.5em;
     cursor: pointer;
     transform: translateY(1px);
-    border-radius: 5px 5px 0px 0px;
+    border-radius: 3px 3px 0px 0px;
     transition: background-color 0.2s ease-in-out;
     border: 1px solid transparent;
     text-align: center;
@@ -74,7 +73,7 @@
   }
 
   .tabs .tab.selected {
-    border-radius: 5px 5px 0px 0px;
+    border-radius: 3px 3px 0px 0px;
     border-width: 1px;
     border-color: #ccc #ccc #fff #ccc;
     border-style: solid;

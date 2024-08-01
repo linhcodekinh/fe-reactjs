@@ -1,4 +1,18 @@
 .backdrop-show{
-    background-color: gray;
+    background-color: gray !important;
     opacity: 0.7;
+}
+.test-main{
+    padding: 0.34% 1% 1% 1%;
+    width: 100vw;
+    height: 100vh;
+    //display: flex;
+    // justify-content: center;
+    // align-items: center;
+    background-color: #ffffff; // Optional: for visual clarity
+}
+
+.header-test{
+    padding: 1%;
+    background-color: #1b2f45;
 }

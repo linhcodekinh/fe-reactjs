@@ -22,6 +22,13 @@
         "yes": "Yes",
         "no": "No"
     },
+    "client":{
+        "test":{
+            "header-title": "HỆ THỐNG THI TRỰC TUYẾN",
+            "header-submit": "Nộp bài",
+            "header-question-list": "Danh sách câu hỏi"
+        }
+    },
     "login": {
         "login": "Login",
         "username": "Username",

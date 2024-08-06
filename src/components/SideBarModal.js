@@ -52,7 +52,6 @@ class SideBarModal extends Component {
     }
 
     componentDidUpdate() {
-        alert('update slidebar')
         //this.props.handleClickOutside('hahahha')
         //document.addEventListener('mousedown', this.props.handleClickOutside);
     }

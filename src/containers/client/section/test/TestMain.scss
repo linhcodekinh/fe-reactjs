@@ -1,18 +1,21 @@
 .backdrop-show{
-    background-color: gray !important;
+    background-color: rgb(170, 163, 163) !important;
     opacity: 0.7;
 }
 .test-main{
-    padding: 0.34% 1% 1% 1%;
-    width: 100vw;
-    height: 100vh;
-    //display: flex;
-    // justify-content: center;
-    // align-items: center;
+    //padding: 0.05% 0.7% 0.7% 0.7%;
+    //width: 100vw;
+    //height: 100vh;
+    //display: inline-block;
+    //justify-content: center;
+    //align-items: center;
     background-color: #ffffff; // Optional: for visual clarity
 }
-
+.row {
+    --bs-gutter-x: 0 !important;
+}
 .header-test{
     padding: 1%;
     background-color: #1b2f45;
+    border-radius: 2px;
 }

@@ -1,12 +1,15 @@
 .totalItemsLessThan10 {
-    padding: 4px 11px !important;
+    background-color: #ececec;
+    padding: 6px 12px !important;
 }
 
 .item {
-    border: 1px solid gray;
-    padding: 4px 6px;
-    border-radius: 3px;
-    margin-left: 3px;
+    //border: 0.1px solid #1b2f45;
+    background-color: #ececec;
+    padding: 6px 8px;
+    border-radius: 2px;
+    margin-left: 5px;
+    font-size: 13px;
 }
 .enter-row {
     margin-bottom: 11px;

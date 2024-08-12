@@ -35,7 +35,7 @@ class PartTemplate extends Component {
         // } else {
             let i = 0;
             return (
-                <div className="card-header py-3" >
+                <div className="card-header py-3" style={{backgroundColor: "#fff"}}>
                     {this.props.partName}
                     <div className='enter-row'></div>
                     <table>

@@ -1,6 +1,6 @@
 .side-bar-modal {
   .modal-dialog-side-bar {
-    border: 0.5px solid blue;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
     border-radius: 3px;
     background-color: rgb(255, 255, 255);
     position: fixed;
@@ -20,17 +20,17 @@
 
   .modal-dialog-side-bar.show {
     right: 0px;
-    -webkit-transition: opacity 0.5s linear, right 0.5s ease-out;
-    -moz-transition: opacity 0.5s linear, right 0.5s ease-out;
-    -o-transition: opacity 0.5s linear, right 0.5s ease-out;
-    transition: opacity 0.5s linear, right 0.5s ease-out;
+    // -webkit-transition: opacity 0.5s linear, right 0.5s ease-out;
+    // -moz-transition: opacity 0.5s linear, right 0.5s ease-out;
+    // -o-transition: opacity 0.5s linear, right 0.5s ease-out;
+    // transition: opacity 0.5s linear, right 0.5s ease-out;
   }
 
-  .header-sidebar{
+  .header-sidebar {
     position: fixed;
     border-radius: 2px;
     width: 21%;
-    background-color: blue;
+    background-color: #1b2f45;
     z-index: 2;
   }
 
@@ -51,42 +51,45 @@
   .tabs {
     list-style: none;
     display: flex;
-    border-bottom: 1px solid #ccc;
   }
   
   .tabs .tab {
     flex-basis: 100%;
-    margin: 0px 0.1em;
+    //margin: 0px 0px 0px 0.025em;
     padding: 0.5em;
     cursor: pointer;
     transform: translateY(1px);
-    border-radius: 3px 3px 0px 0px;
+    border-radius: 2px 2px 0px 0px;
     transition: background-color 0.2s ease-in-out;
-    border: 1px solid transparent;
+    border: 1px solid #e3e6f0;
+    border-color: #ffffff #ffffff #e3e6f0 #ffffff;
     text-align: center;
+    font-size: 16px !important;
     //font-family: "Oswald", sans-serif;
     font-weight: 300;
   }
 
   .tabs .tab:hover {
-    background-color: #ececec;
+    color: #ffffff;
+    background-color: #1b2f45;
   }
 
   .tabs .tab.selected {
-    border-radius: 3px 3px 0px 0px;
+    border-radius: 2px 2px 0px 0px;
     border-width: 1px;
-    border-color: #ccc #ccc #fff #ccc;
+    border-color: #e3e6f0 #e3e6f0 #ffffff #e3e6f0;
     border-style: solid;
-    color: #bb3357;
-    background-color: #f8f9fc;
+    background-color: #ffffff;
+    color: #000;
   }
 
   .tabs .tab.selected:hover {
-    background: none;
+    color: #1b2f45;
+    background-color: #ffffff;
   }
 
   .tab__content {
-    color: #525151;
+    color: #1b2f45 !important;
     // font-family: "Economica", sans-serif;
     // font-size: 20px;
   }

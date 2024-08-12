@@ -83,14 +83,14 @@ class SideBarModal extends Component {
 
     render() {
         return (
-            <div className='side-bar-modal' ref={this.sideBar}>
+            <div className="side-bar-modal" ref={this.sideBar}>
                 <div
-                    className={this.props.isOpen ? "modal-dialog-side-bar show" : "modal-dialog-side-bar"}
+                    className={this.props.isOpen ? "modal-dialog-side-bar show content" : "modal-dialog-side-bar content"}
                     role="document"
                 >
                     <div className='modal-header header-sidebar'>
                         <h5 className="modal-title" id="myModalLabel">
-                            Rigth Sidebar
+                            Danh sách
                         </h5>
                         <button
                             type="button"
@@ -108,9 +108,9 @@ class SideBarModal extends Component {
                     <div className='tab-body'>
                         <TabsPanel className="tabs-panel">
                             <Tab
-                                title="About"
+                                title="Nghe"
                                 // subtitle="Little About us"
-                                icon="far fa-address-card"
+                                //icon="far fa-address-card"
                                 selected="0"
                             >
                                 <PartTemplate partName={"PART 1"} partData={this.dataPart1} />
@@ -119,9 +119,9 @@ class SideBarModal extends Component {
                                 <PartTemplate partName={"PART 4"} partData={this.dataPart4} />
                             </Tab>
                             <Tab
-                                title="History"
+                                title="Đọc"
                                 // subtitle="Our History"
-                                icon="fas fa-hourglass-start"
+                                //icon="fas fa-hourglass-start"
                                 selected="1"
                             >
                                 <PartTemplate partName={"PART 5"} partData={this.dataPart5} />
@@ -130,23 +130,28 @@ class SideBarModal extends Component {
                             </Tab>
                         </TabsPanel>
                     </div>
-                    <div style={{ bottom: 0, position: "fixed", width: "21%" }}>
+                    <div style={{ bottom: 0, position: "fixed", height: "6%", backgroundColor: "#f7f7fa"}}>
+
+
                         {/* <div style={{position: "fixed", width: "6%",border: "1px solid gray"}}> 2footer</div>
                             <div style={{marginLeft: "6%",position: "fixed", width: "6%",border: "1px solid gray"}}> 3footer</div>                            
                             <div style={{marginLeft: "12%",position: "fixed",width: "6%",border: "1px solid gray"}}> 1footer</div> */}
 
-                        <table>
-                            <tr style={{ height: "40px" }}>
-                                <td style={{ width: "7%", border: "1px solid gray", backgroundColor: "yellow" }}>Emil</td>
-                                <td style={{ width: "7%", border: "1px solid gray", backgroundColor: "green" }}>Tobias</td>
-                                <td style={{ width: "7%", border: "1px solid gray", backgroundColor: "red" }}>Linus</td>
+                        <table style={{margin: "2.7%"}}>
+                            <tr>
+                                <td style={{ width: "1.4%"}}></td>
+                                <td style={{ width: "6%", border: "1px solid #c5d1de", color: "#c5d1de", padding: "1.5%", textAlign: "center", fontSize:"14px"}}>Chưa chọn</td>
+                                <td style={{ width: "0.1%"}}></td>
+                                <td style={{ width: "6%", border: "1px solid #fcc654", color: "#fcc654", padding: "1.5%", textAlign: "center", fontSize:"14px"}}>Đã đánh dấu</td>
+                                <td style={{ width: "0.1%"}}></td>
+                                <td style={{ width: "6%", border: "1px solid #61cab9", color: "#61cab9", padding: "1.5%", textAlign: "center", fontSize:"14px"}}>Tất cả câu hỏi</td>
+                                <td style={{ width: "1.4%"}}></td>
                             </tr>
                         </table>
                     </div>
 
                 </div>
             </div>
-
         );
     }
 }

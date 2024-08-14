@@ -1,0 +1,5 @@
+1 .Khi bạn thấy các script như "start": "react-scripts start" và "build": "react-scripts build" trong file package.json, điều này cho thấy bạn đang sử dụng Create React App (CRA) để quản lý dự án của mình.
+CRA cung cấp một cấu hình Webpack mặc định và tự động cấu hình cho bạn mà không cần phải tạo hoặc chỉnh sửa file webpack.config.js trực tiếp.
+2. Sử Dụng react-scripts Eject:
+Bạn có thể "eject" dự án để làm cho cấu hình Webpack và các công cụ khác trở thành một phần của dự án của bạn. Chạy lệnh npm run eject để thực hiện điều này. Sau khi eject, bạn sẽ có quyền truy cập vào các file cấu hình Webpack.
+Lưu ý: Việc eject không thể hoàn tác và có thể làm phức tạp việc quản lý cấu hình, vì vậy hãy cân nhắc kỹ lưỡng trước khi thực hiện.

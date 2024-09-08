@@ -4,6 +4,8 @@ import SideBarModal from '../../../../components/SideBarModal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { FormattedMessage, FormattedTime } from 'react-intl';
 import { Container, Row, Col, Button, Form, Label } from 'react-bootstrap';
+import { showSideBar, fetchAllExamDataStart } from '../../../../store/actions/examActions';
+import ReactPlayer from 'react-player';
 //import 'bootstrap/dist/css/bootstrap.min.css';
 import './sb-admin-2.scss'
 import './TestMain.scss'
@@ -11,7 +13,11 @@ class TestMain extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            isOpenSideBarModal: false
+            examData: [],
+            examDataMap: {},
+            isOpenSideBarModal: false,
+            question: '1',
+            part: '1'
         }
         this.testMain = createRef();
     }
@@ -20,10 +26,33 @@ class TestMain extends Component {
         this.setState({
             isOpenSideBarModal: !this.state.isOpenSideBarModal
         })
+        this.props.showSideBar(this.state.isOpenSideBarModal)
+    }
+
+    showQuestion = (part, question) => {
+        this.setState({
+            question: question,
+            part: part
+        })
+    }
+
+    componentDidUpdate = (preProps, prevState, snapshot) => {
+        if (preProps.examDataRedux !== this.props.examDataRedux) {
+            this.setState({
+                examData: this.props.examDataRedux,
+                examDataMap: this.props.examDataMapRedux
+            }
+                , () => {
+                    console.log('this.state.examDataMap ', this.state.examDataMap);
+                }
+            )
+        }
     }
 
     componentDidMount = () => {
+        this.props.fetchAllExamDataStart(12);
         document.addEventListener('mousedown', this.handleClickOutside);
+
     }
 
     componentWillUnmount = () => {
@@ -35,6 +64,7 @@ class TestMain extends Component {
             this.setState({
                 isOpenSideBarModal: false
             })
+            this.props.showSideBar(this.state.isOpenSideBarModal)
         }
         document.removeEventListener('mousedown', this.handleClickOutside);
     }
@@ -46,9 +76,10 @@ class TestMain extends Component {
     }
 
     render() {
+        if (this.state.examDataMap[1]) console.log('examDataMap ggg', this.state.examDataMap[1].answer1)
         return (
             <>
-                <div className={this.state.isOpenSideBarModal ? "backdrop-show test-main" : "test-main"}
+                <div className={this.state.isOpenSideBarModal ? "main-dim test-main" : "test-main"}
                     ref={this.testMain}
                     onClick={(event) => this.handleClick(event)}
                 >
@@ -78,7 +109,7 @@ class TestMain extends Component {
                     <Row style={{ backgroundColor: "#fff", padding: "1%" }}>
                         <Row style={{ backgroundColor: "#f0f3f8", padding: "1%" }}>
                             <Row>
-                                <Col><span><h4>PART 1</h4></span></Col>
+                                <Col><span><h4>PART {this.state.part}</h4></span></Col>
                                 <Col><Button variant="info" style={{ float: "right", width: "12%" }}>0 / 200</Button></Col>
                             </Row>
                             <Row style={{ backgroundColor: "#f0f3f8", paddingBottom: "10px" }}>
@@ -87,14 +118,14 @@ class TestMain extends Component {
                                         <span className="icon text-white-50">
                                             <FontAwesomeIcon icon={['fas', 'fa-circle-arrow-left']} />
                                         </span>
-                                        <span className="text" style={{width: "100px"}}>
+                                        <span className="text" style={{ width: "100px" }} onClick={() => { this.showQuestion(this.state.part, Number(this.state.question) - 1) }}>
                                             Câu trước
                                         </span>
                                     </Button>
                                 </Col>
                                 <Col>
-                                    <Button className="btn btn-primary btn-icon-split" style={{ float: "left", marginLeft: "5px" }}>
-                                        <span className="text" style={{width: "100px"}}>
+                                    <Button className="btn btn-primary btn-icon-split" style={{ float: "left", marginLeft: "5px" }} onClick={() => { this.showQuestion(this.state.part, Number(this.state.question) + 1) }}>
+                                        <span className="text" style={{ width: "100px" }}>
                                             Câu tiếp
                                         </span>
                                         <span className="icon text-white-50">
@@ -103,31 +134,72 @@ class TestMain extends Component {
                                     </Button>
                                 </Col>
                             </Row>
-                            <Row style={{ backgroundColor: "#FFFFFF", height: "73vh" }}>
+                            <Row style={{ backgroundColor: "#FFFFFF", height: "74.6vh" }}>
 
-                                <div style={{width: "49%", padding: "5%" }}>
+                                <div style={{ width: "49%", padding: "2%" }}>
+                                    {/* <div><span>Questions 32-34: Select the best response to each question</span></div> */}
+                                    <div><span><h6>Question {this.state.question}.</h6></span></div>
+                                    <br />
                                     <div className="d-flex justify-content-center">
-                                        <img src="assets/img/banner.png" alt="Question" className="img-fluid" />
+                                        <img src={this.state.examDataMap[Number(this.state.question)] && this.state.examDataMap[Number(this.state.question)].photoLink} alt="Question" className="img-fluid" />
                                     </div>
-                                    <audio controls className="w-100 mt-2">
-                                        <source src="audio_url_here" type="audio/mpeg" />
-                                        Your browser does not support the audio element.
-                                    </audio>
+                                    {this.state.examDataMap[Number(this.state.question)] &&
+                                        this.state.examDataMap[Number(this.state.question)].audioLink ? (
+                                        // <audio controls className="w-100 mt-2">
+                                        //     <source
+                                        //         src={this.state.examDataMap[Number(this.state.question)].audioLink}
+                                        //         type="audio/mpeg"
+                                        //     />
+                                        //     Your browser does not support the audio element.
+                                        // </audio>
+                                        <ReactPlayer url={this.state.examDataMap[Number(this.state.question)].audioLink} controls />
+                                    ) : (
+                                        <p>Audio not available for this question.</p>
+                                    )}
+
                                 </div>
                                 <div style={{ backgroundColor: "#f0f3f8", width: "2%" }}></div>
                                 <div style={{ width: "49%", padding: "5%" }}>
-                                    <Form>
-                                        {['A', 'B', 'C', 'D'].map((option, index) => (
+                                    <form>
+                                        <label class="custom-radio">
+                                            <input type="radio" name="option" value="A" />
+                                            <span class="custom-radio-button"></span>
+                                            A.  {this.state.examDataMap[Number(this.state.question)] && this.state.examDataMap[Number(this.state.question)].answer1}
+                                        </label>
+
+                                        <label class="custom-radio">
+                                            <input type="radio" name="option" value="B" />
+                                            <span class="custom-radio-button"></span>
+                                            B. {this.state.examDataMap[Number(this.state.question)] && this.state.examDataMap[Number(this.state.question)].answer2}
+                                        </label>
+
+                                        <label class="custom-radio">
+                                            <input type="radio" name="option" value="C" />
+                                            <span class="custom-radio-button"></span>
+                                            C. {this.state.examDataMap[Number(this.state.question)] && this.state.examDataMap[Number(this.state.question)].answer3}
+                                        </label>
+
+                                        <label class="custom-radio">
+                                            <input type="radio" name="option" value="D" />
+                                            <span class="custom-radio-button"></span>
+                                            D. {this.state.examDataMap[Number(this.state.question)] && this.state.examDataMap[Number(this.state.question)].answer4}
+                                        </label>
+                                    </form>
+                                    {/* <Form>
+                                        {['A.', 'B.', 'C.', 'D.'].map((option, index) => (
                                             <Form.Check
                                                 key={index}
                                                 type="radio"
                                                 name="answer"
                                                 label={option}
                                                 id={`option-${option}`}
-                                                className="mb-2"
+                                                className="mb-2 custom-radio"
                                             />
                                         ))}
-                                    </Form>
+                                         <span class="custom-radio-button"></span>
+                                    </Form> */}
+
+
 
                                 </div>
                             </Row>
@@ -135,58 +207,9 @@ class TestMain extends Component {
                     </Row>
                     {/* </Container> */}
                 </div>
-                {/* <Container className={this.state.isOpenSideBarModal ? "backdrop-show test-main" : "test-main"}
-                    ref={this.testMain}
-                    onClick={(event) => this.handleClick(event)}
-                >
-                    <Row className="mt-4 header-test">
-                        <Col>
-                            <div className="d-flex justify-content-between align-items-center">
-                                <img src="logo.png" alt="Logo" className="img-fluid" />
-                                <h2>HỆ THỐNG THI TRỰC TUYẾN</h2>
-                                <div>
-                                    <Button variant="primary">Nộp bài</Button>
-                                    <span className="ml-2">01:59:26</span>
-                                    <span className="ml-2">Guest (Khách)</span>
-                                </div>
-                            </div>
-                        </Col>
-                    </Row>
-                    <Row className='row' style={{ backgroundColor: "gray", padding: "1%" }}>
-                        <Row className="mt-4">
-                            <Col>
-                                <h4>PART 1</h4>
-                                <div className="d-flex justify-content-center">
-                                    <img src="image_url_here" alt="Question" className="img-fluid" />
-                                </div>
-                                <audio controls className="w-100 mt-2">
-                                    <source src="audio_url_here" type="audio/mpeg" />
-                                    Your browser does not support the audio element.
-                                </audio>
-                            </Col>
-                        </Row>
-                        <Row className="mt-4">
-                            <Col>
-                                <Form>
-                                    {['A', 'B', 'C', 'D'].map((option, index) => (
-                                        <Form.Check
-                                            key={index}
-                                            type="radio"
-                                            name="answer"
-                                            label={option}
-                                            id={`option-${option}`}
-                                            className="mb-2"
-                                        />
-                                    ))}
-                                </Form>
-                                <Button variant="primary">Câu tiếp</Button>
-                                <div className="mt-2">0/200</div>
-                            </Col>
-                        </Row>
-                    </Row>
-                </Container> */}
                 <SideBarModal
                     toggleSideBarModal={this.toggleSideBarModal}
+                    showQuestion={this.showQuestion}
                     isOpen={this.state.isOpenSideBarModal}
                 />
             </>
@@ -197,11 +220,15 @@ class TestMain extends Component {
 
 const mapStateToProps = state => {
     return {
+        examDataRedux: state.exam.examData,
+        examDataMapRedux: state.exam.examDataMap
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
+        showSideBar: (isShow) => dispatch(showSideBar(isShow)),
+        fetchAllExamDataStart: (codeId) => dispatch(fetchAllExamDataStart(codeId))
     };
 };
 

@@ -54,8 +54,7 @@ const getUser = (id) => {
 
 const getImageLinkByName = (bucketKey, fileName) => {
     console.log('bucketKey, fileName', bucketKey, fileName)
-    return axios.get('api/public/v1/files', { params: { bucketKey: bucketKey, fileName: fileName } }
-    )
+    return axios.get('api/public/v1/files', { params: { bucketKey: bucketKey, fileName: fileName } })
 }
 
 export { handleLoginApi, getAllUsers, getAllPositions, getAllRole, getAllType, createNewUser, deleteUser, getUser, updatedUser, getImageLinkByName }

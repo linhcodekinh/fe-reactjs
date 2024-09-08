@@ -16,6 +16,7 @@ import { fas } from '@fortawesome/free-solid-svg-icons'
 import { far } from '@fortawesome/free-regular-svg-icons'
 import { CustomToastCloseButton } from '../components/CustomToast';
 import ConfirmModal from '../components/ConfirmModal';
+import './App.scss'
 
 const Admin = lazy(() => import('../routes/admin/Admin'));
 const Login = lazy(() => import('./auth/Login'));
@@ -64,7 +65,7 @@ class App extends Component {
 
     componentDidMount() {
         this.handlePersistorState();
-        window.addEventListener('scroll', this.sticky, true);
+        window.addEventListener('scroll', this.sticky, true)
     }
 
     componentWillUnmount = () => {
@@ -76,7 +77,7 @@ class App extends Component {
             <Fragment>
                 <Suspense fallback={<div>Loading...</div>}>
                     <Router history={history}>
-                        <div className="main-container">
+                        <div className= {this.props.sideBarShow ? "main-container" : "main-container dark"}>
                             <ConfirmModal />
                             {/* { <Header />} */}
                             <div className="content-container">
@@ -142,7 +143,8 @@ class App extends Component {
 const mapStateToProps = state => {
     return {
         started: state.app.started,
-        isLoggedIn: state.user.isLoggedIn
+        isLoggedIn: state.user.isLoggedIn,
+        sideBarShow: state.exam.isShow
     };
 };
 

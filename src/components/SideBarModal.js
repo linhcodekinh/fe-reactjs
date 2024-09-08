@@ -47,7 +47,6 @@ class SideBarModal extends Component {
             { 4: [189, 190, 191, 192, 193, 194] },
             { 5: [195, 196, 197, 198, 199, 200] }
         ]
-
         this.sideBar = createRef();
     }
 
@@ -78,6 +77,11 @@ class SideBarModal extends Component {
     // }
 
     toggle = () => {
+        this.props.toggleSideBarModal();
+    }
+
+    showQues = (part, question) => {
+        this.props.showQuestion(part, question);
         this.props.toggleSideBarModal();
     }
 
@@ -113,20 +117,20 @@ class SideBarModal extends Component {
                                 //icon="far fa-address-card"
                                 selected="0"
                             >
-                                <PartTemplate partName={"PART 1"} partData={this.dataPart1} />
-                                <PartTemplate partName={"PART 2"} partData={this.dataPart2} />
-                                <PartTemplate partName={"PART 3"} partData={this.dataPart3} />
-                                <PartTemplate partName={"PART 4"} partData={this.dataPart4} />
+                                <PartTemplate partName={"1"} partData={this.dataPart1} showQues={this.showQues}/>
+                                <PartTemplate partName={"2"} partData={this.dataPart2} showQues={this.showQues}/>
+                                <PartTemplate partName={"3"} partData={this.dataPart3} showQues={this.showQues}/>
+                                <PartTemplate partName={"4"} partData={this.dataPart4} showQues={this.showQues}/>
                             </Tab>
                             <Tab
                                 title="Đọc"
-                                // subtitle="Our History"
+                                //subtitle="Our History"
                                 //icon="fas fa-hourglass-start"
                                 selected="1"
                             >
-                                <PartTemplate partName={"PART 5"} partData={this.dataPart5} />
-                                <PartTemplate partName={"PART 6"} partData={this.dataPart2} />
-                                <PartTemplate partName={"PART 7"} partData={this.dataPart3} />
+                                <PartTemplate partName={"5"} partData={this.dataPart5} showQues={this.showQues}/>
+                                <PartTemplate partName={"6"} partData={this.dataPart2} showQues={this.showQues}/>
+                                <PartTemplate partName={"7"} partData={this.dataPart3} showQues={this.showQues}/>
                             </Tab>
                         </TabsPanel>
                     </div>

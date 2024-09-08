@@ -1,6 +1,5 @@
-.backdrop-show{
-    opacity: 0.9;
-    //background-color: #9e9a9a;
+.main-dim{
+    opacity: 0.3;
 }
 .test-main{
     //padding: 0.05% 0.7% 0.7% 0.7%;
@@ -15,7 +14,52 @@
     --bs-gutter-x: 0 !important;
 }
 .header-test{
-    padding: 1%;
+    padding: 0.75%;
     background-color: #1b2f45;
     border-radius: 2px;
+}
+
+
+//////////////////Custom radio button///////////////////////
+/* Hide the default radio button */
+input[type="radio"] {
+    display: none;
+}
+
+/* Style the custom radio button */
+.custom-radio {
+    display: flex;
+    width: 50%;
+    align-items: center;
+    cursor: pointer;
+    // font-family: Arial, sans-serif;
+    margin-bottom: 20px;
+}
+
+.custom-radio-button {
+    height: 18px;
+    width: 18px;
+    background-color: white;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    margin-right: 10px;
+    position: relative;
+}
+
+/* Checked state */
+input[type="radio"]:checked + .custom-radio-button {
+    background-color: black;
+    border-color: #000;
+}
+
+input[type="radio"]:checked + .custom-radio-button::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 12px;
+    height: 12px;
+    background-color: black;
+    border-radius: 50%;
 }

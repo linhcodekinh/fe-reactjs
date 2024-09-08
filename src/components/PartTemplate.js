@@ -5,15 +5,19 @@ import './PartTemplate.scss'
 class PartTemplate extends Component {
     constructor(props) {
         super(props)
-
     }
 
     componentDidMount() {
-
+       
     }
 
-    render() {
+    selectQuestion = (part, question) => {
+        this.props.showQues(part, question);
+    }
 
+
+    render() {
+       
         // if (this.props.partName === "PART 1") {
         //     return (
         //         <div className="card-header py-3" >
@@ -36,7 +40,7 @@ class PartTemplate extends Component {
             let i = 0;
             return (
                 <div className="card-header py-3" style={{backgroundColor: "#fff"}}>
-                    {this.props.partName}
+                    PART {this.props.partName}
                     <div className='enter-row'></div>
                     <table>
                         {this.props.partData && this.props.partData.map((itemPart, keyPart) => {
@@ -47,7 +51,7 @@ class PartTemplate extends Component {
                                         {itemPart[i] && itemPart[i].map((item) => {
                                             return (
                                                 <td key={item}>
-                                                    <span className={(Number(item) < 10) ? 'item totalItemsLessThan10' : 'item'}>{item}</span>
+                                                    <span className={(Number(item) < 10) ? 'item itemLessThan10' : 'item itemGreatThan10'} onClick={() => { this.selectQuestion(this.props.partName, item) }}>{item}</span>
                                                 </td>
                                             )
                                         })}
@@ -69,7 +73,8 @@ class PartTemplate extends Component {
 
 const mapStateToProps = state => {
     return {
-        isLoggedIn: state.user.isLoggedIn
+        isLoggedIn: state.user.isLoggedIn,
+        examDataMap: state.exam.examDataMap
     };
 };
 

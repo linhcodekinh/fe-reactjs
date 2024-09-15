@@ -133,7 +133,7 @@ export const deleteUserStart = (id) => {
                     dispatch(deleteUserSucceed())
                     dispatch(fetchAllUserStart())
                     dispatch(updateDeleteUserLoading())
-                }, 500)
+                }, 700)
             } else {
                 ToastUtil.show('ERROR', 'common.error', 'error', false)
                 dispatch(deleteUserFailed());

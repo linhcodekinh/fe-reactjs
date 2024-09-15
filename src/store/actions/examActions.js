@@ -15,7 +15,9 @@ export const fetchAllExamDataStart = (codeId) => {
             let examData = await getDataOfExamByCode(codeId);
             if (examData) {
                 mapExamDataToArray(examData)
-                dispatch(fetchAllExamDataSucceed(examData, examDataMap))
+                setTimeout(() => {
+                    dispatch(fetchAllExamDataSucceed(examData, examDataMap, false))
+                }, 700)
             } else {
                 dispatch(fetchAllExamDataFailed());
             }
@@ -28,10 +30,11 @@ export const fetchAllExamDataStart = (codeId) => {
 
 }
 
-export const fetchAllExamDataSucceed = (examData, examDataMap) => ({
+export const fetchAllExamDataSucceed = (examData, examDataMap, isExamLoading) => ({
     type: actionTypes.FETCH_ALL_EXAM_DATA_SUCCEED,
     examData: examData,
-    examDataMap: examDataMap
+    examDataMap: examDataMap,
+    isExamLoading: isExamLoading
 })
 
 export const fetchAllExamDataFailed = () => ({
@@ -40,7 +43,22 @@ export const fetchAllExamDataFailed = () => ({
 
 
 export const mapExamDataToArray = (examData) => {
-    examData.forEach((partData, indexP) => {
+    examData.forEach(async (partData, indexP) => {
+
+        if(partData.audioLink && partData.audioLink !== null){
+            console.log('partData.audioLink', 'audio/' + partData.id + '-' + partData.name + '/' + partData.audioLink  )
+            let resAudioLink = await getLinkByKeyAndName('PART', 'audio/' + partData.id + '-' + partData.name + '/' + partData.audioLink);
+            if (resAudioLink) {
+                partData.audioLink = resAudioLink
+            } 
+        }
+        if(partData.photoLink && partData.photoLink !== null){
+            console.log('partData.photoLink', 'image/' + partData.id + '-' + partData.name + '/' + partData.photoLink  )
+            let resImageLink = await getLinkByKeyAndName('PART', 'image/' + partData.id + '-' + partData.name + '/' + partData.photoLink);
+            if (resImageLink) {
+                partData.photoLink = resImageLink
+            } 
+        }
         (partData.partDetailList && partData.partDetailList.forEach(async (partDetail, indexPD) => {
             partDetail.partId = partData.id
             partDetail.partName = partData.name
@@ -65,4 +83,5 @@ export const mapExamDataToArray = (examData) => {
             }
          }))
     });
+    return true;
  }  

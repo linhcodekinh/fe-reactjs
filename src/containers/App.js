@@ -17,6 +17,7 @@ import { far } from '@fortawesome/free-regular-svg-icons'
 import { CustomToastCloseButton } from '../components/CustomToast';
 import ConfirmModal from '../components/ConfirmModal';
 import './App.scss'
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Admin = lazy(() => import('../routes/admin/Admin'));
 const Login = lazy(() => import('./auth/Login'));
@@ -31,6 +32,7 @@ const User = lazy(() => import('./admin/dispatch/User'));
 const Home = lazy(() => import('./client/Home'));
 const Part = lazy(() => import('./client/Part'));
 const Test = lazy(() => import('./client/dispatch/Test'));
+
 
 // import Home from './client/Home';
 // import Part from './client/Part';

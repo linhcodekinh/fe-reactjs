@@ -117,10 +117,10 @@ class SideBarModal extends Component {
                                 //icon="far fa-address-card"
                                 selected="0"
                             >
-                                <PartTemplate partName={"1"} partData={this.dataPart1} showQues={this.showQues}/>
-                                <PartTemplate partName={"2"} partData={this.dataPart2} showQues={this.showQues}/>
-                                <PartTemplate partName={"3"} partData={this.dataPart3} showQues={this.showQues}/>
-                                <PartTemplate partName={"4"} partData={this.dataPart4} showQues={this.showQues}/>
+                                <PartTemplate partNo={1} partData={this.dataPart1} showQues={this.showQues} checkCompletedPart={this.props.checkCompletedPart}/>
+                                <PartTemplate partNo={2} partData={this.dataPart2} showQues={this.showQues} checkCompletedPart={this.props.checkCompletedPart}/>
+                                <PartTemplate partNo={3} partData={this.dataPart3} showQues={this.showQues} checkCompletedPart={this.props.checkCompletedPart}/>
+                                <PartTemplate partNo={4} partData={this.dataPart4} showQues={this.showQues} checkCompletedPart={this.props.checkCompletedPart}/>
                             </Tab>
                             <Tab
                                 title="Đọc"
@@ -128,9 +128,9 @@ class SideBarModal extends Component {
                                 //icon="fas fa-hourglass-start"
                                 selected="1"
                             >
-                                <PartTemplate partName={"5"} partData={this.dataPart5} showQues={this.showQues}/>
-                                <PartTemplate partName={"6"} partData={this.dataPart2} showQues={this.showQues}/>
-                                <PartTemplate partName={"7"} partData={this.dataPart3} showQues={this.showQues}/>
+                                <PartTemplate partNo={5} partData={this.dataPart5} showQues={this.showQues} checkCompletedPart={this.props.checkCompletedPart}/>
+                                <PartTemplate partNo={6} partData={this.dataPart2} showQues={this.showQues} checkCompletedPart={this.props.checkCompletedPart}/>
+                                <PartTemplate partNo={7} partData={this.dataPart3} showQues={this.showQues} checkCompletedPart={this.props.checkCompletedPart}/>
                             </Tab>
                         </TabsPanel>
                     </div>

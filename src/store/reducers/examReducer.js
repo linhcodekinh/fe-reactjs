@@ -5,7 +5,9 @@ const initialState = {
     isShow: false,
     examData: [],
     examDataMap: [],
-    isExamLoading: true
+    partDataMap: [],
+    isExamLoading: true,
+    isExamMapLoading: true
 }
 
 const examReducer = (state = initialState, action) => {
@@ -16,20 +18,32 @@ const examReducer = (state = initialState, action) => {
                 isShow: action.isShow
             }
         case actionTypes.FETCH_ALL_EXAM_DATA_SUCCEED:
-            console.log('isExamLoading suc ', state.isExamLoading)
+            console.log('action.examData ', action.examData)
             return {
                 ...state,
                 examData: action.examData,
-                examDataMap: action.examDataMap,
+                partDataMap: action.partDataMap,
                 isExamLoading: action.isExamLoading
             }
         case actionTypes.FETCH_ALL_EXAM_DATA_FAILED:
-            console.log('isExamLoading fai', state.isExamLoading)
             return {
                 ...state,
                 examData: [],
-                examDataMap: [],
+                partDataMap: [],
                 isExamLoading: true
+            }
+        case actionTypes.FETCH_ALL_EXAM_DATA_MAP_SUCCEED:
+            console.log('action.examDataMap ', action.examDataMap)
+            return {
+                ...state,
+                examDataMap: action.examDataMap,
+                isExamMapLoading: action.isExamMapLoading
+            }
+        case actionTypes.FETCH_ALL_EXAM_DATA_MAP_FAILED:
+            return {
+                ...state,
+                examDataMap: [],
+                isExamMapLoading: true
             }
         default:
             return state;

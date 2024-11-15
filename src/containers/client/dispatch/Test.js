@@ -8,6 +8,7 @@ import '../section/test/TestMain.scss';
 import '.././section/test/sb-admin-2.scss';
 import TestMain from '../section/test/TestMain';
 import { setContentOfConfirmModal } from '../../../store/actions/appActions.js';
+import { showSideBar, fetchExamDataStart } from '../../../store/actions/examActions';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
 class Test extends Component {
@@ -21,7 +22,7 @@ class Test extends Component {
 
     componentDidMount = () => {
         this.setState({
-            contentOfConfirmModal: { isOpen: true, messageId: "common.confirm-this-task", handleFunc: null, dataFunc: null }
+            contentOfConfirmModal: { isOpen: true, messageId: "common.confirm-this-task", handleFunc: null, dataFunc: null, type: "exam" }
         }, () => {
             this.props.setContentOfConfirmModal(this.state.contentOfConfirmModal)
         })
@@ -31,6 +32,8 @@ class Test extends Component {
     startTheExam = () => {
         this.setState({
             start: true
+        }, () =>{
+            this.props.fetchExamDataStart([16])
         })
     }
 
@@ -159,6 +162,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
+        fetchExamDataStart: (codeId) => dispatch(fetchExamDataStart(codeId)),
         setContentOfConfirmModal: (contentOfConfirmModal) => dispatch(setContentOfConfirmModal(contentOfConfirmModal))
     };
 };

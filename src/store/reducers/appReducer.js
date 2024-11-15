@@ -4,7 +4,8 @@ const initContentOfConfirmModal = {
     isOpen: false,
     messageId: "",
     handleFunc: null,
-    dataFunc: null
+    dataFunc: null, 
+    type: "confirm"
 }
 
 const initialState = {

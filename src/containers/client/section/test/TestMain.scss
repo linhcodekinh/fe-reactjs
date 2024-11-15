@@ -33,7 +33,7 @@ input[type="radio"] {
     align-items: center;
     cursor: pointer;
     // font-family: Arial, sans-serif;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .custom-radio-button {
@@ -87,7 +87,7 @@ input[type="radio"]:checked + .custom-radio-button::before {
     background-color: #d4af37;
     color: white;
     border: none;
-    padding: 10px 20px;
+    padding: 6px 20px;
     border-radius: 5px;
     font-weight: bold;
     cursor: pointer;
@@ -122,4 +122,14 @@ input[type="radio"]:checked + .custom-radio-button::before {
     width: 100%;
     height: auto;
     display: block;
+  }
+
+
+  /////////////////////////////////////////////////////////config loading spiner
+  .audio-class{
+    position: absolute;
+    top: 50%;
+    left: 55%;
+    transform: translate(-50%, -55%);
+    z-index: 10;
   }

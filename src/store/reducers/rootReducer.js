@@ -38,7 +38,7 @@ const appPersistConfig = {
 const examPersistConfig = {
     ...persistCommonConfig,
     key: 'exam',
-    whitelist: ['isShow']
+    whitelist: ['isShow', 'examData', 'examDataMap', 'partDataMap']
 }
 
 
